@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `flib`.`book` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` NVARCHAR(255) NOT NULL,
   `author` NVARCHAR(255) NOT NULL,
-  `rating` DOUBLE NOT NULL DEFAULT 5,
+  `rating` DOUBLE NOT NULL DEFAULT 2.5,
   `dateAdded` DATETIME NOT NULL DEFAULT now(),
   `datePublished` DATETIME NOT NULL,
   `amount` INT NOT NULL,
