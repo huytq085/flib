@@ -4,13 +4,14 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ticket_detail", schema = "flib")
+@Table(name = "ticket_detail", schema = "flib", catalog = "")
 @IdClass(TicketDetailEntityPK.class)
 public class TicketDetailEntity {
     private int bookId;
     private int ticketId;
     private int amount;
     private BookEntity bookByBookId;
+    private TicketEntity ticketByTicketId;
 
     @Id
     @Column(name = "book_id", nullable = false)
@@ -65,5 +66,15 @@ public class TicketDetailEntity {
 
     public void setBookByBookId(BookEntity bookByBookId) {
         this.bookByBookId = bookByBookId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ticket_id", referencedColumnName = "id", nullable = false)
+    public TicketEntity getTicketByTicketId() {
+        return ticketByTicketId;
+    }
+
+    public void setTicketByTicketId(TicketEntity ticketByTicketId) {
+        this.ticketByTicketId = ticketByTicketId;
     }
 }

@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "reaction", schema = "flib")
+@Table(name = "reaction", schema = "flib", catalog = "")
 @IdClass(ReactionEntityPK.class)
 public class ReactionEntity {
     private int bookId;
@@ -48,7 +48,7 @@ public class ReactionEntity {
     }
 
     @Basic
-    @Column(name = "rating", nullable = false)
+    @Column(name = "rating", nullable = false, precision = 0)
     public double getRating() {
         return rating;
     }
@@ -58,7 +58,7 @@ public class ReactionEntity {
     }
 
     @Basic
-    @Column(name = "dateAdded", nullable = false)
+    @Column(name = "date_added", nullable = false)
     public Timestamp getDateAdded() {
         return dateAdded;
     }
@@ -68,7 +68,7 @@ public class ReactionEntity {
     }
 
     @Basic
-    @Column(name = "dateUpdated", nullable = false)
+    @Column(name = "date_updated", nullable = false)
     public Timestamp getDateUpdated() {
         return dateUpdated;
     }

@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "book", schema = "flib")
+@Table(name = "book", schema = "flib", catalog = "")
 public class BookEntity {
     private int id;
     private String name;
@@ -30,7 +30,7 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 255)
     public String getName() {
         return name;
     }
@@ -40,7 +40,7 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name = "author", nullable = false)
+    @Column(name = "author", nullable = false, length = 255)
     public String getAuthor() {
         return author;
     }
@@ -50,7 +50,7 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name = "rating", nullable = false)
+    @Column(name = "rating", nullable = false, precision = 0)
     public double getRating() {
         return rating;
     }
@@ -60,7 +60,7 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name = "dateAdded", nullable = false)
+    @Column(name = "date_added", nullable = false)
     public Timestamp getDateAdded() {
         return dateAdded;
     }
@@ -70,7 +70,7 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name = "datePublished", nullable = false)
+    @Column(name = "date_published", nullable = false)
     public Timestamp getDatePublished() {
         return datePublished;
     }

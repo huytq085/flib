@@ -3,7 +3,7 @@
         version="2.0">
 
     <entity class="com.fsoft.flib.domain.BookEntity">
-        <table name="book" schema="flib"/>
+        <table name="book" schema="flib" catalog=""/>
         <attributes>
             <id name="id">
                 <column name="id" precision="11"/>
@@ -18,10 +18,10 @@
                 <column name="rating" precision="-1"/>
             </basic>
             <basic name="dateAdded">
-                <column name="dateAdded" precision="-1"/>
+                <column name="date_added" precision="-1"/>
             </basic>
             <basic name="datePublished">
-                <column name="datePublished" precision="-1"/>
+                <column name="date_published" precision="-1"/>
             </basic>
             <basic name="amount">
                 <column name="amount" precision="11"/>
@@ -35,7 +35,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.ContributeEntity">
-        <table name="contribute" schema="flib"/>
+        <table name="contribute" schema="flib" catalog=""/>
         <id-class class="com.fsoft.flib.domain.ContributeEntityPK"/>
         <attributes>
             <id name="userId">
@@ -45,7 +45,7 @@
                 <column name="book_id" precision="11"/>
             </id>
             <basic name="dateAdded">
-                <column name="dateAdded" precision="-1"/>
+                <column name="date_added" precision="-1"/>
             </basic>
             <basic name="status">
                 <column name="status" precision="1"/>
@@ -59,7 +59,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.ReactionEntity">
-        <table name="reaction" schema="flib" />
+        <table name="reaction" schema="flib" catalog=""/>
         <id-class class="com.fsoft.flib.domain.ReactionEntityPK"/>
         <attributes>
             <id name="bookId">
@@ -75,10 +75,10 @@
                 <column name="rating" precision="-1"/>
             </basic>
             <basic name="dateAdded">
-                <column name="dateAdded" precision="-1"/>
+                <column name="date_added" precision="-1"/>
             </basic>
             <basic name="dateUpdated">
-                <column name="dateUpdated" precision="-1"/>
+                <column name="date_updated" precision="-1"/>
             </basic>
             <many-to-one name="bookByBookId" optional="true" target-entity="com.fsoft.flib.domain.BookEntity">
                 <join-column name="book_id" referenced-column-name="id"/>
@@ -89,7 +89,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.RoleEntity">
-        <table name="role" schema="flib" />
+        <table name="role" schema="flib" catalog=""/>
         <attributes>
             <id name="id">
                 <column name="id" precision="11"/>
@@ -102,29 +102,26 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.TicketEntity">
-        <table name="ticket" schema="flib" />
-        <id-class class="com.fsoft.flib.domain.TicketEntityPK"/>
+        <table name="ticket" schema="flib" catalog=""/>
         <attributes>
             <id name="id">
                 <column name="id" precision="11"/>
             </id>
-            <id name="userId">
-                <column name="user_id" precision="11"/>
-            </id>
             <basic name="dateAdded">
-                <column name="dateAdded" length="45"/>
+                <column name="date_added" precision="-1"/>
+            </basic>
+            <basic name="userId">
+                <column name="user_id" precision="11"/>
             </basic>
             <many-to-one name="userByUserId" optional="true" target-entity="com.fsoft.flib.domain.UserEntity">
                 <join-column name="user_id" referenced-column-name="id"/>
             </many-to-one>
-            <many-to-one name="ticketDetailById" optional="true"
-                         target-entity="com.fsoft.flib.domain.TicketDetailEntity">
-                <join-column name="id" referenced-column-name="ticket_id"/>
-            </many-to-one>
+            <one-to-many name="ticketDetailsById" mapped-by="ticketByTicketId"
+                         target-entity="com.fsoft.flib.domain.TicketDetailEntity"/>
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.TicketDetailEntity">
-        <table name="ticket_detail" schema="flib" />
+        <table name="ticket_detail" schema="flib" catalog=""/>
         <id-class class="com.fsoft.flib.domain.TicketDetailEntityPK"/>
         <attributes>
             <id name="bookId">
@@ -139,31 +136,34 @@
             <many-to-one name="bookByBookId" optional="true" target-entity="com.fsoft.flib.domain.BookEntity">
                 <join-column name="book_id" referenced-column-name="id"/>
             </many-to-one>
+            <many-to-one name="ticketByTicketId" optional="true" target-entity="com.fsoft.flib.domain.TicketEntity">
+                <join-column name="ticket_id" referenced-column-name="id"/>
+            </many-to-one>
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.UserEntity">
-        <table name="user" schema="flib" />
+        <table name="user" schema="flib" catalog=""/>
         <attributes>
             <id name="id">
                 <column name="id" precision="11"/>
             </id>
             <basic name="email">
-                <column name="email" length="45"/>
+                <column name="email" length="100"/>
             </basic>
             <basic name="password">
                 <column name="password" length="100"/>
             </basic>
             <basic name="fullName">
-                <column name="fullName" length="100"/>
+                <column name="full_name" length="100"/>
             </basic>
             <basic name="address">
-                <column name="address" length="100"/>
+                <column name="address"/>
             </basic>
             <basic name="gender">
                 <column name="gender" length="10"/>
             </basic>
             <basic name="identityCard">
-                <column name="identityCard" length="12"/>
+                <column name="identity_card" length="12"/>
             </basic>
             <one-to-many name="contributesById" mapped-by="userByUserId"
                          target-entity="com.fsoft.flib.domain.ContributeEntity"/>
@@ -176,7 +176,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.UserRoleEntity">
-        <table name="user_role" schema="flib" />
+        <table name="user_role" schema="flib" catalog=""/>
         <id-class class="com.fsoft.flib.domain.UserRoleEntityPK"/>
         <attributes>
             <id name="userId">
