@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="com.fsoft.flib.domain.BookEntity">
+        <table name="book" schema="flib"/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="11"/>
+            </id>
+            <basic name="name">
+                <column name="name"/>
+            </basic>
+            <basic name="author">
+                <column name="author"/>
+            </basic>
+            <basic name="rating">
+                <column name="rating" precision="-1"/>
+            </basic>
+            <basic name="dateAdded">
+                <column name="dateAdded" precision="-1"/>
+            </basic>
+            <basic name="datePublished">
+                <column name="datePublished" precision="-1"/>
+            </basic>
+            <basic name="amount">
+                <column name="amount" precision="11"/>
+            </basic>
+            <one-to-many name="contributesById" mapped-by="bookByBookId"
+                         target-entity="com.fsoft.flib.domain.ContributeEntity"/>
+            <one-to-many name="reactionsById" mapped-by="bookByBookId"
+                         target-entity="com.fsoft.flib.domain.ReactionEntity"/>
+            <one-to-many name="ticketDetailsById" mapped-by="bookByBookId"
+                         target-entity="com.fsoft.flib.domain.TicketDetailEntity"/>
+        </attributes>
+    </entity>
+    <entity class="com.fsoft.flib.domain.ContributeEntity">
+        <table name="contribute" schema="flib"/>
+        <id-class class="com.fsoft.flib.domain.ContributeEntityPK"/>
+        <attributes>
+            <id name="userId">
+                <column name="user_id" precision="11"/>
+            </id>
+            <id name="bookId">
+                <column name="book_id" precision="11"/>
+            </id>
+            <basic name="dateAdded">
+                <column name="dateAdded" precision="-1"/>
+            </basic>
+            <basic name="status">
+                <column name="status" precision="1"/>
+            </basic>
+            <many-to-one name="userByUserId" optional="true" target-entity="com.fsoft.flib.domain.UserEntity">
+                <join-column name="user_id" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="bookByBookId" optional="true" target-entity="com.fsoft.flib.domain.BookEntity">
+                <join-column name="book_id" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+    <entity class="com.fsoft.flib.domain.ReactionEntity">
+        <table name="reaction" schema="flib" />
+        <id-class class="com.fsoft.flib.domain.ReactionEntityPK"/>
+        <attributes>
+            <id name="bookId">
+                <column name="book_id" precision="11"/>
+            </id>
+            <id name="userId">
+                <column name="user_id" precision="11"/>
+            </id>
+            <basic name="comment">
+                <column name="comment"/>
+            </basic>
+            <basic name="rating">
+                <column name="rating" precision="-1"/>
+            </basic>
+            <basic name="dateAdded">
+                <column name="dateAdded" precision="-1"/>
+            </basic>
+            <basic name="dateUpdated">
+                <column name="dateUpdated" precision="-1"/>
+            </basic>
+            <many-to-one name="bookByBookId" optional="true" target-entity="com.fsoft.flib.domain.BookEntity">
+                <join-column name="book_id" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="userByUserId" optional="true" target-entity="com.fsoft.flib.domain.UserEntity">
+                <join-column name="user_id" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+    <entity class="com.fsoft.flib.domain.RoleEntity">
+        <table name="role" schema="flib" />
+        <attributes>
+            <id name="id">
+                <column name="id" precision="11"/>
+            </id>
+            <basic name="name">
+                <column name="name" length="45"/>
+            </basic>
+            <one-to-many name="userRolesById" mapped-by="roleByRoleId"
+                         target-entity="com.fsoft.flib.domain.UserRoleEntity"/>
+        </attributes>
+    </entity>
+    <entity class="com.fsoft.flib.domain.TicketEntity">
+        <table name="ticket" schema="flib" />
+        <id-class class="com.fsoft.flib.domain.TicketEntityPK"/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="11"/>
+            </id>
+            <id name="userId">
+                <column name="user_id" precision="11"/>
+            </id>
+            <basic name="dateAdded">
+                <column name="dateAdded" length="45"/>
+            </basic>
+            <many-to-one name="userByUserId" optional="true" target-entity="com.fsoft.flib.domain.UserEntity">
+                <join-column name="user_id" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="ticketDetailById" optional="true"
+                         target-entity="com.fsoft.flib.domain.TicketDetailEntity">
+                <join-column name="id" referenced-column-name="ticket_id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+    <entity class="com.fsoft.flib.domain.TicketDetailEntity">
+        <table name="ticket_detail" schema="flib" />
+        <id-class class="com.fsoft.flib.domain.TicketDetailEntityPK"/>
+        <attributes>
+            <id name="bookId">
+                <column name="book_id" precision="11"/>
+            </id>
+            <id name="ticketId">
+                <column name="ticket_id" precision="11"/>
+            </id>
+            <basic name="amount">
+                <column name="amount" precision="11"/>
+            </basic>
+            <many-to-one name="bookByBookId" optional="true" target-entity="com.fsoft.flib.domain.BookEntity">
+                <join-column name="book_id" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+    <entity class="com.fsoft.flib.domain.UserEntity">
+        <table name="user" schema="flib" />
+        <attributes>
+            <id name="id">
+                <column name="id" precision="11"/>
+            </id>
+            <basic name="email">
+                <column name="email" length="45"/>
+            </basic>
+            <basic name="password">
+                <column name="password" length="100"/>
+            </basic>
+            <basic name="fullName">
+                <column name="fullName" length="100"/>
+            </basic>
+            <basic name="address">
+                <column name="address" length="100"/>
+            </basic>
+            <basic name="gender">
+                <column name="gender" length="10"/>
+            </basic>
+            <basic name="identityCard">
+                <column name="identityCard" length="12"/>
+            </basic>
+            <one-to-many name="contributesById" mapped-by="userByUserId"
+                         target-entity="com.fsoft.flib.domain.ContributeEntity"/>
+            <one-to-many name="reactionsById" mapped-by="userByUserId"
+                         target-entity="com.fsoft.flib.domain.ReactionEntity"/>
+            <one-to-many name="ticketsById" mapped-by="userByUserId"
+                         target-entity="com.fsoft.flib.domain.TicketEntity"/>
+            <one-to-many name="userRolesById" mapped-by="userByUserId"
+                         target-entity="com.fsoft.flib.domain.UserRoleEntity"/>
+        </attributes>
+    </entity>
+    <entity class="com.fsoft.flib.domain.UserRoleEntity">
+        <table name="user_role" schema="flib" />
+        <id-class class="com.fsoft.flib.domain.UserRoleEntityPK"/>
+        <attributes>
+            <id name="userId">
+                <column name="user_id" precision="11"/>
+            </id>
+            <id name="roleId">
+                <column name="role_id" precision="11"/>
+            </id>
+            <many-to-one name="userByUserId" optional="true" target-entity="com.fsoft.flib.domain.UserEntity">
+                <join-column name="user_id" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="roleByRoleId" optional="true" target-entity="com.fsoft.flib.domain.RoleEntity">
+                <join-column name="role_id" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+</entity-mappings>

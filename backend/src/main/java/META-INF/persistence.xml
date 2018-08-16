@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="NewPersistenceUnit">
+        <mapping-file>d.xml</mapping-file>
+        <class>com.fsoft.flib.domain.BookEntity</class>
+        <class>com.fsoft.flib.domain.ContributeEntity</class>
+        <class>com.fsoft.flib.domain.ReactionEntity</class>
+        <class>com.fsoft.flib.domain.RoleEntity</class>
+        <class>com.fsoft.flib.domain.TicketEntity</class>
+        <class>com.fsoft.flib.domain.TicketDetailEntity</class>
+        <class>com.fsoft.flib.domain.UserEntity</class>
+        <class>com.fsoft.flib.domain.UserRoleEntity</class>
+        <properties>
+            <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/flib"/>
+            <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/flib"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/flib"/>
+            <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
+            <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/flib"/>
+            <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+        </properties>
+    </persistence-unit>
+</persistence>
