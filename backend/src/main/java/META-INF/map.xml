@@ -108,7 +108,7 @@
                 <column name="id" precision="11"/>
             </id>
             <basic name="dateAdded">
-                <column name="date_added" length="45"/>
+                <column name="date_added" precision="-1"/>
             </basic>
             <basic name="userId">
                 <column name="user_id" precision="11"/>
@@ -148,7 +148,7 @@
                 <column name="id" precision="11"/>
             </id>
             <basic name="email">
-                <column name="email" length="45"/>
+                <column name="email" length="100"/>
             </basic>
             <basic name="password">
                 <column name="password" length="100"/>
@@ -157,7 +157,7 @@
                 <column name="full_name" length="100"/>
             </basic>
             <basic name="address">
-                <column name="address" length="100"/>
+                <column name="address"/>
             </basic>
             <basic name="gender">
                 <column name="gender" length="10"/>

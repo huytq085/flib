@@ -21,9 +21,9 @@ CREATE TABLE IF NOT EXISTS `flib`.`book` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` NVARCHAR(255) NOT NULL,
   `author` NVARCHAR(255) NOT NULL,
-  `rating` DOUBLE NOT NULL DEFAULT 5,
+  `rating` DOUBLE NOT NULL DEFAULT 2.5,
   `date_added` DATETIME NOT NULL DEFAULT now(),
-  `date_published` DATETIME NOT NULL,
+  `date_published` DATETIME NOT NULL DEFAULT now(),
   `amount` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -34,10 +34,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `flib`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
   `full_name` NVARCHAR(100) NOT NULL,
-  `address` NVARCHAR(100) NOT NULL,
+  `address` NVARCHAR(255) NOT NULL,
   `gender` VARCHAR(10) NOT NULL,
   `identity_card` VARCHAR(12) NOT NULL,
   PRIMARY KEY (`id`),
@@ -49,7 +49,7 @@ ENGINE = InnoDB;
 -- Table `flib`.`role`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `flib`.`role` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -60,7 +60,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `flib`.`ticket` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `date_added` VARCHAR(45) NOT NULL,
+  `date_added` DATETIME NOT NULL DEFAULT now(),
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_ticket_user1_idx` (`user_id` ASC),

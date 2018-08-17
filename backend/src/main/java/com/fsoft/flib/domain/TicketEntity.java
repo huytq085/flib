@@ -1,6 +1,7 @@
 package com.fsoft.flib.domain;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
 @Table(name = "ticket", schema = "flib", catalog = "")
 public class TicketEntity {
     private int id;
-    private String dateAdded;
+    private Timestamp dateAdded;
     private int userId;
     private UserEntity userByUserId;
     private Collection<TicketDetailEntity> ticketDetailsById;
@@ -24,12 +25,12 @@ public class TicketEntity {
     }
 
     @Basic
-    @Column(name = "date_added", nullable = false, length = 45)
-    public String getDateAdded() {
+    @Column(name = "date_added", nullable = false)
+    public Timestamp getDateAdded() {
         return dateAdded;
     }
 
-    public void setDateAdded(String dateAdded) {
+    public void setDateAdded(Timestamp dateAdded) {
         this.dateAdded = dateAdded;
     }
 
