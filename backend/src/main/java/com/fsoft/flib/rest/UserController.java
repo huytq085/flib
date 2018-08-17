@@ -1,0 +1,29 @@
+package com.fsoft.flib.rest;
+
+import com.fsoft.flib.domain.UserEntity;
+import com.fsoft.flib.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api")
+public class UserController {
+    private final String BASE_URL = "/users";
+    private final String GET_ONE_URL = BASE_URL + "/{id}";
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping(
+            path = BASE_URL
+    )
+    public List<UserEntity> getAll(){
+        return userService.getAll();
+    }
+
+}
