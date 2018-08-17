@@ -59,7 +59,7 @@ public class TicketDetailEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public BookEntity getBookByBookId() {
         return bookByBookId;
     }
@@ -69,7 +69,7 @@ public class TicketDetailEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "ticket_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "ticket_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TicketEntity getTicketByTicketId() {
         return ticketByTicketId;
     }
