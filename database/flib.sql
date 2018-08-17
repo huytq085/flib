@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS `flib`.`book` (
   `name` NVARCHAR(255) NOT NULL,
   `author` NVARCHAR(255) NOT NULL,
   `rating` DOUBLE NOT NULL DEFAULT 5,
-  `dateAdded` DATETIME NOT NULL DEFAULT now(),
-  `datePublished` DATETIME NOT NULL,
+  `date_added` DATETIME NOT NULL DEFAULT now(),
+  `date_published` DATETIME NOT NULL,
   `amount` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -36,10 +36,10 @@ CREATE TABLE IF NOT EXISTS `flib`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
-  `fullName` NVARCHAR(100) NOT NULL,
+  `full_name` NVARCHAR(100) NOT NULL,
   `address` NVARCHAR(100) NOT NULL,
   `gender` VARCHAR(10) NOT NULL,
-  `identityCard` VARCHAR(12) NOT NULL,
+  `identity_card` VARCHAR(12) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
@@ -60,9 +60,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `flib`.`ticket` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `dateAdded` VARCHAR(45) NOT NULL,
+  `date_added` VARCHAR(45) NOT NULL,
   `user_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `user_id`),
+  PRIMARY KEY (`id`),
   INDEX `fk_ticket_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_ticket_user1`
     FOREIGN KEY (`user_id`)
@@ -125,8 +125,8 @@ CREATE TABLE IF NOT EXISTS `flib`.`reaction` (
   `user_id` INT NOT NULL,
   `comment` LONGTEXT NOT NULL,
   `rating` DOUBLE NOT NULL DEFAULT 2.5,
-  `dateAdded` DATETIME NOT NULL DEFAULT now(),
-  `dateUpdated` DATETIME NOT NULL DEFAULT now(),
+  `date_added` DATETIME NOT NULL DEFAULT now(),
+  `date_updated` DATETIME NOT NULL DEFAULT now(),
   PRIMARY KEY (`book_id`, `user_id`),
   INDEX `fk_book_has_user_user1_idx` (`user_id` ASC),
   INDEX `fk_book_has_user_book1_idx` (`book_id` ASC),
@@ -149,7 +149,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `flib`.`contribute` (
   `user_id` INT NOT NULL,
   `book_id` INT NOT NULL,
-  `dateAdded` DATETIME NOT NULL DEFAULT now(),
+  `date_added` DATETIME NOT NULL DEFAULT now(),
   `status` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`, `book_id`),
   INDEX `fk_user_has_book_book1_idx` (`book_id` ASC),

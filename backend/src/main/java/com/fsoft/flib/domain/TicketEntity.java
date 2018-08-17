@@ -1,17 +1,17 @@
 package com.fsoft.flib.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ticket", schema = "flib")
-@IdClass(TicketEntityPK.class)
+@Table(name = "ticket", schema = "flib", catalog = "")
 public class TicketEntity {
     private int id;
     private String dateAdded;
     private int userId;
     private UserEntity userByUserId;
-    private TicketDetailEntity ticketDetailById;
+    private Collection<TicketDetailEntity> ticketDetailsById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -24,7 +24,7 @@ public class TicketEntity {
     }
 
     @Basic
-    @Column(name = "dateAdded", nullable = false, length = 45)
+    @Column(name = "date_added", nullable = false, length = 45)
     public String getDateAdded() {
         return dateAdded;
     }
@@ -33,7 +33,7 @@ public class TicketEntity {
         this.dateAdded = dateAdded;
     }
 
-    @Id
+    @Basic
     @Column(name = "user_id", nullable = false)
     public int getUserId() {
         return userId;
@@ -68,13 +68,12 @@ public class TicketEntity {
         this.userByUserId = userByUserId;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "ticket_id", nullable = false)
-    public TicketDetailEntity getTicketDetailById() {
-        return ticketDetailById;
+    @OneToMany(mappedBy = "ticketByTicketId")
+    public Collection<TicketDetailEntity> getTicketDetailsById() {
+        return ticketDetailsById;
     }
 
-    public void setTicketDetailById(TicketDetailEntity ticketDetailById) {
-        this.ticketDetailById = ticketDetailById;
+    public void setTicketDetailsById(Collection<TicketDetailEntity> ticketDetailsById) {
+        this.ticketDetailsById = ticketDetailsById;
     }
 }

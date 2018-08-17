@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user", schema = "flib")
+@Table(name = "user", schema = "flib", catalog = "")
 public class UserEntity {
     private int id;
     private String email;
@@ -50,7 +50,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "fullName", nullable = false, length = 100)
+    @Column(name = "full_name", nullable = false, length = 100)
     public String getFullName() {
         return fullName;
     }
@@ -80,7 +80,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "identityCard", nullable = false, length = 12)
+    @Column(name = "identity_card", nullable = false, length = 12)
     public String getIdentityCard() {
         return identityCard;
     }
