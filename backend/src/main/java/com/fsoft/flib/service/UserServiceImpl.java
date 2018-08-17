@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity save(UserEntity userEntity) {
-        return null;
+        return userRepository.save(userEntity);
     }
 
     @Override
@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity getOne(int userId) {
-        return null;
+        return userRepository.findById(userId);
+    }
+
+    @Override
+    public UserEntity getOne(String mail) {
+        return userRepository.findByEmail(mail);
     }
 }

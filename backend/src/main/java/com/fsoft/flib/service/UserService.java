@@ -16,5 +16,6 @@ public interface UserService {
     List<UserEntity> getAll();
 
     UserEntity getOne(int userId);
+    UserEntity getOne(String email);
 
 }
