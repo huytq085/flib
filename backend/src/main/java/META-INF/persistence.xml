@@ -3,12 +3,15 @@
 
     <persistence-unit name="persistenceUnit">
         <mapping-file>META-INF/map.xml</mapping-file>
+        <class>com.fsoft.flib.domain.AuthorEntity</class>
         <class>com.fsoft.flib.domain.BookEntity</class>
+        <class>com.fsoft.flib.domain.BookTypeEntity</class>
         <class>com.fsoft.flib.domain.ContributeEntity</class>
         <class>com.fsoft.flib.domain.ReactionEntity</class>
         <class>com.fsoft.flib.domain.RoleEntity</class>
         <class>com.fsoft.flib.domain.TicketEntity</class>
         <class>com.fsoft.flib.domain.TicketDetailEntity</class>
+        <class>com.fsoft.flib.domain.TypeEntity</class>
         <class>com.fsoft.flib.domain.UserEntity</class>
         <class>com.fsoft.flib.domain.UserRoleEntity</class>
         <properties>

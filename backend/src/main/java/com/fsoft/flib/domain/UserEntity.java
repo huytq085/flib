@@ -30,7 +30,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "email", nullable = false, length = 100)
+    @Column(name = "email", nullable = false, length = 45)
     public String getEmail() {
         return email;
     }
@@ -60,7 +60,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "address", nullable = false, length = 255)
+    @Column(name = "address", nullable = false, length = 100)
     public String getAddress() {
         return address;
     }

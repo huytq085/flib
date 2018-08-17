@@ -10,11 +10,13 @@ import java.util.Objects;
 public class BookEntity {
     private int id;
     private String name;
-    private String author;
+    private int authorId;
     private double rating;
     private Timestamp dateAdded;
     private Timestamp datePublished;
     private int amount;
+    private AuthorEntity authorByAuthorId;
+    private Collection<BookTypeEntity> bookTypesById;
     private Collection<ContributeEntity> contributesById;
     private Collection<ReactionEntity> reactionsById;
     private Collection<TicketDetailEntity> ticketDetailsById;
@@ -40,13 +42,13 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name = "author", nullable = false, length = 255)
-    public String getAuthor() {
-        return author;
+    @Column(name = "author_id", nullable = false)
+    public int getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 
     @Basic
@@ -95,17 +97,36 @@ public class BookEntity {
         if (o == null || getClass() != o.getClass()) return false;
         BookEntity that = (BookEntity) o;
         return id == that.id &&
+                authorId == that.authorId &&
                 Double.compare(that.rating, rating) == 0 &&
                 amount == that.amount &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(author, that.author) &&
                 Objects.equals(dateAdded, that.dateAdded) &&
                 Objects.equals(datePublished, that.datePublished);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, author, rating, dateAdded, datePublished, amount);
+        return Objects.hash(id, name, authorId, rating, dateAdded, datePublished, amount);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    public AuthorEntity getAuthorByAuthorId() {
+        return authorByAuthorId;
+    }
+
+    public void setAuthorByAuthorId(AuthorEntity authorByAuthorId) {
+        this.authorByAuthorId = authorByAuthorId;
+    }
+
+    @OneToMany(mappedBy = "bookByBookId")
+    public Collection<BookTypeEntity> getBookTypesById() {
+        return bookTypesById;
+    }
+
+    public void setBookTypesById(Collection<BookTypeEntity> bookTypesById) {
+        this.bookTypesById = bookTypesById;
     }
 
     @OneToMany(mappedBy = "bookByBookId")

@@ -10,6 +10,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class BookController {
+    private final String BASE_URL = "/book";
 
     @Autowired
     private BookRepository bookRepository;
