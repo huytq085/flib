@@ -1,12 +1,14 @@
 package com.fsoft.flib.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "book", schema = "flib", catalog = "")
+@Table(name = "book", schema = "flib")
 public class BookEntity {
     private int id;
     private String name;
@@ -111,7 +113,8 @@ public class BookEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JsonIgnore
+    @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false,insertable = false,updatable = false)
     public AuthorEntity getAuthorByAuthorId() {
         return authorByAuthorId;
     }
