@@ -9,13 +9,15 @@ import { AppRoutingModule } from './/app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from './shared/shared.module';
 import { ContentComponent } from './home/content/content.component';
+import { BookDetailComponent } from './home/content/book-detail/book-detail.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ContentComponent
+    ContentComponent,
+    BookDetailComponent
   ],
   imports: [
     BrowserModule,
