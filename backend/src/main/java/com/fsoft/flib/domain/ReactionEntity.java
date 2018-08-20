@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "reaction", schema = "flib")
+@Table(name = "reaction", schema = "flib", catalog = "")
 @IdClass(ReactionEntityPK.class)
 public class ReactionEntity {
     private int bookId;

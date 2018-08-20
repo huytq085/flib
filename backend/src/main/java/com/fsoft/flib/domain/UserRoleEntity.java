@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user_role", schema = "flib")
+@Table(name = "user_role", schema = "flib", catalog = "")
 @IdClass(UserRoleEntityPK.class)
 public class UserRoleEntity {
     private int userId;

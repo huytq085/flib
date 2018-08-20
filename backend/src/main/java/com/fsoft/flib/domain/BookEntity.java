@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "book", schema = "flib")
+@Table(name = "book", schema = "flib", catalog = "")
 public class BookEntity {
     private int id;
     private String name;
@@ -17,6 +17,7 @@ public class BookEntity {
     private Timestamp dateAdded;
     private Timestamp datePublished;
     private int amount;
+    private String coverImage;
     private AuthorEntity authorByAuthorId;
     private Collection<BookTypeEntity> bookTypesById;
     private Collection<ContributeEntity> contributesById;
@@ -93,6 +94,16 @@ public class BookEntity {
         this.amount = amount;
     }
 
+    @Basic
+    @Column(name = "cover_image", nullable = false, length = 255)
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,17 +115,18 @@ public class BookEntity {
                 amount == that.amount &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(dateAdded, that.dateAdded) &&
-                Objects.equals(datePublished, that.datePublished);
+                Objects.equals(datePublished, that.datePublished) &&
+                Objects.equals(coverImage, that.coverImage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, authorId, rating, dateAdded, datePublished, amount);
+        return Objects.hash(id, name, authorId, rating, dateAdded, datePublished, amount, coverImage);
     }
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false,insertable = false,updatable = false)
+    @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public AuthorEntity getAuthorByAuthorId() {
         return authorByAuthorId;
     }

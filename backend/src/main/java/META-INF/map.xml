@@ -39,6 +39,9 @@
             <basic name="amount">
                 <column name="amount" precision="11"/>
             </basic>
+            <basic name="coverImage">
+                <column name="cover_image"/>
+            </basic>
             <many-to-one name="authorByAuthorId" optional="true" target-entity="com.fsoft.flib.domain.AuthorEntity">
                 <join-column name="author_id" referenced-column-name="id"/>
             </many-to-one>
