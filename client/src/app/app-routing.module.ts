@@ -7,6 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: 'settings',
+    loadChildren: './settings/settings.module#SettingsModule'
+  },
+  {
+    path: 'profile',
+    loadChildren: './profile/profile.module#ProfileModule'
   }
 
 ]
