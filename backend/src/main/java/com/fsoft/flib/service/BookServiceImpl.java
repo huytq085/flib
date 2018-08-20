@@ -37,8 +37,6 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Optional<BookEntity> getOne(int bookId) {
-        BookEntity bookEntity = new BookEntity();
-        bookEntity.getAuthorByAuthorId();
         return bookRepository.findById(bookId);
     }
 
@@ -47,5 +45,5 @@ public class BookServiceImpl implements BookService{
         return bookRepository.findAll(PageRequest.of(page,size));
     }
 
-    
+
 }
