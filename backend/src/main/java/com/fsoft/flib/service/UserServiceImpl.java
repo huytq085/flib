@@ -3,6 +3,7 @@ package com.fsoft.flib.service;
 import com.fsoft.flib.domain.UserEntity;
 import com.fsoft.flib.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,20 +13,36 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserEntity save(UserEntity userEntity) {
-        return userRepository.save(userEntity);
+    public boolean save(UserEntity userEntity) {
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        if (userRepository.save(userEntity) != null || userEntity.equals(userRepository.save(userEntity))) {
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public UserEntity update(UserEntity userEntity) {
-        return null;
+    public boolean update(UserEntity userEntity) {
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        if(userRepository.findById(userEntity.getId()) != null){
+            userRepository.save(userEntity);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public UserEntity delete(UserEntity userEntity) {
-        return null;
+    public boolean delete(int id) {
+        UserEntity userEntity = userRepository.findById(id);
+        userRepository.delete(userEntity);
+        if(userRepository.findById(id) == null){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -38,8 +55,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(userId);
     }
 
+//    return true if user exist in db
     @Override
-    public UserEntity getOne(String mail) {
-        return userRepository.findByEmail(mail);
+    public boolean checkLogin(UserEntity userEntity) {
+        if(userRepository.findById(userEntity.getId())!= null){
+            return true;
+        }
+        return false;
     }
 }

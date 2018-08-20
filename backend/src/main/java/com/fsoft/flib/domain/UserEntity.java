@@ -1,8 +1,10 @@
 package com.fsoft.flib.domain;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "user", schema = "flib", catalog = "")
@@ -142,5 +144,15 @@ public class UserEntity {
 
     public void setUserRolesById(Collection<UserRoleEntity> userRolesById) {
         this.userRolesById = userRolesById;
+    }
+
+    @Transient
+    public Set<GrantedAuthority> getAuthorities(){
+        Set<GrantedAuthority> grantedAuthoritySet= new HashSet<>();
+        Collection<UserRoleEntity> idRoles= getUserRolesById();
+        for(UserRoleEntity id: idRoles){
+            grantedAuthoritySet.add(new SimpleGrantedAuthority(id.getRoleByRoleId().getName()));
+        }
+        return grantedAuthoritySet;
     }
 }

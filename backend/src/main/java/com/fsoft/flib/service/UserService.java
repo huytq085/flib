@@ -7,15 +7,15 @@ import java.util.List;
 
 @Service
 public interface UserService {
-    UserEntity save(UserEntity userEntity);
+    boolean save(UserEntity userEntity);
 
-    UserEntity update(UserEntity userEntity);
+    boolean update(UserEntity userEntity);
 
-    UserEntity delete(UserEntity userEntity);
+    boolean delete(int id);
 
     List<UserEntity> getAll();
 
     UserEntity getOne(int userId);
-    UserEntity getOne(String email);
 
+    boolean checkLogin(UserEntity userEntity);
 }

@@ -4,11 +4,20 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user_role", schema = "flib", catalog = "")
+@Table(name = "user_role", schema = "flib")
 @IdClass(UserRoleEntityPK.class)
 public class UserRoleEntity {
     private int userId;
     private int roleId;
+
+    public UserRoleEntity() {
+    }
+
+    public UserRoleEntity(int userId, int roleId) {
+        this.userId = userId;
+        this.roleId = roleId;
+    }
+
     private UserEntity userByUserId;
     private RoleEntity roleByRoleId;
 
