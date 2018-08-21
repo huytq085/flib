@@ -1,12 +1,16 @@
 package com.fsoft.flib.rest;
 
 import com.fsoft.flib.domain.UserEntity;
+import com.fsoft.flib.service.JwtService;
 import com.fsoft.flib.service.UserService;
+import com.fsoft.flib.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -14,15 +18,77 @@ import java.util.List;
 public class UserController {
     private final String BASE_URL = "/users";
     private final String GET_ONE_URL = BASE_URL + "/{id}";
+    private final String LOGIN_URL = "/login";
 
     @Autowired
     private UserService userService;
 
-    @GetMapping(
-            path = BASE_URL
-    )
-    public List<UserEntity> getAll(){
-        return userService.getAll();
+    @Autowired
+    private JwtService jwtService;
+
+    //    -----GET ALL USERS----
+    @RequestMapping(path = BASE_URL, method = RequestMethod.GET)
+    public ResponseEntity<List<UserEntity>> getAll() {
+        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
+    //    -----GET ONE USER----
+    @RequestMapping(path = GET_ONE_URL, method = RequestMethod.GET)
+    public ResponseEntity<Object> getOne(@PathVariable int id) {
+        UserEntity user = userService.getOne(id);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("User not found", HttpStatus.NO_CONTENT);
+        }
+    }
+
+    //    -----CREATE NEW USER-----
+    @RequestMapping(
+            value = BASE_URL,
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<String> createNewUser(@RequestBody UserEntity newUser) {
+        System.out.println("Create new user");
+        System.out.println(JsonUtil.encode(newUser));
+        if (userService.save(newUser)) {
+            System.out.println("Created");
+            System.out.println(JsonUtil.encode(newUser));;
+            return new ResponseEntity<>("Created!", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("User Existed!", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    /* ---------------- DELETE USER ------------------------ */
+    @RequestMapping(value = GET_ONE_URL, method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteUserById(@PathVariable int id) {
+        if (userService.delete(id)) {
+            return new ResponseEntity<>("Deleted!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Not deleted!", HttpStatus.NO_CONTENT);
+        }
+
+    }
+
+    //------------------------------------------
+    @RequestMapping(value = LOGIN_URL, method = RequestMethod.POST)
+    public ResponseEntity<String> login(HttpServletRequest request, @RequestBody UserEntity userEntity) {
+        String result = "";
+        HttpStatus httpStatus = null;
+        try {
+            if (userService.checkLogin(userEntity)) {
+                result = jwtService.generateTokenLogin(userEntity.getEmail());
+                httpStatus = HttpStatus.OK;
+            } else {
+                result = "Wrong email and password";
+                httpStatus = HttpStatus.BAD_REQUEST;
+            }
+        } catch (Exception ex) {
+            result = "Server Error";
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(result, httpStatus);
+    }
 }

@@ -1,5 +1,7 @@
 package com.fsoft.flib.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -123,6 +125,7 @@ public class BookEntity {
     }
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public AuthorEntity getAuthorByAuthorId() {
         return authorByAuthorId;

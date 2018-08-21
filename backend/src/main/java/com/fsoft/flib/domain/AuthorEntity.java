@@ -1,5 +1,7 @@
 package com.fsoft.flib.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -46,6 +48,7 @@ public class AuthorEntity {
     }
 
     @OneToMany(mappedBy = "authorByAuthorId")
+    @JsonManagedReference
     public Collection<BookEntity> getBooksById() {
         return booksById;
     }

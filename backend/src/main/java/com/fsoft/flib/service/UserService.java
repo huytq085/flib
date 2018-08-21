@@ -1,20 +1,25 @@
 package com.fsoft.flib.service;
 
 import com.fsoft.flib.domain.UserEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
 public interface UserService {
-    UserEntity save(UserEntity userEntity);
+    boolean save(UserEntity userEntity);
 
-    UserEntity update(UserEntity userEntity);
+    boolean update(UserEntity userEntity);
 
-    UserEntity delete(UserEntity userEntity);
+    boolean delete(int id);
 
     List<UserEntity> getAll();
 
     UserEntity getOne(int userId);
 
+    boolean checkLogin(UserEntity userEntity);
+
+    Collection<GrantedAuthority> getAuthorities(UserEntity userEntity);
 }
