@@ -3,6 +3,8 @@ package com.fsoft.flib.service;
 import com.fsoft.flib.domain.UserEntity;
 import com.fsoft.flib.domain.UserRoleEntity;
 import com.fsoft.flib.repository.UserRepository;
+import com.fsoft.flib.repository.UserRolesRepository;
+import com.fsoft.flib.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,9 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,6 +21,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRolesRepository userRolesRepository;
 
     @Override
     public boolean save(UserEntity userEntity) {
@@ -75,16 +77,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collection<GrantedAuthority> getAuthorities(UserEntity userEntity){
-        Collection<GrantedAuthority> grantedAuthoritySet= new HashSet<>();
-        System.out.println("-------------------");
-        for (UserRoleEntity u: userEntity.getUserRolesById()){
-            System.out.println(u.getRoleId());
+    public List<GrantedAuthority> getAuthorities(UserEntity userEntity){
+        List<String> roleNames = userRolesRepository.getRoleNameByEmail(userEntity.getEmail());
+        System.out.println("role names");
+        System.out.println(JsonUtil.encode(roleNames));
+        List<GrantedAuthority> grantList = new ArrayList<>();
+        if (roleNames != null) {
+            for (String role : roleNames) {
+                // ROLE_USER, ROLE_ADMIN,..
+                GrantedAuthority authority = new SimpleGrantedAuthority(role);
+                grantList.add(authority);
+            }
         }
-        Collection<UserRoleEntity> userRoles= userEntity.getUserRolesById();
-        for(UserRoleEntity userRole: userRoles){
-            grantedAuthoritySet.add(new SimpleGrantedAuthority(userRole.getRoleByRoleId().getName()));
-        }
-        return grantedAuthoritySet;
+        return grantList;
     }
 }

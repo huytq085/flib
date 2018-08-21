@@ -21,5 +21,5 @@ public interface UserService {
 
     boolean checkLogin(UserEntity userEntity);
 
-    Collection<GrantedAuthority> getAuthorities(UserEntity userEntity);
+    List<GrantedAuthority> getAuthorities(UserEntity userEntity);
 }

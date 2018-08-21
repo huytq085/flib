@@ -23,9 +23,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private JwtService jwtService;
-
     //    -----GET ALL USERS----
     @RequestMapping(path = BASE_URL, method = RequestMethod.GET)
     public ResponseEntity<List<UserEntity>> getAll() {
@@ -43,23 +40,6 @@ public class UserController {
         }
     }
 
-    //    -----CREATE NEW USER-----
-    @RequestMapping(
-            value = BASE_URL,
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<String> createNewUser(@RequestBody UserEntity newUser) {
-        System.out.println("Create new user");
-        System.out.println(JsonUtil.encode(newUser));
-        if (userService.save(newUser)) {
-            System.out.println("Created");
-            System.out.println(JsonUtil.encode(newUser));;
-            return new ResponseEntity<>("Created!", HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>("User Existed!", HttpStatus.BAD_REQUEST);
-        }
-    }
 
     /* ---------------- DELETE USER ------------------------ */
     @RequestMapping(value = GET_ONE_URL, method = RequestMethod.DELETE)
@@ -72,23 +52,5 @@ public class UserController {
 
     }
 
-    //------------------------------------------
-    @RequestMapping(value = LOGIN_URL, method = RequestMethod.POST)
-    public ResponseEntity<String> login(HttpServletRequest request, @RequestBody UserEntity userEntity) {
-        String result = "";
-        HttpStatus httpStatus = null;
-        try {
-            if (userService.checkLogin(userEntity)) {
-                result = jwtService.generateTokenLogin(userEntity.getEmail());
-                httpStatus = HttpStatus.OK;
-            } else {
-                result = "Wrong email and password";
-                httpStatus = HttpStatus.BAD_REQUEST;
-            }
-        } catch (Exception ex) {
-            result = "Server Error";
-            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return new ResponseEntity<>(result, httpStatus);
-    }
+
 }
