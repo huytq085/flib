@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Book} from '../../model/book.model';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Book } from '../../../model/book.model';
 
 @Component({
-  selector: 'app-content',
-  templateUrl: './content.component.html',
-  styleUrls: ['./content.component.css']
+  selector: 'app-book-list',
+  templateUrl: './book-list.component.html',
+  styleUrls: ['./book-list.component.css']
 })
-export class ContentComponent implements OnInit {
+export class BookListComponent implements OnInit {
   @Input() page: number;
   @Input() count: number;
   @Input() perPage: number;
@@ -99,4 +99,5 @@ export class ContentComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 }
