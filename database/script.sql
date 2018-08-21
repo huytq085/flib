@@ -1,151 +1,218 @@
-create table author
-(
-  id   int auto_increment
-    primary key,
-  name varchar(255) charset utf8 not null
-);
+-- MySQL Workbench Forward Engineering
 
-create table book
-(
-  id             int auto_increment
-    primary key,
-  name           varchar(255) charset utf8          not null,
-  author_id      int                                not null,
-  rating         double default '5'                 not null,
-  date_added     datetime default CURRENT_TIMESTAMP not null,
-  date_published datetime                           not null,
-  amount         int                                not null,
-  constraint book_author_id_fk
-  foreign key (author_id) references author (id)
-);
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-create table role
-(
-  id   int         not null
-    primary key,
-  name varchar(45) not null
-);
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema flib
+-- -----------------------------------------------------
 
-create table type
-(
-  id   int auto_increment
-    primary key,
-  name varchar(255) charset utf8 not null,
-  constraint type_name_uindex
-  unique (name)
-);
+-- -----------------------------------------------------
+-- Schema flib
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `flib` DEFAULT CHARACTER SET utf8mb4 ;
+USE `flib` ;
 
-create table book_type
-(
-  book_id int not null,
-  type_id int not null,
-  primary key (book_id, type_id),
-  constraint book_type_book_id_fk
-  foreign key (book_id) references book (id),
-  constraint book_type_type_id_fk
-  foreign key (type_id) references type (id)
-);
-
-create table user
-(
-  id            int auto_increment
-    primary key,
-  email         varchar(45)               not null,
-  password      varchar(100)              not null,
-  full_name     varchar(100) charset utf8 not null,
-  address       varchar(100) charset utf8 not null,
-  gender        varchar(10)               not null,
-  identity_card varchar(12)               not null,
-  constraint email_UNIQUE
-  unique (email)
-);
-
-create table contribute
-(
-  user_id    int                                not null,
-  book_id    int                                not null,
-  date_added datetime default CURRENT_TIMESTAMP not null,
-  status     tinyint(1) default '0'             not null,
-  primary key (user_id, book_id),
-  constraint fk_user_has_book_book1
-  foreign key (book_id) references book (id),
-  constraint fk_user_has_book_user1
-  foreign key (user_id) references user (id)
-);
-
-create index fk_user_has_book_book1_idx
-  on contribute (book_id);
-
-create index fk_user_has_book_user1_idx
-  on contribute (user_id);
-
-create table reaction
-(
-  book_id      int                                not null,
-  user_id      int                                not null,
-  comment      longtext                           not null,
-  rating       double default '2.5'               not null,
-  date_added   datetime default CURRENT_TIMESTAMP not null,
-  date_updated datetime default CURRENT_TIMESTAMP not null,
-  primary key (book_id, user_id),
-  constraint fk_book_has_user_book1
-  foreign key (book_id) references book (id),
-  constraint fk_book_has_user_user1
-  foreign key (user_id) references user (id)
-);
-
-create index fk_book_has_user_book1_idx
-  on reaction (book_id);
-
-create index fk_book_has_user_user1_idx
-  on reaction (user_id);
-
-create table ticket
-(
-  id         int auto_increment
-    primary key,
-  date_added varchar(45) not null,
-  user_id    int         not null,
-  constraint fk_ticket_user1
-  foreign key (user_id) references user (id)
-);
-
-create index fk_ticket_user1_idx
-  on ticket (user_id);
-
-create table ticket_detail
-(
-  book_id   int             not null,
-  ticket_id int             not null,
-  amount    int default '1' not null,
-  primary key (book_id, ticket_id),
-  constraint fk_book_has_ticket_book1
-  foreign key (book_id) references book (id),
-  constraint fk_book_has_ticket_ticket1
-  foreign key (ticket_id) references ticket (id)
-);
-
-create index fk_book_has_ticket_book1_idx
-  on ticket_detail (book_id);
-
-create index fk_book_has_ticket_ticket1_idx
-  on ticket_detail (ticket_id);
-
-create table user_role
-(
-  user_id int not null,
-  role_id int not null,
-  primary key (user_id, role_id),
-  constraint fk_user_has_role_role1
-  foreign key (role_id) references role (id),
-  constraint fk_user_has_role_user1
-  foreign key (user_id) references user (id)
-);
-
-create index fk_user_has_role_role1_idx
-  on user_role (role_id);
-
-create index fk_user_has_role_user1_idx
-  on user_role (user_id);
+-- -----------------------------------------------------
+-- Table `flib`.`author`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `flib`.`author` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
 
 
+-- -----------------------------------------------------
+-- Table `flib`.`book`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `flib`.`book` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
+  `author_id` INT(11) NOT NULL,
+  `rating` DOUBLE NOT NULL DEFAULT '5',
+  `date_added` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_published` DATETIME NOT NULL,
+  `amount` INT(11) NOT NULL,
+  `cover_image` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `book_author_id_fk` (`author_id` ASC),
+  CONSTRAINT `book_author_id_fk`
+    FOREIGN KEY (`author_id`)
+    REFERENCES `flib`.`author` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `flib`.`type`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `flib`.`type` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `type_name_uindex` (`name` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `flib`.`book_type`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `flib`.`book_type` (
+  `book_id` INT(11) NOT NULL,
+  `type_id` INT(11) NOT NULL,
+  PRIMARY KEY (`book_id`, `type_id`),
+  INDEX `book_type_type_id_fk` (`type_id` ASC),
+  CONSTRAINT `book_type_book_id_fk`
+    FOREIGN KEY (`book_id`)
+    REFERENCES `flib`.`book` (`id`),
+  CONSTRAINT `book_type_type_id_fk`
+    FOREIGN KEY (`type_id`)
+    REFERENCES `flib`.`type` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `flib`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `flib`.`user` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(60) NOT NULL,
+  `full_name` VARCHAR(255) NOT NULL,
+  `address` VARCHAR(255) NOT NULL,
+  `gender` VARCHAR(10) NOT NULL,
+  `identity_card` VARCHAR(12) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `flib`.`contribute`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `flib`.`contribute` (
+  `user_id` INT(11) NOT NULL,
+  `book_id` INT(11) NOT NULL,
+  `date_added` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` TINYINT(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`user_id`, `book_id`),
+  INDEX `fk_user_has_book_book1_idx` (`book_id` ASC),
+  INDEX `fk_user_has_book_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_has_book_book1`
+    FOREIGN KEY (`book_id`)
+    REFERENCES `flib`.`book` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_user_has_book_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `flib`.`user` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `flib`.`reaction`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `flib`.`reaction` (
+  `book_id` INT(11) NOT NULL,
+  `user_id` INT(11) NOT NULL,
+  `comment` LONGTEXT NOT NULL,
+  `rating` DOUBLE NOT NULL DEFAULT '2.5',
+  `date_added` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`book_id`, `user_id`),
+  INDEX `fk_book_has_user_book1_idx` (`book_id` ASC),
+  INDEX `fk_book_has_user_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_book_has_user_book1`
+    FOREIGN KEY (`book_id`)
+    REFERENCES `flib`.`book` (`id`),
+  CONSTRAINT `fk_book_has_user_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `flib`.`user` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `flib`.`role`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `flib`.`role` (
+  `id` INT(11) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `flib`.`ticket`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `flib`.`ticket` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `date_added` VARCHAR(45) NOT NULL,
+  `user_id` INT(11) NOT NULL,
+  `status` INT(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  INDEX `fk_ticket_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_ticket_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `flib`.`user` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `flib`.`ticket_detail`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `flib`.`ticket_detail` (
+  `book_id` INT(11) NOT NULL,
+  `ticket_id` INT(11) NOT NULL,
+  `amount` INT(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`book_id`, `ticket_id`),
+  INDEX `fk_book_has_ticket_book1_idx` (`book_id` ASC),
+  INDEX `fk_book_has_ticket_ticket1_idx` (`ticket_id` ASC),
+  CONSTRAINT `fk_book_has_ticket_book1`
+    FOREIGN KEY (`book_id`)
+    REFERENCES `flib`.`book` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_book_has_ticket_ticket1`
+    FOREIGN KEY (`ticket_id`)
+    REFERENCES `flib`.`ticket` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `flib`.`user_role`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `flib`.`user_role` (
+  `user_id` INT(11) NOT NULL,
+  `role_id` INT(11) NOT NULL,
+  PRIMARY KEY (`user_id`, `role_id`),
+  INDEX `fk_user_has_role_role1_idx` (`role_id` ASC),
+  INDEX `fk_user_has_role_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_has_role_role1`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `flib`.`role` (`id`),
+  CONSTRAINT `fk_user_has_role_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `flib`.`user` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
