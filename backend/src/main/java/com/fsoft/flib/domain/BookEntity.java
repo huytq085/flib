@@ -1,7 +1,5 @@
 package com.fsoft.flib.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -95,7 +93,7 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name = "cover_image", nullable = false, length = 255)
+    @Column(name = "cover_image", nullable = true, length = 255)
     public String getCoverImage() {
         return coverImage;
     }
@@ -125,7 +123,6 @@ public class BookEntity {
     }
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public AuthorEntity getAuthorByAuthorId() {
         return authorByAuthorId;

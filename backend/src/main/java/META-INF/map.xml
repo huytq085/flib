@@ -40,7 +40,7 @@
                 <column name="amount" precision="11"/>
             </basic>
             <basic name="coverImage">
-                <column name="cover_image"/>
+                <column name="cover_image" nullable="false"/>
             </basic>
             <many-to-one name="authorByAuthorId" optional="true" target-entity="com.fsoft.flib.domain.AuthorEntity">
                 <join-column name="author_id" referenced-column-name="id"/>
@@ -152,6 +152,9 @@
             <basic name="userId">
                 <column name="user_id" precision="11"/>
             </basic>
+            <basic name="status">
+                <column name="status" precision="11"/>
+            </basic>
             <many-to-one name="userByUserId" optional="true" target-entity="com.fsoft.flib.domain.UserEntity">
                 <join-column name="user_id" referenced-column-name="id"/>
             </many-to-one>
@@ -200,16 +203,16 @@
                 <column name="id" precision="11"/>
             </id>
             <basic name="email">
-                <column name="email" length="45"/>
+                <column name="email"/>
             </basic>
             <basic name="password">
-                <column name="password" length="100"/>
+                <column name="password" length="60"/>
             </basic>
             <basic name="fullName">
-                <column name="full_name" length="100"/>
+                <column name="full_name"/>
             </basic>
             <basic name="address">
-                <column name="address" length="100"/>
+                <column name="address"/>
             </basic>
             <basic name="gender">
                 <column name="gender" length="10"/>
