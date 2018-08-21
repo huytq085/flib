@@ -1,13 +1,11 @@
 package com.fsoft.flib.domain;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
 import javax.persistence.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.Objects;
 
 @Entity
-@Table(name = "user", schema = "flib", catalog = "")
+@Table(name = "user", schema = "flib")
 public class UserEntity {
     private int id;
     private String email;
@@ -139,6 +137,8 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "userByUserId")
     public Collection<UserRoleEntity> getUserRolesById() {
+        System.out.println("user role: " + userRolesById);
+        System.out.println("isEmppty: " +userRolesById.isEmpty());
         return userRolesById;
     }
 
@@ -146,13 +146,4 @@ public class UserEntity {
         this.userRolesById = userRolesById;
     }
 
-    @Transient
-    public Set<GrantedAuthority> getAuthorities(){
-        Set<GrantedAuthority> grantedAuthoritySet= new HashSet<>();
-        Collection<UserRoleEntity> idRoles= getUserRolesById();
-        for(UserRoleEntity id: idRoles){
-            grantedAuthoritySet.add(new SimpleGrantedAuthority(id.getRoleByRoleId().getName()));
-        }
-        return grantedAuthoritySet;
-    }
 }

@@ -71,8 +71,8 @@ public class UserController {
                 result = jwtService.generateTokenLogin(userEntity.getEmail());
                 httpStatus = HttpStatus.OK;
             } else {
-                result = "Wrong userId and password";
-                httpStatus = HttpStatus.BAD_REQUEST;git
+                result = "Wrong email and password";
+                httpStatus = HttpStatus.BAD_REQUEST;
             }
         } catch (Exception ex) {
             result = "Server Error";

@@ -1,11 +1,13 @@
 package com.fsoft.flib.security;
 
 import com.fsoft.flib.domain.UserEntity;
+import com.fsoft.flib.domain.UserRoleEntity;
 import com.fsoft.flib.repository.UserRepository;
 import com.fsoft.flib.service.JwtService;
 import com.fsoft.flib.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -23,6 +25,8 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
     @Autowired
     private JwtService jwtService;
     @Autowired
+    private UserService userService;
+    @Autowired
     private UserRepository userRepository;
 
     @Override
@@ -30,7 +34,9 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String authToken = httpRequest.getHeader(TOKEN_HEADER);
+        System.out.println("------ngoai");
         if (jwtService.validateTokenLogin(authToken)) {
+            System.out.println("co if");
             String username = jwtService.getUsernameFromToken(authToken);
             UserEntity user = userRepository.findByEmail(username);
             if (user != null) {
@@ -38,8 +44,9 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
                 boolean accountNonExpired = true;
                 boolean credentialsNonExpired = true;
                 boolean accountNonLocked = true;
+                System.out.println("-----JWT Filter: " + user.getFullName());
                 UserDetails userDetail = new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), enabled, accountNonExpired,
-                        credentialsNonExpired, accountNonLocked, user.getAuthorities());
+                        credentialsNonExpired, accountNonLocked, userService.getAuthorities(user) );
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail,
                         null, userDetail.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));

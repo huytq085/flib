@@ -1,5 +1,7 @@
 package com.fsoft.flib.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
