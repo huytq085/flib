@@ -10,6 +10,7 @@ public class TicketEntity {
     private int id;
     private String dateAdded;
     private int userId;
+    private int status;
     private UserEntity userByUserId;
     private Collection<TicketDetailEntity> ticketDetailsById;
 
@@ -43,6 +44,16 @@ public class TicketEntity {
         this.userId = userId;
     }
 
+    @Basic
+    @Column(name = "status", nullable = false)
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,12 +61,13 @@ public class TicketEntity {
         TicketEntity that = (TicketEntity) o;
         return id == that.id &&
                 userId == that.userId &&
+                status == that.status &&
                 Objects.equals(dateAdded, that.dateAdded);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateAdded, userId);
+        return Objects.hash(id, dateAdded, userId, status);
     }
 
     @ManyToOne

@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user", schema = "flib")
+@Table(name = "user", schema = "flib", catalog = "")
 public class UserEntity {
     private int id;
     private String email;
@@ -30,7 +30,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "email", nullable = false, length = 45)
+    @Column(name = "email", nullable = false, length = 255)
     public String getEmail() {
         return email;
     }
@@ -40,7 +40,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "password", nullable = false, length = 100)
+    @Column(name = "password", nullable = false, length = 60)
     public String getPassword() {
         return password;
     }
@@ -50,7 +50,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "full_name", nullable = false, length = 100)
+    @Column(name = "full_name", nullable = false, length = 255)
     public String getFullName() {
         return fullName;
     }
@@ -60,7 +60,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "address", nullable = false, length = 100)
+    @Column(name = "address", nullable = false, length = 255)
     public String getAddress() {
         return address;
     }
@@ -137,13 +137,10 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "userByUserId")
     public Collection<UserRoleEntity> getUserRolesById() {
-        System.out.println("user role: " + userRolesById);
-        System.out.println("isEmppty: " +userRolesById.isEmpty());
         return userRolesById;
     }
 
     public void setUserRolesById(Collection<UserRoleEntity> userRolesById) {
         this.userRolesById = userRolesById;
     }
-
 }

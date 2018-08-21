@@ -5,17 +5,17 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "role", schema = "flib")
+@Table(name = "role", schema = "flib", catalog = "")
 public class RoleEntity {
     private int id;
     private String name;
     private Collection<UserRoleEntity> userRolesById;
 
-    public RoleEntity(String name) {
-        this.name = name;
+    public RoleEntity() {
     }
 
-    public RoleEntity() {
+    public RoleEntity(String name) {
+        this.name = name;
     }
 
     @Id
