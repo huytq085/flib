@@ -2,17 +2,18 @@ package com.fsoft.flib.service;
 
 import com.fsoft.flib.domain.UserEntity;
 import com.fsoft.flib.domain.UserRoleEntity;
+import com.fsoft.flib.repository.RoleRepository;
 import com.fsoft.flib.repository.UserRepository;
 import com.fsoft.flib.repository.UserRolesRepository;
 import com.fsoft.flib.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,11 +24,16 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRolesRepository userRolesRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     public boolean save(UserEntity userEntity) {
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        if (userRepository.save(userEntity) != null || userEntity.equals(userRepository.save(userEntity))) {
+        if (userRepository.save(userEntity) != null) {
+            int idUser = userRepository.findByEmail(userEntity.getEmail()).getId();
+            int idRole_Member = roleRepository.findByName("ROLE_MEMBER").getId();
+            userRolesRepository.save(new UserRoleEntity(idUser, idRole_Member));
             return true;
         }
         return false;
@@ -77,7 +83,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<GrantedAuthority> getAuthorities(UserEntity userEntity){
+    public List<GrantedAuthority> getAuthorities(UserEntity userEntity) {
         List<String> roleNames = userRolesRepository.getRoleNameByEmail(userEntity.getEmail());
         System.out.println("role names");
         System.out.println(JsonUtil.encode(roleNames));
