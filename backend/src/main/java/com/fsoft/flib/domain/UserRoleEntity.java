@@ -12,6 +12,14 @@ public class UserRoleEntity {
     private UserEntity userByUserId;
     private RoleEntity roleByRoleId;
 
+    public UserRoleEntity() {
+    }
+
+    public UserRoleEntity(int userId, int roleId) {
+        this.userId = userId;
+        this.roleId = roleId;
+    }
+
     @Id
     @Column(name = "user_id", nullable = false)
     public int getUserId() {
