@@ -45,5 +45,10 @@ public class BookServiceImpl implements BookService{
         return bookRepository.findAll(PageRequest.of(page,size));
     }
 
+    @Override
+    public List<BookEntity> getContributesByEmail(String email) {
+        return bookRepository.findAllContributesByEmail(email);
+    }
+
 
 }

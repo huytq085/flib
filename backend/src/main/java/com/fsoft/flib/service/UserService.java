@@ -22,4 +22,6 @@ public interface UserService {
     boolean checkLogin(UserEntity userEntity);
 
     List<GrantedAuthority> getAuthorities(UserEntity userEntity);
+
+    UserEntity getByEmail(String email);
 }

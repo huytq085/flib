@@ -91,4 +91,9 @@ public class UserServiceImpl implements UserService {
         }
         return grantList;
     }
+
+    @Override
+    public UserEntity getByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }
