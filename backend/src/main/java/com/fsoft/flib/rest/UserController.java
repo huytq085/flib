@@ -18,7 +18,6 @@ import java.util.List;
 public class UserController {
     private final String BASE_URL = "/users";
     private final String GET_ONE_URL = BASE_URL + "/{id}";
-    private final String LOGIN_URL = "/login";
 
     @Autowired
     private UserService userService;

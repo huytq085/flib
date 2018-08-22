@@ -59,7 +59,7 @@ public class AuthController {
         System.out.println(JsonUtil.encode(newUser));
         if (userService.save(newUser)) {
             System.out.println("Created");
-            System.out.println(JsonUtil.encode(newUser));;
+            System.out.println(JsonUtil.encode(newUser));
             return new ResponseEntity<>("Created!", HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("User Existed!", HttpStatus.BAD_REQUEST);

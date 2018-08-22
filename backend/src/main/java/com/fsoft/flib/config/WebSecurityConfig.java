@@ -5,7 +5,6 @@ import com.fsoft.flib.security.JwtAuthenticationTokenFilter;
 import com.fsoft.flib.security.RestAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -53,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/api/**");
         http
                 .authorizeRequests()
-                .antMatchers("/api/users/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+                .antMatchers("/api/users/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')")
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()
