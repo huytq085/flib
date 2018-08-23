@@ -1,6 +1,8 @@
 package com.fsoft.flib.service;
 
 import com.fsoft.flib.domain.UserEntity;
+import com.fsoft.flib.domain.UserRoleEntity;
+import com.fsoft.flib.repository.RoleRepository;
 import com.fsoft.flib.repository.UserRepository;
 import com.fsoft.flib.repository.UserRolesRepository;
 import com.fsoft.flib.util.JsonUtil;
@@ -39,8 +41,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean update(UserEntity userEntity) {
-        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        if (userRepository.findById(userEntity.getId()) != null) {
+        //getpassword từ id của userEntity userEntity không chứa password)
+        UserEntity user = userRepository.findById(userEntity.getId());
+        userEntity.setPassword(user.getPassword());
+        if (user != null) {
             userRepository.save(userEntity);
             return true;
         }
