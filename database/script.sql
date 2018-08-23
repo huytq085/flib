@@ -35,10 +35,11 @@ CREATE TABLE IF NOT EXISTS `flib`.`book` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
   `author_id` INT(11) NOT NULL,
-  `rating` DOUBLE NOT NULL DEFAULT '5',
+  `rating` DOUBLE NOT NULL DEFAULT '2.5',
   `date_added` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_published` DATETIME NOT NULL,
+  `date_published` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `amount` INT(11) NOT NULL,
+  `description` TEXT NOT NULL,
   `cover_image` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `book_author_id_fk` (`author_id` ASC),
@@ -148,7 +149,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `flib`.`role`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `flib`.`role` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL auto_increment,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
@@ -160,7 +161,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `flib`.`ticket` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `date_added` VARCHAR(45) NOT NULL,
+  `date_added` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` INT(11) NOT NULL,
   `status` INT(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),

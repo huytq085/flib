@@ -1,13 +1,9 @@
 package com.fsoft.flib.service;
 
 import com.fsoft.flib.domain.UserEntity;
-import com.fsoft.flib.domain.UserRoleEntity;
 import com.fsoft.flib.repository.UserRepository;
-import com.fsoft.flib.repository.UserRolesRepository;
-import com.fsoft.flib.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

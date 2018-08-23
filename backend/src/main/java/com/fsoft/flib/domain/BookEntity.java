@@ -1,6 +1,6 @@
 package com.fsoft.flib.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -17,6 +17,7 @@ public class BookEntity {
     private Timestamp dateAdded;
     private Timestamp datePublished;
     private int amount;
+    private String description;
     private String coverImage;
     private AuthorEntity authorByAuthorId;
     private Collection<BookTypeEntity> bookTypesById;
@@ -95,6 +96,16 @@ public class BookEntity {
     }
 
     @Basic
+    @Column(name = "description", nullable = true, length = -1)
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Basic
     @Column(name = "cover_image", nullable = true, length = 255)
     public String getCoverImage() {
         return coverImage;
@@ -116,16 +127,17 @@ public class BookEntity {
                 Objects.equals(name, that.name) &&
                 Objects.equals(dateAdded, that.dateAdded) &&
                 Objects.equals(datePublished, that.datePublished) &&
+                Objects.equals(description, that.description) &&
                 Objects.equals(coverImage, that.coverImage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, authorId, rating, dateAdded, datePublished, amount, coverImage);
+        return Objects.hash(id, name, authorId, rating, dateAdded, datePublished, amount, description, coverImage);
     }
 
     @ManyToOne
-    @JsonBackReference
+    @JsonManagedReference
     @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public AuthorEntity getAuthorByAuthorId() {
         return authorByAuthorId;

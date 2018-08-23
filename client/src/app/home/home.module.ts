@@ -4,6 +4,7 @@ import { BookListComponent } from './content/book-list/book-list.component';
 import { BookDetailComponent } from './content/book-list/book-detail/book-detail.component';
 import { ContentComponent } from './content/content.component';
 import { HomeComponent } from './home.component';
+import { PaginationComponent } from './content/pagination/pagination.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { HomeComponent } from './home.component';
     BookListComponent,
     BookDetailComponent,
     ContentComponent,
-    HomeComponent
+    HomeComponent,
+    PaginationComponent
   ]
 })
 export class HomeModule { }

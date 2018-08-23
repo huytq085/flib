@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Profile, Ticket } from '../models';
-import { Book } from '../../model/book.model';
+import { Book } from '../models/book.model';
 
 const BASE_URL = '/profile';
 
@@ -14,6 +14,7 @@ export class ProfileService {
   constructor(
     private apiService: ApiService
   ) { }
+
 
   getInfo(): Observable<Profile> {
     return this.apiService.get(`${BASE_URL}/info`);

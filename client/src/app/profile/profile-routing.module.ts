@@ -7,7 +7,7 @@ import { ProfileContributeComponent } from './profile-contribute/profile-contrib
 
 const routes: Routes = [
   {
-    path: '',
+    path: '/{id}',
     component: ProfileComponent,
     children: [
       {
@@ -37,7 +37,7 @@ const routes: Routes = [
 
 @NgModule({
   exports: [RouterModule],
-  imports: [RouterModule.forRoot(routes)]
+  imports: [RouterModule.forChild(routes)]
 })
 
 @NgModule({

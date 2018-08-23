@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Book} from '../../model/book.model';
+import {Book} from '../../core/models/book.model';
 
 @Component({
   selector: 'app-content',
@@ -20,26 +20,26 @@ export class ContentComponent implements OnInit {
   books: Book[] = [];
 
   constructor() {
-    console.log(new Book('Book a', 'Tam 6 mui', 1, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book a', 'Tam 6 mui', 1, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book b', 'Huy magic', 1.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book c', 'Quang dep trai', 2, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book d', 'Tam 6 mui', 2.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book e', 'Huy magic', 3, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book f', 'Quang dep trai', 3.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book g', 'Tam 6 mui', 4, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book h', 'Huy magic', 4.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book aa', 'Quang dep trai', 5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book ab', 'Tam 6 mui', 1, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book ac', 'Huy magic', 1.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book ad', 'Quang dep trai', 2, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book ae', 'Tam 6 mui', 2.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book af', 'Huy magic', 3, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book ag', 'Quang dep trai', 3.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book ah', 'Tam 6 mui', 4, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book ba', 'Huy magic', 4.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book bb', 'Quang dep trai', 5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    this.books.push(new Book('Book bc', 'Tam 6 mui', 1, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // console.log(new Book('Book a', 'Tam 6 mui', 1, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book a', 'Tam 6 mui', 1, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book b', 'Huy magic', 1.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book c', 'Quang dep trai', 2, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book d', 'Tam 6 mui', 2.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book e', 'Huy magic', 3, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book f', 'Quang dep trai', 3.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book g', 'Tam 6 mui', 4, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book h', 'Huy magic', 4.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book aa', 'Quang dep trai', 5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book ab', 'Tam 6 mui', 1, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book ac', 'Huy magic', 1.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book ad', 'Quang dep trai', 2, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book ae', 'Tam 6 mui', 2.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book af', 'Huy magic', 3, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book ag', 'Quang dep trai', 3.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book ah', 'Tam 6 mui', 4, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book ba', 'Huy magic', 4.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book bb', 'Quang dep trai', 5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
+    // this.books.push(new Book('Book bc', 'Tam 6 mui', 1, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
   }
 
   getMin(): number {

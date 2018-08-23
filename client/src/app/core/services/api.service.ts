@@ -21,16 +21,16 @@ export class ApiService {
   }
 
   get(path: string, params?: HttpParams): Observable<any> {
-    return this.http.get(`${API_URL}${path}`, { params })
+    return this.http.get<any>(`${API_URL}${path}`, { params })
       .pipe(catchError(this.handleError));
   }
 
-  post(path: string, body: {}, options: {}): Observable<any> {
-    return this.http.post(`${API_URL}${path}`, JSON.stringify(body), options)
+  post(path: string, body: any, options: {}): Observable<any> {
+    return this.http.post<any>(`${API_URL}${path}`, body, options)
       .pipe(catchError(this.handleError));
   }
-  put(path: string, body: {}, options: {}): Observable<any> {
-    return this.http.put(`${API_URL}${path}`, JSON.stringify(body), options)
+  put(path: string, body: any, options: {}): Observable<any> {
+    return this.http.put<any>(`${API_URL}${path}`, body, options)
       .pipe(catchError(this.handleError));
   }
   delete(path: string): Observable<any> {
