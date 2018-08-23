@@ -41,8 +41,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean update(UserEntity userEntity) {
-        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        if (userRepository.findById(userEntity.getId()) != null) {
+        //getpassword từ id của userEntity userEntity không chứa password)
+        UserEntity user = userRepository.findById(userEntity.getId());
+        userEntity.setPassword(user.getPassword());
+        if (user != null) {
             userRepository.save(userEntity);
             return true;
         }
@@ -96,5 +98,10 @@ public class UserServiceImpl implements UserService {
             }
         }
         return grantList;
+    }
+
+    @Override
+    public UserEntity getByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

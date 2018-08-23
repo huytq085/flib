@@ -18,4 +18,6 @@ public interface BookService {
     Optional<BookEntity> getOne(int bookId);
 
     Page<BookEntity> getPageBook(int number, int size);
+
+    List<BookEntity> getContributesByEmail(String email);
 }
