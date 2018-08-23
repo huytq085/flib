@@ -39,6 +39,9 @@
             <basic name="amount">
                 <column name="amount" precision="11"/>
             </basic>
+            <basic name="description">
+                <column name="description" nullable="false"/>
+            </basic>
             <basic name="coverImage">
                 <column name="cover_image" nullable="false"/>
             </basic>

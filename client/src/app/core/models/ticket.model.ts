@@ -1,4 +1,4 @@
-import { Book } from './../../model/book.model';
+import { Book } from './book.model';
 export class Ticket {
     id?: number;
     books: Book[];

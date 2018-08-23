@@ -1,17 +1,14 @@
 package com.fsoft.flib.config;
 
-import com.fsoft.flib.domain.*;
+import com.fsoft.flib.domain.RoleEntity;
+import com.fsoft.flib.domain.UserEntity;
+import com.fsoft.flib.domain.UserRoleEntity;
 import com.fsoft.flib.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Component
 public class DataSeedingListener implements ApplicationListener<ContextRefreshedEvent> {
@@ -54,8 +51,9 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
         }
 
         // Admin account
-        UserEntity admin = new UserEntity();
-        if (userRepository.findByEmail("admin@gmail.com") == null) {
+        UserEntity admin = userRepository.findByEmail("admin@gmail.com");
+        if (admin == null) {
+            admin = new UserEntity();
             admin.setEmail("admin@gmail.com");
             admin.setPassword(passwordEncoder.encode("123456"));
             admin.setAddress("AdminHouse");
@@ -76,6 +74,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
         // Member account
         UserEntity member = userRepository.findByEmail("member@gmail.com");
         if (member == null) {
+            member = new UserEntity();
             member.setEmail("member@gmail.com");
             member.setPassword(passwordEncoder.encode("123456"));
             member.setAddress("MemberHouse");

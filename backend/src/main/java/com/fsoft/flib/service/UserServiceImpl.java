@@ -1,8 +1,6 @@
 package com.fsoft.flib.service;
 
 import com.fsoft.flib.domain.UserEntity;
-import com.fsoft.flib.domain.UserRoleEntity;
-import com.fsoft.flib.repository.RoleRepository;
 import com.fsoft.flib.repository.UserRepository;
 import com.fsoft.flib.repository.UserRolesRepository;
 import com.fsoft.flib.util.JsonUtil;

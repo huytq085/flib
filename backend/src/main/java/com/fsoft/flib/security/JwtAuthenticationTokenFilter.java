@@ -2,14 +2,10 @@ package com.fsoft.flib.security;
 
 import com.fsoft.flib.domain.UserEntity;
 import com.fsoft.flib.repository.UserRepository;
-import com.fsoft.flib.repository.UserRolesRepository;
 import com.fsoft.flib.service.JwtService;
 import com.fsoft.flib.service.UserService;
-import com.fsoft.flib.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -21,7 +17,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.*;
 
 public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthenticationFilter {
     private final static String TOKEN_HEADER = "authorization";

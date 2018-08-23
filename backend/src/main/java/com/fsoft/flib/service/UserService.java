@@ -4,7 +4,6 @@ import com.fsoft.flib.domain.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service
