@@ -9,7 +9,7 @@
 </ul> -->
 <ul class="pagination" *ngIf="pageBook">
   <li class="page-item disabled" [ngClass]="{disabled:pageBook.number === 0}">
-    <a class="page-link" (click)="setPage(1)">First</a>
+    <a class="page-link" (click)="setPage(0)">First</a>
   </li>
   <li class="page-item disabled" [ngClass]="{'disabled':pageBook.number === 0} " >
     <a class="page-link" (click)="setPage(pageBook.number - 1)">Previous</a>
@@ -21,6 +21,6 @@
     <a class="page-link" (click)="setPage(pageBook.number + 1)">Next</a>
   </li>
   <li class="page-item disabled" [ngClass]="{disabled:pageBook.number === pageBook.totalPages-1}">
-    <a class="page-link" (click)="setPage(pageBook.totalPages)">Last</a>
+    <a class="page-link" (click)="setPage(pageBook.totalPages-1)">Last</a>
   </li>
 </ul>
