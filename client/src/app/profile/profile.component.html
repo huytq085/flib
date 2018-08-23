@@ -8,12 +8,36 @@
         <div class="w-100 line d-block d-md-none"></div>
         <div class="col-md-3 clearfix">
           <div class="list-group">
-            <a routerLink="" 
+            <a routerLink="info" 
               routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
               class="list-group-item list-group-item-action clearfix">Infomation
               <i class="icon-user float-right"></i>
             </a>
-            
+            <a routerLink="ticket" 
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="list-group-item list-group-item-action clearfix">Ticket
+              <i class="icon-user float-right"></i>
+            </a>
+            <a routerLink="favourite" 
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="list-group-item list-group-item-action clearfix">Favourite
+              <i class="icon-user float-right"></i>
+            </a>
+            <a routerLink="notification" 
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="list-group-item list-group-item-action clearfix">Notification
+              <i class="icon-user float-right"></i>
+            </a>
+            <a routerLink="contribute" 
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="list-group-item list-group-item-action clearfix">Contribute
+              <i class="icon-user float-right"></i>
+            </a>
           </div>
           <div class="fancy-title topmargin title-border">
             <h4>About Me</h4>

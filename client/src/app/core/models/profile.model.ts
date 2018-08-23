@@ -1,5 +1,4 @@
-export class Profile {
-    username: string;
-    id: number;
+import { User } from './user.model'
+export class Profile extends User {
     
 }

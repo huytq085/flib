@@ -17,7 +17,6 @@ import java.util.List;
 public class UserController {
     private final String BASE_URL = "/users";
     private final String GET_ONE_URL = BASE_URL + "/{id}";
-    private final String UPDATE_URL= "/update";
 
     @Autowired
     private UserService userService;
@@ -52,7 +51,7 @@ public class UserController {
 
 
     /* ---------------- UPDATE USER ------------------------ */
-    @RequestMapping(value = UPDATE_URL, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = BASE_URL, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> updateUserById(@RequestBody UserEntity userEntity, Principal principal) {
         if(userEntity.getEmail().equals(principal.getName())){
             if (userService.update(userEntity)) {
@@ -62,6 +61,4 @@ public class UserController {
         }
         return new ResponseEntity<>("Not updated!", HttpStatus.NO_CONTENT);
     }
-
-
 }

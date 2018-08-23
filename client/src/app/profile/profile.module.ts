@@ -7,18 +7,21 @@ import { ProfileNotificationComponent } from './profile-notification/profile-not
 import { ProfileOrderComponent } from './profile-order/profile-order.component';
 import { ProfileFavouriteComponent } from './profile-favourite/profile-favourite.component';
 import { ProfileContributeComponent } from './profile-contribute/profile-contribute.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
-    ProfileComponent, 
-    ProfileInfoComponent, 
-    ProfileNotificationComponent, 
-    ProfileOrderComponent, 
-    ProfileFavouriteComponent, 
+    ProfileComponent,
+    ProfileInfoComponent,
+    ProfileNotificationComponent,
+    ProfileOrderComponent,
+    ProfileFavouriteComponent,
     ProfileContributeComponent
   ]
 })
