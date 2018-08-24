@@ -18,8 +18,12 @@ public class BookController {
     private final String GET_ALL_BOOK = BASE_URL + "/all";
     private final String GET_PAGE_BOOK = BASE_URL + "/page";
 
+    private final BookService bookService;
+
     @Autowired
-    private BookService bookService;
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     //    @RequestMapping(
 //            value = "/{id}",
