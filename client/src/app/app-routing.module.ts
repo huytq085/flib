@@ -1,13 +1,9 @@
 import { NgModule } from '@angular/core';
-import { HomeComponent } from './home/home.component';
 import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent
-  },
+  { path: '', redirectTo: '/book', pathMatch: 'full' },
   {
     path: 'settings',
     loadChildren: './settings/settings.module#SettingsModule'
@@ -15,12 +11,12 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: './profile/profile.module#ProfileModule'
-  }
-
-]
+  },
+  { path: 'book', loadChildren: './home/home.module#HomeModule' },
+];
 
 @NgModule({
   exports: [RouterModule],
-  imports: [RouterModule.forRoot(routes,{ enableTracing: true })]
+  imports: [RouterModule.forRoot(routes, { enableTracing: true })]
 })
 export class AppRoutingModule { }

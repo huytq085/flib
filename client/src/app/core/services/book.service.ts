@@ -17,10 +17,14 @@ export class BookService {
     return this.api.get(`/book/all`);
   }
 
+  getBook(id: number): Observable<Book> {
+    return this.api.get(`/book/${id}`);
+  }
+
   getBookByPage(page: number, size: number): Observable<PageBook> {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString());
-    return this.api.get(`/book/page`,params);
+    return this.api.get(`/book/page`, params);
   }
 }

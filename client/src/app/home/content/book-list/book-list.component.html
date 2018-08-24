@@ -33,22 +33,23 @@
       <!--SHOP-->
       <div class="postcontent nobottommargin col_last">
         <div id="shop" class="shop product-3 grid-container clearfix">
-          <div class="product sf-pant clearfix" *ngFor="let book of books">
+          <div style="cursor:pointer" class="product sf-pant clearfix" *ngFor="let book of books" routerLink="/book/{{book.id}}">
             <div class="product-image">
-              <a href="#"><img src="{{book.coverImage}}" alt="{{book.name}}"></a>
+              <a><img src="{{book.coverImage}}" alt="{{book.name}}"></a>
               <div class="product-overlay">
-                <a href="#" class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
-                <a href="../../../assets/themes/include/ajax/shop-item.html" class="item-quick-view"
-                   data-lightbox="ajax"><i
-                  class="icon-zoom-in2"></i><span> Quick View</span></a>
+                <a class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                <a class="add-to-cart" style="cursor: pointer;" data-lightbox="ajax" routerLink="/book/{{book.id}}"><i class="icon-zoom-in2"></i><span>
+                  Quick View</span></a>
               </div>
             </div>
             <div class="product-desc center">
-              <div class="product-title"><h3><a href="#">{{book.name}}</a></h3></div>
+              <div class="product-title">
+                <h3><a>{{book.name}}</a></h3>
+              </div>
               <div class="product-price">{{book.authorByAuthorId}}</div>
               <div class="product-rating">
                 <i class="icon-star3" *ngFor="let number of [1,2,3,4,5]" [ngClass]="{
-                    'icon-star3': number<=book.rating,
+                    'icon-star3': number <= book.rating,
                     'icon-star-half-full': number>book.rating && book.rating+1 >number,
                     'icon-star-empty':number>book.rating
                   }">

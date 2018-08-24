@@ -14,8 +14,8 @@ const routes: Routes = [
     component: ProfileComponent,
     children: [
       {
-        path: '', 
-        redirectTo: 'info', 
+        path: '',
+        redirectTo: 'info',
         pathMatch: 'full'
       },
       {
@@ -41,7 +41,7 @@ const routes: Routes = [
     ]
   }
 
-]
+];
 
 @NgModule({
   exports: [RouterModule],
