@@ -1,28 +1,102 @@
-<div class="stretched">
-  <div id="wrapper" class="clearfix">
-    <section id="content">
-      <div class="content-wrap">
-        <div class="container clearfix">
-          <div class="single-product">
-            <div class="product">
-              <div class="col_two_fifth">
-                <div class="product-image">
-									<div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
-										<div class="flexslider">
-											<div class="slider-wrap" data-lightbox="gallery">
-												<div class="slide" data-thumb="images/shop/thumbs/dress/3.jpg"><a href="images/shop/dress/3.jpg" title="Pink Printed Dress - Front View" data-lightbox="gallery-item"><img src="images/shop/dress/3.jpg" alt="Pink Printed Dress"></a></div>
-												<div class="slide" data-thumb="images/shop/thumbs/dress/3-1.jpg"><a href="images/shop/dress/3-1.jpg" title="Pink Printed Dress - Side View" data-lightbox="gallery-item"><img src="images/shop/dress/3-1.jpg" alt="Pink Printed Dress"></a></div>
-												<div class="slide" data-thumb="images/shop/thumbs/dress/3-2.jpg"><a href="images/shop/dress/3-2.jpg" title="Pink Printed Dress - Back View" data-lightbox="gallery-item"><img src="images/shop/dress/3-2.jpg" alt="Pink Printed Dress"></a></div>
-											</div>
-										</div>
-									</div>
-									<div class="sale-flash">Sale!</div>
-								</div>
+<!-- BOOK NAME -->
+<section id="page-title">
+  <div class="container clearfix">
+    <h1 *ngIf="book">{{book.name}}</h1>
+  </div>
+</section><!-- #page-title end -->
+<!-- BOOK NAME -->
+
+<!-- Content
+		============================================= -->
+<section id="content">
+  <div class="content-wrap">
+    <div class="container clearfix">
+      <div class="single-product">
+        <div class="product">
+          <div class="col_two_fifth">
+            <!-- Product Single - Gallery
+								============================================= -->
+            <div class="product-image">
+              <img src="{{book.coverImage}}" alt="">
+              <!-- <div class="fslider">
+                <div class="flexslider">
+                  <div class="slider-wrap">
+                    <div class="slide">
+                      <a *ngIf="book" title="Pink Printed Dress - Front View">
+                        <img [src]="book.coverImage" alt="Pink Printed Dress">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="col_two_fifth product-desc">
+
+            <div class="product-price"><del>$39.99</del> <ins>$24.99</ins></div><!-- Product Single - Price End -->
+
+            <div class="product-rating">
+              <i class="icon-star3" *ngFor="let number of [1,2,3,4,5]" [ngClass]="{
+                        'icon-star3': number <= book.rating,
+                        'icon-star-half-full': number>book.rating && book.rating+1 >number,
+                        'icon-star-empty':number>book.rating
+                      }">
+              </i>
+            </div>
+
+            <div class="clear"></div>
+            <div class="line"></div>
+
+            <form class="cart nobottommargin clearfix" method="post" enctype='multipart/form-data'>
+              <div class="quantity clearfix">
+                <input type="button" value="-" class="minus">
+                <input type="text" step="1" min="1" name="quantity" value="1" title="Qty" class="qty" size="4" />
+                <input type="button" value="+" class="plus">
               </div>
+              <button type="submit" class="add-to-cart button nomargin">Add to cart</button>
+            </form>
+
+            <div class="clear"></div>
+            <div class="line"></div>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero velit id eaque ex quae laboriosam nulla optio
+              doloribus! Perspiciatis, libero, neque, perferendis at nisi optio dolor!</p>
+            <p>Perspiciatis ad eveniet ea quasi debitis quos laborum eum reprehenderit eaque explicabo assumenda rem modi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section id="content">
+  <div class="content-wrap">
+    <div class="container clearfix">
+      <div class="single-product">
+        <div class="product">
+          <div class="col_two_fifth">
+            <div class="product-image">
+              <div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
+                <div class="flexslider">
+                  <div class="slider-wrap" data-lightbox="gallery">
+                    <div class="slide" data-thumb="images/shop/thumbs/dress/3.jpg"><a href="images/shop/dress/3.jpg" title="Pink Printed Dress - Front View"
+                        data-lightbox="gallery-item"><img src="images/shop/dress/3.jpg" alt="Pink Printed Dress"></a></div>
+                    <div class="slide" data-thumb="images/shop/thumbs/dress/3-1.jpg"><a href="images/shop/dress/3-1.jpg"
+                        title="Pink Printed Dress - Side View" data-lightbox="gallery-item"><img src="images/shop/dress/3-1.jpg"
+                          alt="Pink Printed Dress"></a></div>
+                    <div class="slide" data-thumb="images/shop/thumbs/dress/3-2.jpg"><a href="images/shop/dress/3-2.jpg"
+                        title="Pink Printed Dress - Back View" data-lightbox="gallery-item"><img src="images/shop/dress/3-2.jpg"
+                          alt="Pink Printed Dress"></a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="sale-flash">Sale!</div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   </div>
-</div>
+</section> -->

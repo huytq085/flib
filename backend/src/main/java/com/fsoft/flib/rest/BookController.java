@@ -25,22 +25,12 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    //    @RequestMapping(
-//            value = "/{id}",
-//            method = RequestMethod.GET,
-//            produces = MediaType.APPLICATION_JSON_VALUE
-//    )
     @GetMapping(path = GET_BOOK_BY_ID)
     public Optional<BookEntity> getBook(@PathVariable int id) {
         System.out.println(id);
         return bookService.getOne(id);
     }
 
-    //    @GetMapping(path = "/all")
-//    public Optional<BookEntity> getAllBook() {
-//        System.out.println(id);
-//        return this.bookRepository.findAll(new)
-//    }
     @GetMapping(path = GET_ALL_BOOK)
     public List<BookEntity> getBook() {
         return bookService.getAll();
@@ -50,4 +40,5 @@ public class BookController {
     public Page<BookEntity> getPageBook(@RequestParam int page, @RequestParam int size) {
         return bookService.getPageBook(page, size);
     }
+
 }

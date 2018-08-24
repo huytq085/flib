@@ -17,7 +17,7 @@ export class PaginationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.bookService.getBookByPage(0, 12).subscribe(data => {
+    this.bookService.getBookByPage(0, 9).subscribe(data => {
       this.pageBook = data;
       for (let i = 0; i < this.pageBook.totalPages; i++) {
         this.pages.push(i);
@@ -29,7 +29,7 @@ export class PaginationComponent implements OnInit {
   }
 
   setPage(number: number) {
-    this.bookService.getBookByPage(number, 12).subscribe(data => {
+    this.bookService.getBookByPage(number, 9).subscribe(data => {
       this.pageBook = data;
       this.pages.slice(this.pageBook.number - 3, this.pageBook.number + 3);
       console.log('Number of page' + this.pageBook.number);

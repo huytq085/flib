@@ -5,10 +5,13 @@ import { BookDetailComponent } from './content/book-list/book-detail/book-detail
 import { ContentComponent } from './content/content.component';
 import { HomeComponent } from './home.component';
 import { PaginationComponent } from './content/book-list/pagination/pagination.component';
+import { HomeRoutingModule } from './home-routing.module';
+
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    HomeRoutingModule
   ],
   declarations: [
     BookListComponent,

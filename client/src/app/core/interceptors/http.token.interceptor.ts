@@ -23,9 +23,9 @@ export class HttpTokenInterceptor implements HttpInterceptor {
     // const token = this.jwtService.getToken();
     const token = 'eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzUxMjg3NjUsImVtYWlsIjoibWVtYmVyQGdtYWlsLmNvbSJ9.VRF1tFiCNTAluCDTDx2k0en3BcV6P8f60bXfKq1kzZM';
     const authType: string = this._router.url;
-      
 
-    if (token && !(authType === '/login' || authType === '/register' )) {
+
+    if (token && !(authType === '/login' || authType === '/register')) {
       headersConfig['Authorization'] = `${token}`;
     }
 
