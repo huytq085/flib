@@ -29,7 +29,7 @@ public class AuthController {
 
     //------------------------------------------
     @RequestMapping(value = LOGIN_URL, method = RequestMethod.POST)
-    public ResponseEntity<String> login(HttpServletRequest request, @RequestBody UserEntity userEntity) {
+    public ResponseEntity<String> login(@RequestBody UserEntity userEntity) {
         String result = "";
         HttpStatus httpStatus = null;
         try {
