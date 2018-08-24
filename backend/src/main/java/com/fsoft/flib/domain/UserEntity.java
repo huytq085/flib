@@ -14,10 +14,7 @@ public class UserEntity {
     private String address;
     private String gender;
     private String identityCard;
-    private Collection<ContributeEntity> contributesById;
-    private Collection<ReactionEntity> reactionsById;
-    private Collection<TicketEntity> ticketsById;
-    private Collection<UserRoleEntity> userRolesById;
+
 
     @Id
     @Column(name = "id", nullable = false)
@@ -108,39 +105,4 @@ public class UserEntity {
         return Objects.hash(id, email, password, fullName, address, gender, identityCard);
     }
 
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<ContributeEntity> getContributesById() {
-        return contributesById;
-    }
-
-    public void setContributesById(Collection<ContributeEntity> contributesById) {
-        this.contributesById = contributesById;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<ReactionEntity> getReactionsById() {
-        return reactionsById;
-    }
-
-    public void setReactionsById(Collection<ReactionEntity> reactionsById) {
-        this.reactionsById = reactionsById;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<TicketEntity> getTicketsById() {
-        return ticketsById;
-    }
-
-    public void setTicketsById(Collection<TicketEntity> ticketsById) {
-        this.ticketsById = ticketsById;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<UserRoleEntity> getUserRolesById() {
-        return userRolesById;
-    }
-
-    public void setUserRolesById(Collection<UserRoleEntity> userRolesById) {
-        this.userRolesById = userRolesById;
-    }
 }

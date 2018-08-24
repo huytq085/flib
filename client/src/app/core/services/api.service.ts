@@ -11,7 +11,6 @@ const API_URL = environment.apiUrl;
 })
 export class ApiService {
   
-
   constructor(
     private http: HttpClient
   ) { }
@@ -25,11 +24,11 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  post(path: string, body: any, options: {}): Observable<any> {
+  post(path: string, body: any, options?: {}): Observable<any> {
     return this.http.post<any>(`${API_URL}${path}`, body, options)
       .pipe(catchError(this.handleError));
   }
-  put(path: string, body: any, options: {}): Observable<any> {
+  put(path: string, body: any, options?: {}): Observable<any> {
     return this.http.put<any>(`${API_URL}${path}`, body, options)
       .pipe(catchError(this.handleError));
   }

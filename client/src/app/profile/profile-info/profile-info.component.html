@@ -1,3 +1,88 @@
-<p>
-  profile-info works!
-</p>
+<img src="assets/themes/images/icons/avatar.jpg" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar"
+  style="max-width: 84px;">
+<div class="heading-block noborder">
+  <h3>{{ profile.fullName }}</h3>
+  <span>New Member</span>
+</div>
+<div class="clear"></div>
+<div class="">
+  <form [formGroup]="infoForm" (ngSubmit)="submitForm()">
+    <fieldset [disabled]="isSubmitting">
+        <div class="col_half">
+            <label for="fullName">Name</label>
+            <input class="form-control"
+            type="text"
+            placeholder="Full Name"
+            name="fullName"
+            formControlName="fullName" 
+            />
+          </div>
+      
+          <div class="col_half col_last">
+            <label for="email">Email Address</label>
+            <input class="form-control"
+              type="text"
+              placeholder="Email"
+              name="email"
+              formControlName="email" 
+              [attr.disabled]="true"
+            />
+          </div>
+      
+          <div class="clear"></div>
+      
+          <div class="col_half">
+            <label for="address">Address</label>
+            <input class="form-control"
+            type="text"
+            placeholder="Address"
+            name="address"
+            formControlName="address" 
+            />
+          </div>
+      
+          <div class="col_half col_last">
+            <label for="phone">Phone</label>
+            <input class="form-control"
+            type="text"
+            placeholder="Phone"
+            name="phone"
+            formControlName="phone" 
+            />
+          </div>
+      
+          <div class="clear"></div>
+      
+          <div class="col_half">
+            <label for="gender">Gender</label>
+            <select class="form-control" 
+                formControlName="gender"
+                name="gender"
+                placeholder="Gender"
+                class="form-control">
+                <option value="Male" selected>Male</option>
+                <option value="Female">Female</option>
+              </select>
+          </div>
+      
+          <div class="col_half col_last">
+            <label for="identityCard">Identidy Card</label>
+            <input class="form-control"
+            type="text"
+            placeholder="Identity Card"
+            name="identityCard"
+            formControlName="identityCard" 
+            />
+          </div>
+      
+          <div class="clear"></div>
+      
+          <div class="col_full nobottommargin">
+            <button class="button button-3d button-black nomargin" 
+            [disabled]="!infoForm.valid"
+            type="submit">Update</button>
+          </div>
+    </fieldset>
+  </form>
+
+</div>

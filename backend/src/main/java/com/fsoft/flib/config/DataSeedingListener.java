@@ -39,11 +39,14 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
     @Override
     public void onApplicationEvent(ContextRefreshedEvent arg0) {
         // Roles
+        System.out.println("onApplicationEvent");
         if (roleRepository.findByName("ROLE_ADMIN") == null) {
+            System.out.println("create role admin");
             roleRepository.save(new RoleEntity("ROLE_ADMIN"));
         }
 
         if (roleRepository.findByName("ROLE_MEMBER") == null) {
+            System.out.println("create role member");
             roleRepository.save(new RoleEntity("ROLE_MEMBER"));
         }
 

@@ -89,6 +89,7 @@ CREATE TABLE IF NOT EXISTS `flib`.`user` (
   `password` VARCHAR(60) NOT NULL,
   `full_name` VARCHAR(255) NOT NULL,
   `address` VARCHAR(255) NOT NULL,
+  `phone` VARCHAR(12),
   `gender` VARCHAR(10) NOT NULL,
   `identity_card` VARCHAR(12) NOT NULL,
   PRIMARY KEY (`id`),
