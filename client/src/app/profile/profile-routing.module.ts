@@ -7,6 +7,7 @@ import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { ProfileContributeComponent } from './profile-contribute/profile-contribute.component';
 import { ProfileNotificationComponent } from './profile-notification/profile-notification.component';
 import { ProfileOrderComponent } from './profile-order/profile-order.component';
+import { TicketDetailComponent } from './profile-order/ticket-detail/ticket-detail.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'ticket',
         component: ProfileOrderComponent
+      },
+      {
+        path: 'ticket/:id',
+        component: TicketDetailComponent
       },
       {
         path: 'favourite',

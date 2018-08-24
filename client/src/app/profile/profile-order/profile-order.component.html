@@ -1,3 +1,36 @@
-<p>
-  profile-order works!
-</p>
+<section id="content">
+    <div class="container clearfix">
+        <div class="table-responsive">
+          <table class="table cart">
+            <thead>
+              <tr>
+                <th class="cart-product-thumbnail">Ticket ID</th>
+                <th class="cart-product-name">Book</th>
+                <th class="cart-product-price">Date</th>
+                <th class="cart-product-quantity">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="cart_item" *ngFor="let ticket of tickets">
+                <td class="cart-product-thumbnail">
+                  <a [routerLink]="['/profile/ticket', ticket.id]">{{ ticket.id }}</a>
+                </td>
+  
+                <td class="cart-product-name">
+                  <a href="#">{{ ticket }}</a>
+                </td>
+  
+                <td class="cart-product-price">
+                  <span class="amount">{{ ticket.dateAdded | date: 'longDate' }}</span>
+                </td>
+  
+                <td class="cart-product-subtotal">
+                  <span class="amount">{{ ticket.status }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+</section>
+<!-- #content end -->
