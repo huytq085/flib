@@ -9,6 +9,7 @@ import { ProfileFavouriteComponent } from './profile-favourite/profile-favourite
 import { ProfileContributeComponent } from './profile-contribute/profile-contribute.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TicketDetailComponent } from './profile-order/ticket-detail/ticket-detail.component';
+import { TicketDetailResolver } from './profile-order/ticket-detail/ticket-detail-resolver.service'
 
 @NgModule({
   imports: [
@@ -25,6 +26,9 @@ import { TicketDetailComponent } from './profile-order/ticket-detail/ticket-deta
     ProfileFavouriteComponent,
     ProfileContributeComponent,
     TicketDetailComponent
+  ],
+  providers: [
+    TicketDetailResolver
   ]
 })
 export class ProfileModule { }

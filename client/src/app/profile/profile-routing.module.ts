@@ -8,6 +8,7 @@ import { ProfileContributeComponent } from './profile-contribute/profile-contrib
 import { ProfileNotificationComponent } from './profile-notification/profile-notification.component';
 import { ProfileOrderComponent } from './profile-order/profile-order.component';
 import { TicketDetailComponent } from './profile-order/ticket-detail/ticket-detail.component';
+import { TicketDetailResolver } from './profile-order/ticket-detail/ticket-detail-resolver.service';
 
 const routes: Routes = [
   {
@@ -33,7 +34,10 @@ const routes: Routes = [
       },
       {
         path: 'ticket/:id',
-        component: TicketDetailComponent
+        component: TicketDetailComponent,
+        resolve: {
+          ticket: TicketDetailResolver
+        }
       },
       {
         path: 'favourite',

@@ -29,41 +29,5 @@ export class ProfileOrderComponent implements OnInit {
 
 
   // Create data for testing purpose
-  addData(){
-    for (let i = 0; i < 5; i++) {
-      let toDate = new Date();
-      this.tickets.push(
-        {
-          id: i,
-          dateAdded: toDate.toDateString(),
-          books: [
-            {
-              name: `New book ${i}`,
-              rating: 5,
-              dateAdded: toDate.toDateString()
-            },
-            {
-              name: `New book ${i}`,
-              rating: 5,
-              dateAdded: toDate.toDateString()
-            },
-            ,
-            {
-              name: `New book ${i}`,
-              rating: 5,
-              dateAdded: toDate.toDateString()
-            },
-            {
-              name: `New book ${i}`,
-              rating: 5,
-              dateAdded: toDate.toDateString()
-            }
-
-          ] as Book[],
-          status: 1
-        }
-      )
-      
-    }
-  }
+  
 }

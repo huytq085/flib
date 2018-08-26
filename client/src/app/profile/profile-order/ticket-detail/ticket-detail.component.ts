@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Location} from '@angular/common';
+import { Ticket } from '../../../core';
+import { ActivatedRoute } from '@angular/router';
+import { Book } from '../../../core/models/book.model';
+import { TicketDetail } from '../../../core/models/ticket-detail.model';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -8,12 +12,21 @@ import {Location} from '@angular/common';
 })
 export class TicketDetailComponent implements OnInit {
 
+  ticketDetails: TicketDetail[] = new Array();
+  ticketId;
   constructor(
     private location: Location,
+    private route: ActivatedRoute
 
   ) { }
 
   ngOnInit() {
+    this.route.data
+    .subscribe(data => {
+      console.log(data)
+      this.ticketId = data.ticket.id;
+      this.ticketDetails = data.ticket.ticketDetailsById;
+    });
   }
 
   goBack(){

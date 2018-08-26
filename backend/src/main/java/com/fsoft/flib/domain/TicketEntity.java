@@ -1,5 +1,8 @@
 package com.fsoft.flib.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -7,6 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ticket", schema = "flib", catalog = "")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TicketEntity {
     private int id;
     private Timestamp dateAdded;
@@ -81,7 +85,8 @@ public class TicketEntity {
         this.userByUserId = userByUserId;
     }
 
-    @OneToMany(mappedBy = "ticketByTicketId")
+    @OneToMany(mappedBy = "ticketByTicketId", fetch = FetchType.EAGER)
+    @JsonManagedReference
     public Collection<TicketDetailEntity> getTicketDetailsById() {
         return ticketDetailsById;
     }

@@ -1,11 +1,14 @@
 package com.fsoft.flib.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "type", schema = "flib", catalog = "")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TypeEntity {
     private int id;
     private String name;

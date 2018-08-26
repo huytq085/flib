@@ -1,5 +1,8 @@
 package com.fsoft.flib.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -7,6 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "contribute", schema = "flib", catalog = "")
 @IdClass(ContributeEntityPK.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ContributeEntity {
     private int userId;
     private int bookId;
@@ -72,6 +76,7 @@ public class ContributeEntity {
     }
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public UserEntity getUserByUserId() {
         return userByUserId;
@@ -82,6 +87,7 @@ public class ContributeEntity {
     }
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public BookEntity getBookByBookId() {
         return bookByBookId;
