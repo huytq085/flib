@@ -50,12 +50,10 @@ public class AuthController {
     //    -----CREATE NEW USER-----
     @RequestMapping(
             value = REGISTER_URL,
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            method = RequestMethod.POST
     )
     public ResponseEntity<String> createNewUser(@RequestBody UserEntity newUser) {
         System.out.println("Create new user");
-        System.out.println(JsonUtil.encode(newUser));
         if (userService.save(newUser)) {
             System.out.println("Created");
             System.out.println(JsonUtil.encode(newUser));
@@ -64,6 +62,4 @@ public class AuthController {
             return new ResponseEntity<>("User Existed!", HttpStatus.BAD_REQUEST);
         }
     }
-
-
 }
