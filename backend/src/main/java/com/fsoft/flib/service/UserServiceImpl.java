@@ -31,15 +31,15 @@ public class UserServiceImpl implements UserService {
     private AuthorRepository authorRepository;
 
     @Override
-    public boolean save(UserEntity userEntity) {
+    public UserEntity save(UserEntity userEntity) {
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         if (userRepository.save(userEntity) != null) {
             int idUser = userRepository.findByEmail(userEntity.getEmail()).getId();
             int idRole_Member = roleRepository.findByName("ROLE_MEMBER").getId();
             userRolesRepository.save(new UserRoleEntity(idUser, idRole_Member));
-            return true;
+            return userRepository.save(userEntity);
         }
-        return false;
+        return null;
     }
 
     @Override
