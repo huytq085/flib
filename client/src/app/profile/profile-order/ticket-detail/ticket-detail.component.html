@@ -18,7 +18,7 @@
           <tr class="cart_item" *ngFor="let ticketDetail of ticketDetails">
             <td class="cart-product-thumbnail">
                 <a [routerLink]="['/book',ticketDetail.bookByBookId.id ]">
-                <img width="64" height="64" src="{{ ticketDetail.bookByBookId.coverImage }}" alt="ticketDetail.bookByBookId.name">
+                <img width="64" height="64" src="{{ ticketDetail.bookByBookId.coverImage }}" alt="{{ ticketDetail.bookByBookId.name }}">
               </a>
             </td>
 
