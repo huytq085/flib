@@ -44,6 +44,7 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
 
                 UserDetails userDetail = new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), enabled, accountNonExpired,
                         credentialsNonExpired, accountNonLocked, userService.getAuthorities(user) );
+                System.out.println( userService.getAuthorities(user));
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetail,
                         null, userDetail.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));

@@ -29,13 +29,12 @@ public class UserController {
 
     /* ---------------- GET ONE USER ------------------------ */
     @RequestMapping(path = GET_ONE_URL, method = RequestMethod.GET)
-    public ResponseEntity<Object> getOne(@PathVariable int id) {
+    public ResponseEntity<UserEntity> getOne(@PathVariable int id) {
         UserEntity user = userService.getOne(id);
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("User not found", HttpStatus.NO_CONTENT);
         }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     /* ---------------- DELETE USER ------------------------ */
@@ -44,11 +43,10 @@ public class UserController {
         if (userService.delete(id)) {
             return new ResponseEntity<>("Deleted!", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Not deleted!", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
     }
-
 
     /* ---------------- UPDATE USER ------------------------ */
     @RequestMapping(value = BASE_URL, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
