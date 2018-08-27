@@ -1,6 +1,8 @@
+import { ProfileService } from './../../core/services/profile.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Book } from '../../core/models/book.model';
+import { Profile } from 'selenium-webdriver/firefox';
 
 @Component({
   selector: 'app-profile-contribute',
@@ -14,9 +16,22 @@ export class ProfileContributeComponent implements OnInit {
 
   bookContributes: Book[] = new Array();
 
-  constructor() { }
+  
+
+  constructor(
+    private profileService: ProfileService
+  ) { }
 
   ngOnInit() {
+    this.profileService.getContributes().subscribe(
+      data => {
+        if (data){
+          console.log(data)
+          this.bookContributes = data;
+          
+        }
+      }
+    )
   }
 
   newContribute(){
@@ -27,6 +42,14 @@ export class ProfileContributeComponent implements OnInit {
       this.isAdding = false;
       this.buttonLabel = 'Contribute';
     }
+  }
+
+  contributeDone(book: Book){
+    console.log('event ne')
+    console.log(book)
+    this.bookContributes.push(book);
+
+    this.newContribute();
   }
 
 }

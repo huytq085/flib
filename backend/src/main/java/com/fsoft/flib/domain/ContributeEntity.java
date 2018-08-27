@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.Objects;
 public class ContributeEntity {
     private int userId;
     private int bookId;
-    private Timestamp dateAdded;
+    private Date dateAdded;
     private byte status;
     private UserEntity userByUserId;
     private BookEntity bookByBookId;
@@ -40,12 +41,13 @@ public class ContributeEntity {
     }
 
     @Basic
-    @Column(name = "date_added", nullable = false)
-    public Timestamp getDateAdded() {
+    @Column(name = "date_added", nullable = false, insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getDateAdded() {
         return dateAdded;
     }
 
-    public void setDateAdded(Timestamp dateAdded) {
+    public void setDateAdded(Date dateAdded) {
         this.dateAdded = dateAdded;
     }
 

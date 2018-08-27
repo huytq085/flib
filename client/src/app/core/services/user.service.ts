@@ -19,7 +19,7 @@ export class UserService {
         return this.apiService.put(`${BASE_URL}`, user);
     }
 
-    contribute(book: Book): Observable<Book> {
+    contribute(book: Book): Observable<any> {
         return this.apiService.post(`${BASE_URL}/contribute`, book);
     }
 }

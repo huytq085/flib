@@ -16,6 +16,7 @@ public class AuthorEntity {
     private Collection<BookEntity> booksById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

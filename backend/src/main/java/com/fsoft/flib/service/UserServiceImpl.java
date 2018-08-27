@@ -1,13 +1,7 @@
 package com.fsoft.flib.service;
 
-import com.fsoft.flib.domain.BookEntity;
-import com.fsoft.flib.domain.ContributeEntity;
-import com.fsoft.flib.domain.UserEntity;
-import com.fsoft.flib.domain.UserRoleEntity;
-import com.fsoft.flib.repository.ContributeRepository;
-import com.fsoft.flib.repository.RoleRepository;
-import com.fsoft.flib.repository.UserRepository;
-import com.fsoft.flib.repository.UserRolesRepository;
+import com.fsoft.flib.domain.*;
+import com.fsoft.flib.repository.*;
 import com.fsoft.flib.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,6 +25,10 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private ContributeRepository contributeRepository;
+    @Autowired
+    private BookRepository bookRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
 
     @Override
     public boolean save(UserEntity userEntity) {
@@ -115,8 +113,15 @@ public class UserServiceImpl implements UserService {
         UserEntity user = userRepository.findByEmail(email);
         if (user != null) {
             ContributeEntity contribute = new ContributeEntity();
-            contribute.setUserByUserId(user);
-            contribute.setBookByBookId(book);
+            contribute.setUserId(user.getId());
+//            TODO: auto save author with hibernate
+            AuthorEntity author = new AuthorEntity();
+            author.setName(book.getAuthorByAuthorId().getName());
+            book.setAuthorId(authorRepository.save(author).getId());
+            System.out.println("service");
+            System.out.println(JsonUtil.encode(book));
+            book = bookRepository.save(book);
+            contribute.setBookId(book.getId());
             return contributeRepository.save(contribute);
         }
         return null;

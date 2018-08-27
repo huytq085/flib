@@ -42,7 +42,7 @@
       </table>
     </div>
     <ng-container *ngIf="isAdding">
-      <app-form-book></app-form-book>
+      <app-form-book (bookEmitter)="contributeDone($event)"></app-form-book>
     </ng-container>
 
   </div>

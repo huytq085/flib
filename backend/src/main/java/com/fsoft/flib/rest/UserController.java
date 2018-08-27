@@ -80,11 +80,12 @@ public class UserController {
         System.out.println("vao contribute ne");
         System.out.println(JsonUtil.encode(book));
         ContributeEntity contribute = null;
-//        if (principal != null) {
-//            contribute = userService.contributeByEmail(principal.getName(), book);
-//        } else {
-//            status = HttpStatus.UNAUTHORIZED;
-//        }
+        if (principal != null) {
+            contribute = userService.contributeByEmail(principal.getName(), book);
+            System.out.println(JsonUtil.encode(contribute));
+        } else {
+            status = HttpStatus.UNAUTHORIZED;
+        }
         return new ResponseEntity<>(contribute, status);
     }
 }
