@@ -7,12 +7,18 @@ import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
 import { HttpTokenInterceptor } from './core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TestComponent } from './test/test.component';
+import { AccountComponent } from './test/account/account.component';
+import { NewAccountComponent } from './test/new-account/new-account.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    TestComponent,
+    AccountComponent,
+    NewAccountComponent,
   ],
   imports: [
     BrowserModule,
