@@ -15,17 +15,17 @@
         <tbody>
           <tr class="cart_item" *ngFor="let book of bookContributes">
             <td class="cart-product-thumbnail">
-                <a [routerLink]="['/book',book.bookByBookId.id ]">
-                <img width="64" height="64" src="{{ book.bookByBookId.coverImage }}" alt="book.bookByBookId.name">
+                <a [routerLink]="['/book',book.id ]">
+                <img width="64" height="64" src="{{ book.coverImage }}" alt="{{ book.name }}">
               </a>
             </td>
 
             <td class="cart-product-name">
-              <a [routerLink]="['/book',book.bookByBookId.id ]">{{ book.bookByBookId.name }}</a>
+              <a [routerLink]="['/book',book.id ]">{{ book.name }}</a>
             </td>
 
             <td class="cart-product-name">
-                <a [routerLink]="['/author',book.bookByBookId.authorByAuthorId.id ]">{{ book.bookByBookId.authorByAuthorId.name }}</a>
+                <a [routerLink]="['/author',book.authorByAuthorId.id ]">{{ book.authorByAuthorId.name }}</a>
             </td>
 
             <td class="cart-product-quantity">

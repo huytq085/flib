@@ -150,7 +150,7 @@ public class BookEntity {
     }
 
     @OneToMany(mappedBy = "bookByBookId")
-    @JsonManagedReference
+    @JsonManagedReference(value = "bookTypes")
     public Collection<BookTypeEntity> getBookTypesById() {
         return bookTypesById;
     }
@@ -160,7 +160,7 @@ public class BookEntity {
     }
 
     @OneToMany(mappedBy = "bookByBookId")
-    @JsonManagedReference
+    @JsonManagedReference(value = "contributes")
     public Collection<ContributeEntity> getContributesById() {
         return contributesById;
     }
@@ -170,7 +170,7 @@ public class BookEntity {
     }
 
     @OneToMany(mappedBy = "bookByBookId")
-    @JsonManagedReference
+    @JsonManagedReference(value = "reactions")
     public Collection<ReactionEntity> getReactionsById() {
         return reactionsById;
     }

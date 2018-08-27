@@ -87,7 +87,7 @@ public class ContributeEntity {
     }
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "contributes")
     @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public BookEntity getBookByBookId() {
         return bookByBookId;

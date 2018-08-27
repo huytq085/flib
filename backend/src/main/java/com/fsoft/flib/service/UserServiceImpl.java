@@ -1,7 +1,10 @@
 package com.fsoft.flib.service;
 
+import com.fsoft.flib.domain.BookEntity;
+import com.fsoft.flib.domain.ContributeEntity;
 import com.fsoft.flib.domain.UserEntity;
 import com.fsoft.flib.domain.UserRoleEntity;
+import com.fsoft.flib.repository.ContributeRepository;
 import com.fsoft.flib.repository.RoleRepository;
 import com.fsoft.flib.repository.UserRepository;
 import com.fsoft.flib.repository.UserRolesRepository;
@@ -26,6 +29,8 @@ public class UserServiceImpl implements UserService {
     private UserRolesRepository userRolesRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private ContributeRepository contributeRepository;
 
     @Override
     public boolean save(UserEntity userEntity) {
@@ -103,5 +108,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity getByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public ContributeEntity contributeByEmail(String email, BookEntity book) {
+        UserEntity user = userRepository.findByEmail(email);
+        if (user != null) {
+            ContributeEntity contribute = new ContributeEntity();
+            contribute.setUserByUserId(user);
+            contribute.setBookByBookId(book);
+            return contributeRepository.save(contribute);
+        }
+        return null;
     }
 }

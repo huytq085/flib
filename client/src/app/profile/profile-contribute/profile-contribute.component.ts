@@ -27,7 +27,6 @@ export class ProfileContributeComponent implements OnInit {
       this.isAdding = false;
       this.buttonLabel = 'Contribute';
     }
-    
   }
 
 }
