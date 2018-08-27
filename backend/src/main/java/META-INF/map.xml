@@ -3,7 +3,7 @@
         version="2.0">
 
     <entity class="com.fsoft.flib.domain.AuthorEntity">
-        <table name="author" schema="flib" catalog=""/>
+        <table name="author" schema="flib"/>
         <attributes>
             <id name="id">
                 <column name="id" precision="11"/>
@@ -16,7 +16,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.BookEntity">
-        <table name="book" schema="flib" catalog=""/>
+        <table name="book" schema="flib"/>
         <attributes>
             <id name="id">
                 <column name="id" precision="11"/>
@@ -59,7 +59,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.BookTypeEntity">
-        <table name="book_type" schema="flib" catalog=""/>
+        <table name="book_type" schema="flib"/>
         <id-class class="com.fsoft.flib.domain.BookTypeEntityPK"/>
         <attributes>
             <id name="bookId">
@@ -77,7 +77,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.ContributeEntity">
-        <table name="contribute" schema="flib" catalog=""/>
+        <table name="contribute" schema="flib"/>
         <id-class class="com.fsoft.flib.domain.ContributeEntityPK"/>
         <attributes>
             <id name="userId">
@@ -101,7 +101,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.ReactionEntity">
-        <table name="reaction" schema="flib" catalog=""/>
+        <table name="reaction" schema="flib"/>
         <id-class class="com.fsoft.flib.domain.ReactionEntityPK"/>
         <attributes>
             <id name="bookId">
@@ -131,7 +131,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.RoleEntity">
-        <table name="role" schema="flib" catalog=""/>
+        <table name="role" schema="flib"/>
         <attributes>
             <id name="id">
                 <column name="id" precision="11"/>
@@ -144,7 +144,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.TicketEntity">
-        <table name="ticket" schema="flib" catalog=""/>
+        <table name="ticket" schema="flib"/>
         <attributes>
             <id name="id">
                 <column name="id" precision="11"/>
@@ -166,7 +166,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.TicketDetailEntity">
-        <table name="ticket_detail" schema="flib" catalog=""/>
+        <table name="ticket_detail" schema="flib"/>
         <id-class class="com.fsoft.flib.domain.TicketDetailEntityPK"/>
         <attributes>
             <id name="bookId">
@@ -187,7 +187,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.TypeEntity">
-        <table name="type" schema="flib" catalog=""/>
+        <table name="type" schema="flib"/>
         <attributes>
             <id name="id">
                 <column name="id" precision="11"/>
@@ -200,7 +200,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.UserEntity">
-        <table name="user" schema="flib" catalog=""/>
+        <table name="user" schema="flib"/>
         <attributes>
             <id name="id">
                 <column name="id" precision="11"/>
@@ -234,7 +234,7 @@
         </attributes>
     </entity>
     <entity class="com.fsoft.flib.domain.UserRoleEntity">
-        <table name="user_role" schema="flib" catalog=""/>
+        <table name="user_role" schema="flib"/>
         <id-class class="com.fsoft.flib.domain.UserRoleEntityPK"/>
         <attributes>
             <id name="userId">
