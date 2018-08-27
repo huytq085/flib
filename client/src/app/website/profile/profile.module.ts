@@ -10,7 +10,7 @@ import { ProfileContributeComponent } from './profile-contribute/profile-contrib
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TicketDetailComponent } from './profile-order/ticket-detail/ticket-detail.component';
 import { TicketDetailResolver } from './profile-order/ticket-detail/ticket-detail-resolver.service'
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [

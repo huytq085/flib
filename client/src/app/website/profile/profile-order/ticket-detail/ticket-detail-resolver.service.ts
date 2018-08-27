@@ -1,10 +1,9 @@
-import { ProfileService } from './../../../core/services/profile.service';
-import { Ticket } from './../../../core/models/ticket.model';
 import { Injectable }             from '@angular/core';
 import { Router, Resolve, RouterStateSnapshot,
          ActivatedRouteSnapshot } from '@angular/router';
 import { Observable }             from 'rxjs';
 import { map, take }              from 'rxjs/operators';
+import { ProfileService, Ticket } from '../../../../core';
  
 
 @Injectable()

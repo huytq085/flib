@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {PageBook} from '../../../../core/models/page-book.model';
-import {BookService} from '../../../../core/services/book.service';
-import {Book} from '../../../../core/models/book.model';
+import { PageBook } from '../../../../../core/models/page-book.model';
+import { Book } from '../../../../../core/models/book.model';
+import { BookService } from '../../../../../core/services/book.service';
 
 @Component({
   selector: 'app-pagination',

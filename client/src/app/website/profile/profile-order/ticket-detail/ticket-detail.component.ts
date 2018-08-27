@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Location} from '@angular/common';
-import { Ticket } from '../../../core';
 import { ActivatedRoute } from '@angular/router';
-import { Book } from '../../../core/models/book.model';
-import { TicketDetail } from '../../../core/models/ticket-detail.model';
+import { TicketDetail } from '../../../../core/models/ticket-detail.model';
 
 @Component({
   selector: 'app-ticket-detail',

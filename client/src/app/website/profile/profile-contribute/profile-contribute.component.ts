@@ -1,8 +1,8 @@
-import { ProfileService } from './../../core/services/profile.service';
 
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Book } from '../../core/models/book.model';
 import { Profile } from 'selenium-webdriver/firefox';
+import { Book } from '../../../core/models/book.model';
+import { ProfileService } from '../../../core';
 
 @Component({
   selector: 'app-profile-contribute',

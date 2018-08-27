@@ -1,7 +1,5 @@
-import { ProfileService } from './../../core/services/profile.service';
-import { Book } from './../../core/models/book.model';
 import { Component, OnInit } from '@angular/core';
-import { Ticket } from '../../core';
+import { Ticket, ProfileService } from '../../../core';
 
 @Component({
   selector: 'app-profile-order',
