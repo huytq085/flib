@@ -11,6 +11,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TestComponent } from './test/test.component';
 import { AccountComponent } from './test/account/account.component';
 import { NewAccountComponent } from './test/new-account/new-account.component';
+import { AuthComponent } from './auth/auth.component';
+import { AuthModule } from './auth/auth.module';
+import { TokenStorage } from './auth/authority/token.storage';
 
 
 
@@ -20,6 +23,7 @@ import { NewAccountComponent } from './test/new-account/new-account.component';
     TestComponent,
     AccountComponent,
     NewAccountComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,8 +32,9 @@ import { NewAccountComponent } from './test/new-account/new-account.component';
     HttpClientModule,
     HomeModule,
     AdminModule,
+    AuthModule,
   ],
-  providers: [{
+  providers: [TokenStorage,{
     provide: HTTP_INTERCEPTORS,
     useClass: HttpTokenInterceptor,
     multi: true

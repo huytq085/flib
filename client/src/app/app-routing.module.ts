@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminHomeComponent } from './admin/home';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 
 const routes: Routes = [
@@ -11,8 +13,9 @@ const routes: Routes = [
   { 
     path: 'admin', 
     loadChildren: './admin/admin.module#AdminModule'
-  }
-
+  },
+  {path:'login', component: LoginComponent},
+  {path:'register', component: RegisterComponent},
 ];
 
 @NgModule({
