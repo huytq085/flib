@@ -28,6 +28,10 @@ export class ProfileService {
     return this.apiService.get(`${BASE_URL}/tickets`);
   }
 
+  getTicket(id: number): Observable<Ticket> {
+    return this.apiService.get(`${BASE_URL}/tickets/${id}`)
+  }
+
   getFavourites(): Observable<Book[]> {
     return this.apiService.get(`${BASE_URL}/favourites`)
   }

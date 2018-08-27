@@ -1,6 +1,8 @@
 package com.fsoft.flib.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -138,7 +140,6 @@ public class BookEntity {
     }
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public AuthorEntity getAuthorByAuthorId() {
         return authorByAuthorId;
@@ -149,6 +150,7 @@ public class BookEntity {
     }
 
     @OneToMany(mappedBy = "bookByBookId")
+    @JsonManagedReference
     public Collection<BookTypeEntity> getBookTypesById() {
         return bookTypesById;
     }
@@ -158,6 +160,7 @@ public class BookEntity {
     }
 
     @OneToMany(mappedBy = "bookByBookId")
+    @JsonManagedReference
     public Collection<ContributeEntity> getContributesById() {
         return contributesById;
     }
@@ -167,6 +170,7 @@ public class BookEntity {
     }
 
     @OneToMany(mappedBy = "bookByBookId")
+    @JsonManagedReference
     public Collection<ReactionEntity> getReactionsById() {
         return reactionsById;
     }
@@ -175,7 +179,8 @@ public class BookEntity {
         this.reactionsById = reactionsById;
     }
 
-    @OneToMany(mappedBy = "bookByBookId")
+    @OneToMany(mappedBy = "bookByBookId", fetch = FetchType.EAGER)
+    @JsonIgnore
     public Collection<TicketDetailEntity> getTicketDetailsById() {
         return ticketDetailsById;
     }

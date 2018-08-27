@@ -10,4 +10,6 @@ public interface TicketService {
     List<TicketEntity> getAllByUserId(int id);
 
     List<TicketEntity> getALlByEmail(String email);
+
+    TicketEntity getById(int id);
 }

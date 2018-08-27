@@ -20,7 +20,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
     SharedModule,
     HttpClientModule,
     HomeModule,
-    
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

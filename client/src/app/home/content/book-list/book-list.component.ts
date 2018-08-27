@@ -1,7 +1,7 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {Book} from '../../../core/models/book.model';
-import {BookService} from '../../../core/services/book.service';
-import {PageBook} from '../../../core/models/page-book.model';
+import { Component, OnInit, Input } from '@angular/core';
+import { Book } from '../../../core/models/book.model';
+import { BookService } from '../../../core/services/book.service';
+import { PageBook } from '../../../core/models/page-book.model';
 
 @Component({
   selector: 'app-book-list',
@@ -11,7 +11,7 @@ import {PageBook} from '../../../core/models/page-book.model';
 export class BookListComponent implements OnInit {
 
   @Input() books: Book[];
-  pageBooks: PageBook;
+  pageBooks: PageBook = {} as PageBook;
 
   constructor(private bookService: BookService) {
     // console.log(new Book('Book a', 'Tam 6 mui', 1, 'Ngay mai
@@ -53,5 +53,13 @@ export class BookListComponent implements OnInit {
 
   onChoose(books: Book[]) {
     this.books = books;
+    const scrollToTop = window.setInterval(() => {
+      const pos = window.pageYOffset;
+      if (pos > 0) {
+        window.scrollTo(0, pos - 50); // how far to scroll on each step
+      } else {
+        window.clearInterval(scrollToTop);
+      }
+    }, 16);
   }
 }

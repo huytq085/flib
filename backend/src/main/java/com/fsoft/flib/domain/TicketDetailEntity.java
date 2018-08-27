@@ -1,5 +1,8 @@
 package com.fsoft.flib.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -58,7 +61,7 @@ public class TicketDetailEntity {
         return Objects.hash(bookId, ticketId, amount);
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public BookEntity getBookByBookId() {
         return bookByBookId;
@@ -68,7 +71,8 @@ public class TicketDetailEntity {
         this.bookByBookId = bookByBookId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
     @JoinColumn(name = "ticket_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TicketEntity getTicketByTicketId() {
         return ticketByTicketId;
