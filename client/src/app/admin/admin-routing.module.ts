@@ -1,13 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { AdminHomeComponent } from './home';
+import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AdminHomeComponent
+    component: AdminComponent,
+    children: [
+      {
+        path: 'users',
+        loadChildren: './users/users.module#AdminUsersModule'
+      },
+    ]
   }
+
+
 
 ];
 
