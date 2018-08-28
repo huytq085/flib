@@ -1,11 +1,15 @@
 package com.fsoft.flib.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "book_type", schema = "flib", catalog = "")
 @IdClass(BookTypeEntityPK.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class BookTypeEntity {
     private int bookId;
     private int typeId;
@@ -47,6 +51,7 @@ public class BookTypeEntity {
     }
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public BookEntity getBookByBookId() {
         return bookByBookId;
@@ -57,6 +62,7 @@ public class BookTypeEntity {
     }
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TypeEntity getTypeByTypeId() {
         return typeByTypeId;

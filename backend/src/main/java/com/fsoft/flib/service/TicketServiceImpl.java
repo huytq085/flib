@@ -22,4 +22,10 @@ public class TicketServiceImpl implements TicketService {
     public List<TicketEntity> getALlByEmail(String email) {
         return Collections.emptyList();
     }
+
+    @Override
+    public TicketEntity getById(int id) {
+        System.out.println("get by id");
+        return ticketRepository.getOne(id);
+    }
 }

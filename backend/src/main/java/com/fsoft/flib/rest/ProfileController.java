@@ -1,18 +1,21 @@
 package com.fsoft.flib.rest;
 
 import com.fsoft.flib.domain.BookEntity;
+import com.fsoft.flib.domain.TicketDetailEntity;
 import com.fsoft.flib.domain.TicketEntity;
 import com.fsoft.flib.domain.UserEntity;
 import com.fsoft.flib.service.BookService;
 import com.fsoft.flib.service.TicketService;
 import com.fsoft.flib.service.UserService;
+import com.fsoft.flib.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -23,6 +26,7 @@ public class ProfileController {
     private final String CONTRIBUTE_URL = BASE_URL + "/contributes";
     private final String FAVOURITE_URL = BASE_URL + "/favourites";
     private final String TICKET_URL = BASE_URL + "/tickets";
+    private final String TICKET_DETAIL_URL = BASE_URL + "/tickets/{id}";
 
     @Autowired
     private UserService userService;
@@ -38,9 +42,16 @@ public class ProfileController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public UserEntity getInfo(Principal principal){
-        String email = principal.getName();
-        return userService.getByEmail(email);
+    public ResponseEntity<UserEntity> getInfo(Principal principal){
+        HttpStatus status = HttpStatus.OK;
+        UserEntity user = null;
+        if (principal != null) {
+            user = userService.getByEmail(principal.getName());
+        } else {
+            status = HttpStatus.UNAUTHORIZED;
+        }
+
+        return new ResponseEntity<>(user, status);
     }
 
     @RequestMapping(
@@ -48,9 +59,16 @@ public class ProfileController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public List<BookEntity> getContributes(Principal principal){
-        String email = principal.getName();
-        return bookService.getContributesByEmail(email);
+    public ResponseEntity<List<BookEntity>> getContributes(Principal principal){
+        HttpStatus status = HttpStatus.OK;
+        List<BookEntity> books = Collections.emptyList();
+        if (principal != null) {
+            books = bookService.getContributesByEmail(principal.getName());
+        } else {
+            status = HttpStatus.UNAUTHORIZED;
+        }
+
+        return new ResponseEntity<>(books, status);
     }
 
     @RequestMapping(
@@ -58,11 +76,45 @@ public class ProfileController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public List<TicketEntity> getTickets(Principal principal){
-        String email = principal.getName();
-        UserEntity userEntity = userService.getByEmail(email);
-        return ticketService.getAllByUserId(userEntity.getId());
+    public ResponseEntity<List<TicketEntity>> getTickets(Principal principal){
+        HttpStatus status = HttpStatus.OK;
+        List<TicketEntity> tickets = Collections.emptyList();
+        if (principal != null) {
+            UserEntity userEntity = userService.getByEmail(principal.getName());
+            tickets = ticketService.getAllByUserId(userEntity.getId());
+        } else {
+            status = HttpStatus.UNAUTHORIZED;
+        }
+
+        return new ResponseEntity<>(tickets, status);
     }
+
+    @RequestMapping(
+            value = TICKET_DETAIL_URL,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<TicketEntity> getTicket(Principal principal, @PathVariable int id){
+        HttpStatus status = HttpStatus.OK;
+        TicketEntity ticket = null;
+        System.out.println("id: " + id);
+        if (principal != null) {
+            System.out.println("prin != null");
+            ticket = ticketService.getById(id);
+            for (TicketDetailEntity detail: ticket.getTicketDetailsById()){
+                System.out.println("book id: " + detail.getBookId());
+                detail.setBookByBookId(bookService.getOne(detail.getBookId()).orElse(null));
+            }
+        } else {
+            status = HttpStatus.UNAUTHORIZED;
+        }
+
+        return new ResponseEntity<>(ticket, status);
+    }
+
+
+
+
 
 
 }

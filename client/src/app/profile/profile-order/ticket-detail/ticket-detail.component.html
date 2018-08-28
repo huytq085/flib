@@ -1,7 +1,9 @@
 <section id="content">
   <div class="container clearfix">
-    <button (click)="newContribute()" class="button button-mini button-primary button-rounded">{{ buttonLabel }}</button>
-    <div class="table-responsive" *ngIf="!isAdding">
+    <button (click)="goBack()" class="button button-mini button-dark button-rounded">Back to Ticket List</button>
+    <h2>Ticket Detail</h2>
+    <p>Ticket ID: #{{ ticketId }}</p>
+    <div class="table-responsive">
       <table class="table cart">
         <thead>
           <tr>
@@ -13,23 +15,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="cart_item" *ngFor="let book of bookContributes">
+          <tr class="cart_item" *ngFor="let ticketDetail of ticketDetails">
             <td class="cart-product-thumbnail">
-                <a [routerLink]="['/book',book.bookByBookId.id ]">
-                <img width="64" height="64" src="{{ book.bookByBookId.coverImage }}" alt="book.bookByBookId.name">
+                <a [routerLink]="['/book',ticketDetail.bookByBookId.id ]">
+                <img width="64" height="64" src="{{ ticketDetail.bookByBookId.coverImage }}" alt="{{ ticketDetail.bookByBookId.name }}">
               </a>
             </td>
 
             <td class="cart-product-name">
-              <a [routerLink]="['/book',book.bookByBookId.id ]">{{ book.bookByBookId.name }}</a>
+              <a [routerLink]="['/book',ticketDetail.bookByBookId.id ]">{{ ticketDetail.bookByBookId.name }}</a>
             </td>
 
             <td class="cart-product-name">
-                <a [routerLink]="['/author',book.bookByBookId.authorByAuthorId.id ]">{{ book.bookByBookId.authorByAuthorId.name }}</a>
+                <a [routerLink]="['/author',ticketDetail.bookByBookId.authorByAuthorId.id ]">{{ ticketDetail.bookByBookId.authorByAuthorId.name }}</a>
             </td>
 
             <td class="cart-product-quantity">
-              <span class="amount">{{ book.amount }}</span>
+              <span class="amount">{{ ticketDetail.amount }}</span>
             </td>
 
             <td class="cart-product-subtotal">
@@ -41,9 +43,6 @@
 
       </table>
     </div>
-    <ng-container *ngIf="isAdding">
-      <app-form-book></app-form-book>
-    </ng-container>
 
   </div>
 </section>

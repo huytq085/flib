@@ -8,13 +8,15 @@ import { ProfileOrderComponent } from './profile-order/profile-order.component';
 import { ProfileFavouriteComponent } from './profile-favourite/profile-favourite.component';
 import { ProfileContributeComponent } from './profile-contribute/profile-contribute.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TicketDetailComponent } from './profile-order/ticket-detail/ticket-detail.component';
+import { TicketDetailResolver } from './profile-order/ticket-detail/ticket-detail-resolver.service'
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ProfileRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
+    SharedModule
   ],
   declarations: [
     ProfileComponent,
@@ -22,7 +24,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ProfileNotificationComponent,
     ProfileOrderComponent,
     ProfileFavouriteComponent,
-    ProfileContributeComponent
+    ProfileContributeComponent,
+    TicketDetailComponent
+  ],
+  providers: [
+    TicketDetailResolver
   ]
 })
 export class ProfileModule { }
