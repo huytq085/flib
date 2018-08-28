@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { TicketDetail } from '../../../../core/models/ticket-detail.model';
 
@@ -20,14 +20,14 @@ export class TicketDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.data
-    .subscribe(data => {
-      console.log(data)
-      this.ticketId = data.ticket.id;
-      this.ticketDetails = data.ticket.ticketDetailsById;
-    });
+      .subscribe(data => {
+        console.log(data);
+        this.ticketId = data.ticket.id;
+        this.ticketDetails = data.ticket.ticketDetailsById;
+      });
   }
 
-  goBack(){
+  goBack() {
     this.location.back();
   }
 

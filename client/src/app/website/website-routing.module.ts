@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { WebsiteComponent } from './website.component';
+import { CartComponent } from './cart/cart.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
             {
                 path: 'book',
                 loadChildren: './home/home.module#HomeModule'
+            },
+            {
+                path: 'cart',
+                component: CartComponent
             }
         ]
     }
@@ -27,10 +32,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)]
 })
 
-@NgModule({
-    imports: [
-        CommonModule
-    ],
-    declarations: []
-})
 export class WebsiteRoutingModule { }

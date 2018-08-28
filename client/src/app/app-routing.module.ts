@@ -8,8 +8,8 @@ const routes: Routes = [
     path: '',
     loadChildren: './website/website.module#WebsiteModule'
   },
-  { 
-    path: 'admin', 
+  {
+    path: 'admin',
     loadChildren: './admin/admin.module#AdminModule'
   }
 

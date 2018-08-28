@@ -9,18 +9,18 @@
 </ul> -->
 <ul class="pagination" *ngIf="pageBook">
   <li class="page-item disabled" [ngClass]="{disabled:pageBook.number === 0}">
-    <a class="page-link" (click)="setPage(0)">First</a>
+    <a class="page-link"  [routerLink]="[ '/book/page', 0 ]" (click)="setPage(0)">First</a>
   </li>
   <li class="page-item disabled" [ngClass]="{'disabled':pageBook.number === 0} " >
-    <a class="page-link" (click)="setPage(pageBook.number - 1)">Previous</a>
+    <a class="page-link" [routerLink]="[ '/book/page', pageBook.number-1 ]" (click)="setPage(pageBook.number - 1)">Previous</a>
   </li>
   <li class="page-item" *ngFor="let page of pages" [ngClass]="{'active':pageBook.number === page}">
-    <a class="page-link" (click)="setPage(page)">{{page+1}}</a>
+    <a class="page-link" [routerLink]="[ '/book/page', page ]" (click)="setPage(page)">{{page+1}}</a>
   </li>
   <li class="page-item disabled" [ngClass]="{disabled:pageBook.number === pageBook.totalPages-1}">
-    <a class="page-link" (click)="setPage(pageBook.number + 1)">Next</a>
+    <a class="page-link" [routerLink]="[ '/book/page', pageBook.number+1 ]" (click)="setPage(pageBook.number + 1)">Next</a>
   </li>
   <li class="page-item disabled" [ngClass]="{disabled:pageBook.number === pageBook.totalPages-1}">
-    <a class="page-link" (click)="setPage(pageBook.totalPages-1)">Last</a>
+    <a class="page-link" [routerLink]="[ '/book/page', pageBook.totalPages-1 ]" (click)="setPage(pageBook.totalPages-1)">Last</a>
   </li>
 </ul>
