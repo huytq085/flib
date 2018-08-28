@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminHomeComponent } from './admin/home';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -12,7 +11,6 @@ const routes: Routes = [
     path: 'admin', 
     loadChildren: './admin/admin.module#AdminModule'
   }
-
 ];
 
 @NgModule({
