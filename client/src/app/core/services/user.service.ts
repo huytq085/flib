@@ -14,12 +14,24 @@ export class UserService {
     constructor(
         private apiService: ApiService
     ) { }
+    // TODO: Goi method rerisger tu auth service
+    create(user: User): Observable<User> {
+        return this.apiService.post(`/register`, user);
+    }
 
     update(user: User): Observable<User> {
-        return this.apiService.put(`${BASE_URL}`, user);
+        return this.apiService.put(`${BASE_URL}`, user, { responseType: 'text'});
     }
 
     contribute(book: Book): Observable<any> {
         return this.apiService.post(`${BASE_URL}/contribute`, book);
+    }
+
+    getAll(): Observable<User[]> {
+        return this.apiService.get(`${BASE_URL}`);
+    }
+
+    delete(userId: number){
+        return this.apiService.delete(`${BASE_URL}/${userId}`, { responseType: 'text'})
     }
 }

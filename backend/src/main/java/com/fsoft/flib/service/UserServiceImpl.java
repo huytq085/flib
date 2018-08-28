@@ -37,7 +37,9 @@ public class UserServiceImpl implements UserService {
             int idUser = userRepository.findByEmail(userEntity.getEmail()).getId();
             int idRole_Member = roleRepository.findByName("ROLE_MEMBER").getId();
             userRolesRepository.save(new UserRoleEntity(idUser, idRole_Member));
-            return userRepository.save(userEntity);
+//            TODO: save and get id automatically
+            userRepository.saveAndFlush(userEntity);
+            return userRepository.findByEmail(userEntity.getEmail());
         }
         return null;
     }

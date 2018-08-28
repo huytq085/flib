@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { WebsiteComponent } from './website.component';
 import { CartComponent } from './cart/cart.component';
 
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 const routes: Routes = [
     {
@@ -24,7 +26,9 @@ const routes: Routes = [
                 component: CartComponent
             }
         ]
-    }
+    },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({

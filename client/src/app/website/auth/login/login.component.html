@@ -1,0 +1,47 @@
+<app-header></app-header>
+<div class="content-wrap">
+  <div class="container clearfix">
+    <div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;">
+      <ul class="tab-nav tab-nav2 center clearfix">
+        <li class="inline-block">
+          <a [routerLink]="['/login']">Login</a>
+        </li>
+        <li class="inline-block">
+          <a [routerLink]="['/register']">Register</a>
+        </li>
+      </ul>
+
+      <div class="tab-container">
+        <div class="tab-content clearfix" id="tab-login">
+          <div class="card nobottommargin">
+            <div class="card-body" style="padding: 40px;">
+              <form id="login-form" name="login-form" class="nobottommargin" method="post" (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+                <h3>Login to your Account</h3>
+                <div class="col_full">
+                  <label for="login-form-username">Email:</label>
+                  <input type="text" id="login-form-username" name="email" class="form-control" [(ngModel)]="email" #txtEmail="ngModel" required/>
+                  <p *ngIf="txtEmail.touched && txtEmail.errors?.required" style="color:red">
+                    Email is required
+                  </p>
+                </div>
+                <div class="col_full">
+                  <label for="login-form-password">Password:</label>
+                  <input type="password" id="login-form-password" name="password" class="form-control" [(ngModel)]="password" #txtPass="ngModel"
+                    required/>
+                  <p *ngIf="txtPass.touched && txtPass.errors?.required" style="color:red">
+                    Password is required
+                  </p>
+                </div>
+                <div class="col_full nobottommargin">
+                  <button class="button button-3d button-black nomargin" id="login-form-submit" name="submit" [disabled]="loginForm.invalid">Login</button>
+                  <a href="#" class="fright">Forgot Password?</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -5,12 +5,14 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FormBookComponent } from './forms/form-book/form-book.component';
+import { FormUserComponent } from './forms/form-user/form-user.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
-    FormBookComponent
+    FormBookComponent,
+    FormUserComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { FormBookComponent } from './forms/form-book/form-book.component';
     FooterComponent,
     FormBookComponent,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FormUserComponent
   ]
 })
 export class SharedModule { }

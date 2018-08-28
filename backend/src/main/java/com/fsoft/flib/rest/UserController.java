@@ -47,7 +47,7 @@ public class UserController {
 
     /* ---------------- DELETE USER ------------------------ */
     @RequestMapping(value = GET_ONE_URL, method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteUserById(@PathVariable int id) {
+    public ResponseEntity<Object> deleteUserById(@PathVariable int id) {
         if (userService.delete(id)) {
             return new ResponseEntity<>("Deleted!", HttpStatus.OK);
         } else {
