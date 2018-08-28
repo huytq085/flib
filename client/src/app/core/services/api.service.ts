@@ -32,8 +32,8 @@ export class ApiService {
     return this.http.put<any>(`${API_URL}${path}`, body, options)
       .pipe(catchError(this.handleError));
   }
-  delete(path: string): Observable<any> {
-    return this.http.delete(`${API_URL}${path}`)
+  delete(path: string, options?: {}): Observable<any> {
+    return this.http.delete(`${API_URL}${path}`, options)
       .pipe(catchError(this.handleError));
   }
 }

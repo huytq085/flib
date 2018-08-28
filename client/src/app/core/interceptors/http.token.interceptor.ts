@@ -21,7 +21,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
     };
 
     // const token = this.jwtService.getToken();
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzUzNzk4NDIsImVtYWlsIjoibWVtYmVyQGdtYWlsLmNvbSJ9.FRpqMNWNiAybRfxpLU3hAPtVlcHFqjRtxXOA7jnDFLY';
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzU1MDgyOTEsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIn0.qyVEkteNgS5zJTHVrM-ltsdOcnbV-0B5kxvFYktiPTg';
     const authType: string = this._router.url;
 
 
