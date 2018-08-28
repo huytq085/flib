@@ -47,13 +47,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean update(UserEntity userEntity) {
         //getpassword từ id của userEntity userEntity không chứa password)
-        UserEntity user = userRepository.findById(userEntity.getId());
-        userEntity.setPassword(user.getPassword());
-        if (user != null) {
-            userRepository.save(userEntity);
-            return true;
+        if (userEntity != null && userEntity.getPassword() != null && !userEntity.getPassword().equals("")){
+            userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        } else {
+            UserEntity userFromDb = userRepository.findByEmail(userEntity.getEmail());
+            if (userFromDb != null) {
+                userEntity.setPassword(userFromDb.getPassword());
+            }
         }
-        return false;
+        return userRepository.save(userEntity) != null;
     }
 
     @Override

@@ -1,4 +1,3 @@
-import { ProfileService } from './../../../services/profile.service';
 import { UserService } from './../../../services/user.service';
 import { TokenStorage } from './../../../../website/auth/authority/token.storage';
 import { Component, OnInit } from '@angular/core';
@@ -11,19 +10,18 @@ import { Profile } from '../../..';
 })
 export class AdminHeaderComponent implements OnInit {
 
-  profile: Profile;
+  profile: Profile = {} as Profile;
 
   constructor(
     private tokenStorage: TokenStorage,
-    private profileService: ProfileService
+    private userService: UserService
   ) { }
 
   ngOnInit() {
-    this.profileService.getInfo().subscribe(
+    console.log(this.userService.getCurrentUser())
+    this.userService.currentUser.subscribe(
       data => {
-        if (data){
-          this.profile = data;
-        }
+        this.profile = data;
       }
     )
   }

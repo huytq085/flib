@@ -19,10 +19,13 @@ export class AdminUsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getAll().subscribe(
-      data => {
-        console.log(data);
-        this.users = data;
+    this.userService.currentUser.subscribe(
+      user => {
+        this.userService.getAll().subscribe(
+          data => {
+            this.users = data.filter(data => (data.email != user.email));
+          }
+        )
       }
     )
   }

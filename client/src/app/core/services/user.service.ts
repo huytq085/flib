@@ -11,6 +11,16 @@ const BASE_URL = '/users';
 })
 export class UserService {
 
+    private currentUserSubject = new BehaviorSubject<User>({} as User);
+    public currentUser = this.currentUserSubject.asObservable();
+
+    getCurrentUser(): User {
+        return this.currentUserSubject.value;
+    }
+    setCurrentUser(user: User) {
+        this.currentUserSubject.next(user);
+    }
+
     constructor(
         private apiService: ApiService
     ) { }
@@ -38,4 +48,5 @@ export class UserService {
     getRoles() {
         return this.apiService.get(`${BASE_URL}/roles`);
     }
+    
 }

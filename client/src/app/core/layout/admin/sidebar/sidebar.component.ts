@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Profile, UserService } from '../../../';
+import { TokenStorage } from '../../../../website/auth/authority/token.storage';
 
 @Component({
   selector: 'admin-sidebar',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminSidebarComponent implements OnInit {
 
-  constructor() { }
+  profile: Profile = {} as Profile;
+
+  constructor(
+    private tokenStorage: TokenStorage,
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
+    console.log(this.userService.getCurrentUser())
+    this.userService.currentUser.subscribe(
+      data => {
+        this.profile = data;
+      }
+    )
   }
 
 }
