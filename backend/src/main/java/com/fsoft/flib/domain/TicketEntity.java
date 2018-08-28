@@ -19,7 +19,12 @@ public class TicketEntity {
     private UserEntity userByUserId;
     private Collection<TicketDetailEntity> ticketDetailsById;
 
+    public TicketEntity() {
+    }
+
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

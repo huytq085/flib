@@ -1,6 +1,6 @@
 import { Book } from './book.model';
 export class TicketDetail {
-    ticketId: number;
+    ticketId?: number;
     amount: number;
-    bookByBookId: Book;
+    bookByBookId: number;
 }

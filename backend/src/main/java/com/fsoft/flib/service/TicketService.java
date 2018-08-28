@@ -1,5 +1,6 @@
 package com.fsoft.flib.service;
 
+import com.fsoft.flib.domain.Cart;
 import com.fsoft.flib.domain.TicketEntity;
 import org.springframework.stereotype.Service;
 
@@ -12,4 +13,9 @@ public interface TicketService {
     List<TicketEntity> getALlByEmail(String email);
 
     TicketEntity getById(int id);
+
+    TicketEntity save(TicketEntity ticketEntity);
+
+    TicketEntity requestTicket(String email, Cart cart);
+
 }
