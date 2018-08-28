@@ -2,6 +2,7 @@ package com.fsoft.flib.rest;
 
 import com.fsoft.flib.domain.BookEntity;
 import com.fsoft.flib.domain.ContributeEntity;
+import com.fsoft.flib.domain.RoleEntity;
 import com.fsoft.flib.domain.UserEntity;
 import com.fsoft.flib.service.BookService;
 import com.fsoft.flib.service.UserService;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -21,6 +24,7 @@ import java.util.List;
 public class UserController {
     private final String BASE_URL = "/users";
     private final String GET_ONE_URL = BASE_URL + "/{id}";
+    private final String GET_ROLES_URL = BASE_URL + "/roles";
     private final String CONTRIBUTE_URL = BASE_URL + "/contribute";
 
     @Autowired
@@ -43,6 +47,16 @@ public class UserController {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(path = GET_ROLES_URL, method = RequestMethod.GET)
+    public ResponseEntity<Object> getRoles(Authentication authentication) {
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            return new ResponseEntity<>(userDetails.getAuthorities(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
     }
 
     /* ---------------- DELETE USER ------------------------ */
@@ -86,4 +100,6 @@ public class UserController {
         }
         return new ResponseEntity<>(contribute, status);
     }
+
+
 }
