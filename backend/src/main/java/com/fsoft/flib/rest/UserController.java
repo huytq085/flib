@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,8 +73,10 @@ public class UserController {
 
     /* ---------------- UPDATE USER ------------------------ */
     @RequestMapping(value = BASE_URL, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> updateUserById(@RequestBody UserEntity userEntity, Principal principal) {
-        if(userEntity.getEmail().equals(principal.getName())){
+    public ResponseEntity<Object> updateUserById(@RequestBody UserEntity userEntity, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        if(userEntity.getEmail().equals(userDetails.getUsername().equals(userEntity.getEmail())) || userHasAuthority(userDetails, "ROLE_ADMIN")){
             if (userService.update(userEntity)) {
                 return new ResponseEntity<>("Updated!", HttpStatus.OK);
             }
@@ -99,6 +102,15 @@ public class UserController {
             status = HttpStatus.UNAUTHORIZED;
         }
         return new ResponseEntity<>(contribute, status);
+    }
+
+    public boolean userHasAuthority(UserDetails userDetails, String role) {
+        for (GrantedAuthority grantedAuthority : userDetails.getAuthorities()) {
+            if (role.equals(grantedAuthority.getAuthority())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

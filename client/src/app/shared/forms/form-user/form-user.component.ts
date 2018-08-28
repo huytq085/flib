@@ -1,6 +1,7 @@
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { User, UserService } from '../../../core';
+import { HttpHeaderResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-form-user',
@@ -11,6 +12,12 @@ export class FormUserComponent implements OnInit {
 
   @Input() user: User;
   @Output() userEmitter = new EventEmitter<User>();
+
+  errors: string = '';
+  errorMap: {} = {
+    401: 'Sai email hoặc mật khẩu',
+    409: 'Email bị trùng'
+  }
 
   userForm: FormGroup;
   isPasswordChange = false;
@@ -83,6 +90,10 @@ export class FormUserComponent implements OnInit {
           console.log('created');
           console.log(data);
           this.userEmitter.emit(data);
+        },
+        (err: HttpHeaderResponse) => {
+          delete this.user.email;
+          this.errors = this.errorMap[err.status];
         }
       )
     } else {

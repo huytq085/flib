@@ -32,15 +32,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity save(UserEntity userEntity) {
-        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        if (userRepository.save(userEntity) != null) {
-            int idUser = userRepository.findByEmail(userEntity.getEmail()).getId();
-            int idRole_Member = roleRepository.findByName("ROLE_MEMBER").getId();
-            userRolesRepository.save(new UserRoleEntity(idUser, idRole_Member));
+        if (!isExist(userEntity)){
+            userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+            if (userRepository.save(userEntity) != null) {
+                int idUser = userRepository.findByEmail(userEntity.getEmail()).getId();
+                int idRole_Member = roleRepository.findByName("ROLE_MEMBER").getId();
+                userRolesRepository.save(new UserRoleEntity(idUser, idRole_Member));
 //            TODO: save and get id automatically
-            userRepository.saveAndFlush(userEntity);
-            return userRepository.findByEmail(userEntity.getEmail());
+                userRepository.saveAndFlush(userEntity);
+                return userRepository.findByEmail(userEntity.getEmail());
+            }
         }
+
         return null;
     }
 
@@ -129,5 +132,8 @@ public class UserServiceImpl implements UserService {
             return contributeRepository.save(contribute);
         }
         return null;
+    }
+    private boolean isExist(UserEntity user) {
+        return (userRepository.findByEmail(user.getEmail()) != null);
     }
 }
