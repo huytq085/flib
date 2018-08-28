@@ -1,0 +1,93 @@
+<app-header></app-header>
+<div class="content-wrap">
+  <div class="container clearfix">
+    <div class="tabs divcenter nobottommargin clearfix" id="tab-login-register" style="max-width: 500px;">
+      <ul class="tab-nav tab-nav2 center clearfix">
+        <li class="inline-block">
+          <a [routerLink]="['/login']">Login</a>
+        </li>
+        <li class="inline-block">
+          <a [routerLink]="['/register']">Register</a>
+        </li>
+      </ul>
+      <div class="tab-content clearfix" id="tab-register">
+        <div class="card nobottommargin">
+          <div class="card-body" style="padding: 40px;">
+            <h3>Register for an Account</h3>
+            <form id="register-form" name="register-form" class="nobottommargin" method="post" #resForm="ngForm" (submit)="onSubmit(resForm)">
+              <div class="col_full">
+                <label for="register-form-name">Email Address:</label>
+                <input placeholder="Enter your email" type="text" id="register-form-name" name="email" class="form-control" [(ngModel)]="user.email"
+                  #txtEmail="ngModel" required email/>
+                <!-- <p *ngIf="txtEmail.touched && txtEmail.errors?.email" style="color:red">
+                  Email not valid
+                </p> -->
+                <p>{{txtEmail.errors | json}}</p>
+              </div>
+
+              <div class="col_full">
+                <label for="register-form-email">Full Name:</label>
+                <input placeholder="Enter your name" type="text" id="register-form-email" name="fullName" class="form-control" [(ngModel)]="user.fullName"
+                  #txtName="ngModel" required/>
+                <p *ngIf="txtName.touched && txtName.errors?.required" style="color:red">
+                  Full name is required
+                </p>
+              </div>
+
+              <div class="col_full">
+                <label for="register-form-username">Address:</label>
+                <input placeholder="Enter your address" type="text" id="register-form-username" name="address" class="form-control" [(ngModel)]="user.address"
+                  #txtAddress="ngModel" required/>
+                <p *ngIf="txtAddress.touched && txtAddress.errors?.required" style="color:red">
+                  Address is required
+                </p>
+              </div>
+
+              <div class="col_full">
+                <label for="register-form-phone">Gender:</label>
+                <select placeholder="Gender" class="form-control" name="gender" class="form-control" [(ngModel)]="user.gender">
+                  <option value="Female" selected>Female</option>
+                  <option value="Male">Male</option>
+                </select>
+              </div>
+
+              <div class="col_full">
+                <label for="register-form-phone">Identity Card:</label>
+                <input placeholder="Enter your identity card" type="text" id="register-form-phone" name="identityCard" class="form-control"
+                  [(ngModel)]="user.identityCard" #txtIdenCard="ngModel" required/>
+                <p *ngIf="txtIdenCard.touched && txtIdenCard.errors?.required" style="color:red">
+                  Identity card is required
+                </p>
+              </div>
+
+              <div class="col_full">
+                <label for="register-form-password">Choose Password:</label>
+                <input placeholder="Enter password" type="password" id="register-form-password" name="password" class="form-control" [(ngModel)]="user.password"
+                  #txtPass="ngModel" required/>
+                <p *ngIf="txtPass.touched && txtPass.errors?.required" style="color:red">
+                  Password is required
+                </p>
+              </div>
+
+              <div class="col_full">
+                <label for="register-form-repassword">Re-enter Password:</label>
+                <input placeholder="Re-enter password" type="password" id="register-form-repassword" name="repassword" class="form-control"
+                  [(ngModel)]="repassword" (blur)="checkPass()" #txtRePass="ngModel" required/>
+                <p *ngIf="txtRePass.touched && txtRePass.errors?.required" style="color:red">
+                  Re-Password is required
+                </p>
+              </div>
+
+              <div class="col_full nobottommargin">
+                <button class="button button-3d button-black nomargin" id="register-form-submit" name="submit" value="register" [disabled]="resForm.invalid">Register
+                  Now
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

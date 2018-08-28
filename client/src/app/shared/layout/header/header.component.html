@@ -13,7 +13,7 @@
 					<img src="assets/themes/images/logo@2x.png" alt="Canvas Logo">
 				</a>
 			</div>
-			<div id="top-account" class="dropdown" *ngIf="false">
+			<div id="top-account" class="dropdown" *ngIf="!tokenStorage.loggedIn()">
 				<a href="#" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 					<i class="icon-user"></i>
 				</a>
@@ -29,7 +29,10 @@
 					</a>
 				</ul>
 			</div>
-			<div id="top-account"><button class="button" [routerLink]="['/login']">Login</button></div>
+			<div id="top-account" *ngIf="tokenStorage.loggedIn()"> <a [routerLink]="['/login']" class="btn btn-secondary btn-sm" aria-haspopup="true" aria-expanded="true">
+					<i class="icon-user">Login</i>
+				</a>
+			</div>
 
 			<nav id="primary-menu">
 				<ul class="sf-js-enabled" style="touch-action: pan-y;">
