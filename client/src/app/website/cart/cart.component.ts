@@ -44,10 +44,22 @@ export class CartComponent implements OnInit {
 
   remove(item: CartItem) {
     this.cart.cartItems.splice(this.cart.cartItems.indexOf(item), 1);
+    if (this.cart) {
+      for (let i = 0; i < this.cart.cartItems.length; i++) {
+        const element = this.cart.cartItems[i];
+        this.bookService.getBook(element.id).subscribe(data => this.books.push(data));
+      }
+    }
   }
 
   updateCart() {
     localStorage.setItem('cart', JSON.stringify(this.cart));
+    if (this.cart) {
+      for (let i = 0; i < this.cart.cartItems.length; i++) {
+        const element = this.cart.cartItems[i];
+        this.bookService.getBook(element.id).subscribe(data => this.books.push(data));
+      }
+    }
   }
 
   sendTicket() {

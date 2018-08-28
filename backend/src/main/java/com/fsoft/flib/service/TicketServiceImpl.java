@@ -57,6 +57,7 @@ public class TicketServiceImpl implements TicketService {
                 ticketDetailEntity.setAmount(i.amount);
                 ticketDetailService.save(ticketDetailEntity);
             }
+            return ticketEntity;
         }
         return null;
     }

@@ -1,7 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Book } from '../../../core/models/book.model';
-import { UserService, Profile } from '../../../core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {Book} from '../../../core/models/book.model';
+import {UserService, Profile} from '../../../core';
 
 @Component({
   selector: 'app-form-book',
@@ -30,7 +30,7 @@ export class FormBookComponent implements OnInit {
   ngOnInit() {
   }
 
-  submitForm(){
+  submitForm() {
     this.isSubmitting = true;
     // update the model
     this.patchBook(this.bookForm.value);
@@ -41,17 +41,15 @@ export class FormBookComponent implements OnInit {
         this.book.id = data.bookId;
         this.bookEmitter.emit(this.book);
       }
-    )
-    
+    );
   }
 
-  patchBook(values: any){
+  patchBook(values: any) {
     Object.assign(this.book, values);
     this.book.authorByAuthorId = {
       name: values.author
-    }
+    };
   }
 
-  
 
 }
