@@ -76,7 +76,7 @@ public class UserController {
     public ResponseEntity<Object> updateUserById(@RequestBody UserEntity userEntity, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        if(userEntity.getEmail().equals(userDetails.getUsername().equals(userEntity.getEmail())) || userHasAuthority(userDetails, "ROLE_ADMIN")){
+        if(userEntity.getEmail().equals(userDetails.getUsername()) || userHasAuthority(userDetails, "ROLE_ADMIN")){
             if (userService.update(userEntity)) {
                 return new ResponseEntity<>("Updated!", HttpStatus.OK);
             }

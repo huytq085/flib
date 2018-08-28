@@ -17,6 +17,8 @@ public class UserEntity {
     private String address;
     private String gender;
     private String identityCard;
+    private String phone;
+
 
 
     @Id
@@ -87,6 +89,16 @@ public class UserEntity {
 
     public void setIdentityCard(String identityCard) {
         this.identityCard = identityCard;
+    }
+
+    @Basic
+    @Column(name = "phone", nullable = false, length = 12)
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override

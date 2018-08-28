@@ -1,3 +1,5 @@
+import { element } from 'protractor';
+import { TicketDetail } from './../../../core/models/ticket-detail.model';
 import { Component, OnInit } from '@angular/core';
 import { Ticket, ProfileService } from '../../../core';
 
@@ -26,6 +28,15 @@ export class ProfileOrderComponent implements OnInit {
   }
 
 
-  // Create data for testing purpose
+  getBookNames(ticket: Ticket): string{
+    let result = '';
+    for (const ticketDetail in ticket.ticketDetailsById) {
+      if (ticket.ticketDetailsById.hasOwnProperty(ticketDetail)) {
+        const element = ticket.ticketDetailsById[ticketDetail];
+        result+= '[' + element.bookByBookId.name.substr(0,20) + '...], ';// Get 20 characters string from book name & join it
+      }
+    }
+    return result;
+  }
   
 }
