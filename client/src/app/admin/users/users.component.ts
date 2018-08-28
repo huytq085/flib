@@ -56,5 +56,17 @@ export class AdminUsersComponent implements OnInit {
     )
   }
 
+  searching(event){
+    this.userService.currentUser.subscribe(
+      user => {
+        this.userService.search(event.target.value).subscribe(
+          data => {
+            this.users = data.filter(data => (data.email != user.email));
+          }
+        )
+      }
+    )
+  }
+
 
 }

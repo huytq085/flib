@@ -48,5 +48,9 @@ export class UserService {
     getRoles() {
         return this.apiService.get(`${BASE_URL}/roles`);
     }
+
+    search(value: string): Observable<User[]>{
+        return this.apiService.get(`${BASE_URL}?q=${value}`);
+    }
     
 }

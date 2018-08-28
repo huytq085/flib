@@ -36,7 +36,10 @@ public class UserController {
 
     /* ---------------- GET ALL USER ------------------------ */
     @RequestMapping(path = BASE_URL, method = RequestMethod.GET)
-    public ResponseEntity<List<UserEntity>> getAll() {
+    public ResponseEntity<List<UserEntity>> getAll(@RequestParam(value = "q", required = false) String query) {
+        if (query != null) {
+            return new ResponseEntity<>(userService.search(query), HttpStatus.OK);
+        }
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 

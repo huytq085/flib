@@ -27,4 +27,6 @@ public interface UserService {
     UserEntity getByEmail(String email);
 
     ContributeEntity contributeByEmail(String email, BookEntity book);
+
+    List<UserEntity> search(String query);
 }

@@ -133,6 +133,12 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    @Override
+    public List<UserEntity> search(String query) {
+        return userRepository.search(query);
+    }
+
     private boolean isExist(UserEntity user) {
         return (userRepository.findByEmail(user.getEmail()) != null);
     }
