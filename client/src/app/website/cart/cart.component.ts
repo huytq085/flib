@@ -3,6 +3,10 @@ import {Cart} from '../../core/models/cart.model';
 import {BookService} from '../../core/services/book.service';
 import {Book} from '../../core/models/book.model';
 import {CartItem} from '../../core/models/cart-item.model';
+import {TokenStorage} from '../auth/authority/token.storage';
+import {TicketService} from '../../core/services/ticket.service';
+import {TicketDetail} from '../../core/models/ticket-detail.model';
+import {Ticket} from '../../core/models';
 
 @Component({
   selector: 'app-cart',
@@ -13,7 +17,7 @@ export class CartComponent implements OnInit {
   cart: Cart = {} as Cart;
   books: Book[] = [];
 
-  constructor(private bookService: BookService, ) {
+  constructor(private bookService: BookService, private tokenStorage: TokenStorage, private ticketService: TicketService) {
     this.cart = JSON.parse(localStorage.getItem('cart')) as Cart;
   }
 
@@ -47,6 +51,10 @@ export class CartComponent implements OnInit {
   }
 
   sendTicket() {
-
+    if (this.tokenStorage.loggedIn()) {
+      const cart: Cart = JSON.parse(localStorage.getItem('cart')) as Cart;
+      // const ticket: Ticket = {ticketDetailsById: ticketDetail, dateAdded: new Date().toDateString()};
+      this.ticketService.createTicket(cart).subscribe(data => console.log(data));
+    }
   }
 }
