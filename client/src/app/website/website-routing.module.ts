@@ -10,7 +10,7 @@ const routes: Routes = [
         path: '',
         component: WebsiteComponent,
         children: [
-            { path: '', redirectTo: '/book', pathMatch: 'full' },
+            { path: '', redirectTo: '/book/page/0', pathMatch: 'full' },
             {
                 path: 'profile',
                 loadChildren: './profile/profile.module#ProfileModule'

@@ -90,8 +90,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<GrantedAuthority> getAuthorities(UserEntity userEntity) {
         List<String> roleNames = userRolesRepository.getRoleNameByEmail(userEntity.getEmail());
-        System.out.println("role names");
-        System.out.println(JsonUtil.encode(roleNames));
         List<GrantedAuthority> grantList = new ArrayList<>();
         if (roleNames != null) {
             for (String role : roleNames) {

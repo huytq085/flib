@@ -49,7 +49,6 @@ export class BookListComponent implements OnInit {
           cart.cartItems[i].amount += 1;
           isExist = true;
         }
-
       }
       if (!isExist) {
         cart.cartItems.push({ id: book.id, amount: 1 });
@@ -68,4 +67,5 @@ export class BookListComponent implements OnInit {
       localStorage.setItem('cart', cartJSON);
     }
   }
+
 }
