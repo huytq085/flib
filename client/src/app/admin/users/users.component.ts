@@ -39,7 +39,9 @@ export class AdminUsersComponent implements OnInit {
 
   userEmit(user: User){
     console.log(user);
-    this.users.push(user);
+    if (user){
+      this.users.push(user);
+    }
     this.displayForm();
   }
 

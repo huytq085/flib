@@ -20,7 +20,7 @@
         <label for="password" class="col-sm-3 col-form-label">Password</label>
 
         <div class="col-sm-9" *ngIf="!isPasswordChange">
-          <button (click)="isPasswordChange = true">Change</button>
+          <button (click)="changePassword()">Change</button>
       </div>
         
         <div class="col-sm-9" *ngIf="isPasswordChange">

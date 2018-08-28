@@ -47,16 +47,26 @@ export class FormUserComponent implements OnInit {
     });
   }
 
+  addPasswordControl(){
+    this.userForm.addControl('password', new FormControl('', Validators.compose([
+      Validators.maxLength(25),
+      Validators.minLength(6),
+      Validators.required
+    ])));
+  }
+
   ngOnInit() {
     console.log(this.user);
     if (this.user.email) {
       this.userForm.patchValue(this.user);
       this.isPasswordChange = false;
       if (this.user.password){
-        // this.user.password =  
+        delete this.user.password;
       }
     } else {
       console.log('else')
+      this.addPasswordControl();
+      
       this.isPasswordChange = true;
     }
   }
@@ -80,7 +90,7 @@ export class FormUserComponent implements OnInit {
         data => {
           console.log('updated');
           console.log(data);
-          this.userEmitter.emit(data);
+          this.userEmitter.emit(null);
         }
       )
     }
@@ -92,5 +102,9 @@ export class FormUserComponent implements OnInit {
     Object.assign(this.user, values);
   }
 
+  changePassword(){
+    this.addPasswordControl();
+    this.isPasswordChange = true;
+  }
 
 }

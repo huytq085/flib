@@ -20,7 +20,7 @@ export class UserService {
     }
 
     update(user: User): Observable<User> {
-        return this.apiService.put(`${BASE_URL}`, user);
+        return this.apiService.put(`${BASE_URL}`, user, { responseType: 'text'});
     }
 
     contribute(book: Book): Observable<any> {
