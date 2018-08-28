@@ -1,0 +1,56 @@
+<!-- Content
+		============================================= -->
+		<section id="content">
+			<div class="content-wrap">
+				<div class="container clearfix">
+					<div class="table-responsive">
+						<table class="table cart">
+							<thead>
+								<tr>
+                  <th class="cart-product-thumbnail">&nbsp;</th>
+									<th class="cart-product-name">Book name</th>
+									<th class="cart-product-quantity">Quantity</th>
+									<th class="cart-product-remove">&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody *ngIf="cart">
+								<tr class="cart_item" *ngFor="let item of cart.cartItems;let i=index" >
+
+									<td class="cart-product-thumbnail">
+										<a href="#"><img width="64" height="64" src="{{books[i].coverImage}}" alt="Pink Printed Dress"></a>
+									</td>
+
+									<td class="cart-product-name">
+										<a href="#">{{books[i].name}}</a>
+									</td>
+
+									<td class="cart-product-quantity">
+										<div class="quantity clearfix">
+											<input type="button" value="-" class="minus" (click)="minusAmount(item)">
+											<input type="text" name="quantity" value="{{item.amount}}" class="qty" />
+											<input type="button" value="+" class="plus" (click)="plusAmount(item)">
+										</div>
+									</td>
+
+                  <td class="cart-product-remove">
+										<a  class="remove" title="Remove this item" (click)="remove(item)"><i class="icon-trash2"></i></a>
+									</td>
+								</tr>
+                <tr class="cart_item">
+                  <td colspan="6">
+                    <div class="row clearfix">
+                      <div class="col-lg-8 col-8 nopadding">
+                        <a (click)="updateCart()" class="button button-3d nomargin fright">Update Cart</a>
+                        <a (click)="sendTicket()" class="button button-3d notopmargin fright">Send ticket</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+
+		</section><!-- #content end -->

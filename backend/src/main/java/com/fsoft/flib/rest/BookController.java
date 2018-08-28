@@ -27,7 +27,6 @@ public class BookController {
 
     @GetMapping(path = GET_BOOK_BY_ID)
     public Optional<BookEntity> getBook(@PathVariable int id) {
-        System.out.println(id);
         return bookService.getOne(id);
     }
 

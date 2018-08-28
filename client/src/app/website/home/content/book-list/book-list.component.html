@@ -37,8 +37,8 @@
             <div class="product-image">
               <a><img src="{{book.coverImage}}" alt="{{book.name}}"></a>
               <div class="product-overlay">
-                <a class="add-to-cart"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
-                <a class="add-to-cart" style="cursor: pointer;" data-lightbox="ajax" routerLink="/book/{{book.id}}"><i class="icon-zoom-in2"></i><span>
+                <a class="add-to-cart" (click)="addToCart(book)"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                <a class="item-quick-view" data-lightbox="ajax" routerLink="/book/{{book.id}}"><i class="icon-zoom-in2"></i><span>
                   Quick View</span></a>
               </div>
             </div>

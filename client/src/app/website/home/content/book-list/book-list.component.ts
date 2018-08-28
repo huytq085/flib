@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Book } from '../../../../core/models/book.model';
 import { PageBook } from '../../../../core/models/page-book.model';
 import { BookService } from '../../../../core/services/book.service';
+import { Cart } from '../../../../core/models/cart.model';
 
 @Component({
   selector: 'app-book-list',
@@ -14,37 +15,11 @@ export class BookListComponent implements OnInit {
   pageBooks: PageBook = {} as PageBook;
 
   constructor(private bookService: BookService) {
-    // console.log(new Book('Book a', 'Tam 6 mui', 1, 'Ngay mai
-    // ', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book a', 'Tam 6 mui', 1, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book b', 'Huy magic', 1.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book c', 'Quang dep trai', 2, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book d', 'Tam 6 mui', 2.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book e', 'Huy magic', 3, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book f', 'Quang dep trai', 3.5, '
-    // Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book g', 'Tam 6 mui', 4, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book h', 'Huy magic', 4.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book aa', 'Quang dep trai', 5,
-    // 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book ab', 'Tam 6 mui', 1, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book ac', 'Huy magic', 1.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book ad', 'Quang dep trai',
-    // 2, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book ae', 'Tam 6 mui', 2.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book af', 'Huy magic', 3, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book ag', 'Quang dep trai', 3.5, 'N
-    // gay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book ah', 'Tam 6 mui', 4, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book ba', 'Huy magic', 4.5, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book bb', 'Quang dep trai', 5, 'Ng
-    // ay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
-    // this.books.push(new Book('Book bc', 'Tam 6 mui', 1, 'Ngay mai', 'Hom nay', 1, '../../../assets/themes/images/shop/pants/1.jpg'));
   }
 
 
   ngOnInit(): void {
-    this.bookService.getBookByPage(1, 5).subscribe((data: PageBook) => {
+    this.bookService.getBookByPage(0, 9).subscribe((data: PageBook) => {
       this.books = data.content;
       console.log(data);
 
@@ -62,4 +37,35 @@ export class BookListComponent implements OnInit {
       }
     }, 16);
   }
+  addToCart(book: Book) {
+    let cart = JSON.parse(localStorage.getItem('cart')) as Cart;
+    let isExist = false;
+    if (cart) {
+      console.log('ko null');
+      cart = JSON.parse(localStorage.getItem('cart')) as Cart;
+      for (let i = 0; i < cart.cartItems.length; i++) {
+        const element = cart.cartItems[i];
+        if (element.id === book.id) {
+          cart.cartItems[i].amount += 1;
+          isExist = true;
+        }
+      }
+      if (!isExist) {
+        cart.cartItems.push({ id: book.id, amount: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+    } else {
+      // const value = JSON.stringify({ id: book.id, amout: 1 });
+      // localStorage.setItem('cart', value);
+      // localStorage.setItem()
+      console.log('null');
+      cart = {
+        cartItems: []
+      } as Cart;
+      cart.cartItems.push({ id: book.id, amount: 1 });
+      const cartJSON = JSON.stringify(cart);
+      localStorage.setItem('cart', cartJSON);
+    }
+  }
+
 }
