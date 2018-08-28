@@ -6,263 +6,38 @@
 			</div>
 
 			<div id="logo">
-				<a href="index.html" class="standard-logo" data-dark-logo="assets/themes/images/logo-dark.png">
+				<a routerLink="/" class="standard-logo" data-dark-logo="assets/themes/images/logo-dark.png">
 					<img src="assets/themes/images/logo.png" alt="Canvas Logo">
 				</a>
-				<a href="index.html" class="retina-logo" data-dark-logo="assets/themes/images/logo-dark@2x.png">
+				<a routerLink="/" class="retina-logo" data-dark-logo="assets/themes/images/logo-dark@2x.png">
 					<img src="assets/themes/images/logo@2x.png" alt="Canvas Logo">
 				</a>
 			</div>
-			<div id="top-account" class="dropdown" *ngIf="!tokenStorage.loggedIn()">
+			<div id="top-account" class="dropdown" *ngIf="tokenStorage.loggedIn()">
 				<a href="#" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 					<i class="icon-user"></i>
 				</a>
 				<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
 					<a class="dropdown-item tleft" [routerLink]="['/profile']">Profile</a>
-					<a class="dropdown-item tleft" href="#">Messages
+					<a class="dropdown-item tleft" [routerLink]="['/messenger']">Messages
 						<span class="badge badge-pill badge-secondary fright" style="margin-top: 3px;">5</span>
 					</a>
-					<a class="dropdown-item tleft" href="#">Settings</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item tleft" href="#">Logout
+					<a class="dropdown-item tleft" (click)="tokenStorage.logOut()" style="cursor: pointer;">Logout
 						<i class="icon-signout"></i>
 					</a>
 				</ul>
 			</div>
-			<div id="top-account" *ngIf="tokenStorage.loggedIn()"> <a [routerLink]="['/login']" class="btn btn-secondary btn-sm" aria-haspopup="true" aria-expanded="true">
-					<i class="icon-user">Login</i>
+			<div id="top-account" *ngIf="!tokenStorage.loggedIn()"> <a [routerLink]="['/login']" class="btn btn-secondary btn-sm">
+				Login
 				</a>
 			</div>
-
 			<nav id="primary-menu">
-				<ul class="sf-js-enabled" style="touch-action: pan-y;">
+				<!-- <ul class="sf-js-enabled" style="touch-action: pan-y;">
 					<li class="sub-menu">
 						<a href="index.html" class="sf-with-ul">
 							<div>Home</div>
 						</a>
-						<ul style="display: none;">
-							<li class="sub-menu">
-								<a href="index-corporate.html" class="sf-with-ul">
-									<div>Home - Corporate</div>
-								</a>
-								<ul style="display: none;">
-									<li>
-										<a href="index-corporate.html">
-											<div>Corporate - Layout 1</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-corporate-2.html">
-											<div>Corporate - Layout 2</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-corporate-3.html">
-											<div>Corporate - Layout 3</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-corporate-4.html">
-											<div>Corporate - Layout 4</div>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="index-portfolio.html" class="sf-with-ul">
-									<div>Home - Portfolio</div>
-								</a>
-								<ul style="display: none;">
-									<li>
-										<a href="index-portfolio.html">
-											<div>Portfolio - Layout 1</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-portfolio-2.html">
-											<div>Portfolio - Layout 2</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-portfolio-3.html">
-											<div>Portfolio - Masonry</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-portfolio-4.html">
-											<div>Portfolio - AJAX</div>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="index-blog.html" class="sf-with-ul">
-									<div>Home - Blog</div>
-								</a>
-								<ul style="display: none;">
-									<li>
-										<a href="index-blog.html">
-											<div>Blog - Layout 1</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-blog-2.html">
-											<div>Blog - Layout 2</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-blog-3.html">
-											<div>Blog - Layout 3</div>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="index-shop.html" class="sf-with-ul">
-									<div>Home - Shop</div>
-								</a>
-								<ul style="display: none;">
-									<li>
-										<a href="index-shop.html">
-											<div>Shop - Layout 1</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-shop-2.html">
-											<div>Shop - Layout 2</div>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="index-magazine.html" class="sf-with-ul">
-									<div>Home - Magazine</div>
-								</a>
-								<ul style="display: none;">
-									<li>
-										<a href="index-magazine.html">
-											<div>Magazine - Layout 1</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-magazine-2.html">
-											<div>Magazine - Layout 2</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-magazine-3.html">
-											<div>Magazine - Layout 3</div>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="landing.html" class="sf-with-ul">
-									<div>Home - Landing Page</div>
-								</a>
-								<ul style="display: none;">
-									<li>
-										<a href="landing.html">
-											<div>Landing Page - Layout 1</div>
-										</a>
-									</li>
-									<li>
-										<a href="landing-2.html">
-											<div>Landing Page - Layout 2</div>
-										</a>
-									</li>
-									<li>
-										<a href="landing-3.html">
-											<div>Landing Page - Layout 3</div>
-										</a>
-									</li>
-									<li>
-										<a href="landing-4.html">
-											<div>Landing Page - Layout 4</div>
-										</a>
-									</li>
-									<li>
-										<a href="landing-5.html">
-											<div>Landing Page - Layout 5</div>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="index-fullscreen-image.html" class="sf-with-ul">
-									<div>Home - Full Screen</div>
-								</a>
-								<ul style="display: none;">
-									<li>
-										<a href="index-fullscreen-image.html">
-											<div>Full Screen - Image</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-fullscreen-slider.html">
-											<div>Full Screen - Slider</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-fullscreen-video.html">
-											<div>Full Screen - Video</div>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="index-onepage.html" class="sf-with-ul">
-									<div>Home - One Page</div>
-								</a>
-								<ul style="display: none;">
-									<li>
-										<a href="index-onepage.html">
-											<div>One Page - Default</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-onepage-2.html">
-											<div>One Page - Submenu</div>
-										</a>
-									</li>
-									<li>
-										<a href="index-onepage-3.html">
-											<div>One Page - Dots Style</div>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<a href="index-wedding.html">
-									<div>Home - Wedding</div>
-								</a>
-							</li>
-							<li>
-								<a href="index-restaurant.html">
-									<div>Home - Restaurant</div>
-								</a>
-							</li>
-							<li>
-								<a href="index-events.html">
-									<div>Home - Events</div>
-								</a>
-							</li>
-							<li>
-								<a href="index-parallax.html">
-									<div>Home - Parallax</div>
-								</a>
-							</li>
-							<li>
-								<a href="index-app-showcase.html">
-									<div>Home - App Showcase</div>
-								</a>
-							</li>
-							<li>
-								<a href="index-boxed.html">
-									<div>Home - Boxed Layout</div>
-								</a>
-							</li>
-						</ul>
 					</li>
 					<li class="sub-menu">
 						<a href="#" class="sf-with-ul">
@@ -2059,7 +1834,7 @@
 							</ul>
 						</div>
 					</li>
-				</ul>
+				</ul> -->
 
 				<div id="top-cart">
 					<a href="#" id="top-cart-trigger">
