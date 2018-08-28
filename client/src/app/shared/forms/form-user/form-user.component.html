@@ -1,4 +1,4 @@
-<form [formGroup]="userForm" (ngSubmit)="submitForm()">
+<form [formGroup]="userForm" (ngSubmit)="submitForm()" (keyup.enter)="submitForm()">
   <fieldset [disabled]="isSubmitting">
     <!-- <fieldset class="form-group">
       <app-avatar-upload [user]="user" (avatarEmit)="changeAvatar($event)"></app-avatar-upload>
@@ -14,17 +14,23 @@
               formControlName="email" 
               />
         </div>
+        <small class="alert text-danger" *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">Email không đúng định dạng</small>
     </div>
     <div class="form-group row">
         <label for="password" class="col-sm-3 col-form-label">Password</label>
-        <div class="col-sm-9">
+
+        <div class="col-sm-9" *ngIf="!isPasswordChange">
+          <button (click)="isPasswordChange = true">Change</button>
+      </div>
+        
+        <div class="col-sm-9" *ngIf="isPasswordChange">
             <input
               formControlName="password"
               placeholder="password"
               class="form-control "
               name="password"
               type="password"/>
-            <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['fullName'].valid && settingsForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small> -->
+              <small class="alert text-danger" *ngIf="!userForm.controls['password'].valid && userForm.controls['password'].touched">Độ dài lớn hơn hoặc bằng 6</small>
         </div>
     </div>
     <div class="form-group row">
@@ -36,7 +42,7 @@
             class="form-control"
             name="fullName"
             type="text"/>
-          <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['fullName'].valid && settingsForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small> -->
+            <small class="alert text-danger" *ngIf="!userForm.controls['fullName'].valid && userForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small>
       </div>
     </div>
     <div class="form-group row">
@@ -46,7 +52,7 @@
               type="text"
               name="address"
               formControlName="address" />
-          <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['email'].valid && settingsForm.controls['email'].touched">Email không đúng định dạng</small> -->
+              <small class="alert text-danger" *ngIf="!userForm.controls['address'].valid && userForm.controls['address'].touched">Không được bỏ trống.</small>
         </div>
     </div>
     <div class="form-group row">
@@ -56,7 +62,7 @@
             type="text"
             name="phone"
             formControlName="phone" />
-        <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['email'].valid && settingsForm.controls['email'].touched">Email không đúng định dạng</small> -->
+            <small class="alert text-danger" *ngIf="!userForm.controls['phone'].valid && userForm.controls['phone'].touched">Không đúng định dạng.</small>
       </div>
   </div>
   <div class="form-group row">
@@ -70,7 +76,7 @@
         <option value="Male" selected>Male</option>
         <option value="Female">Female</option>
       </select>
-      <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['email'].valid && settingsForm.controls['email'].touched">Email không đúng định dạng</small> -->
+      <small class="alert text-danger" *ngIf="!userForm.controls['gender'].valid && userForm.controls['gender'].touched">Không được bỏ trống.</small>
     </div>
 </div>
 <div class="form-group row">
@@ -80,7 +86,7 @@
         type="text"
         name="identityCard"
         formControlName="identityCard" />
-    <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['email'].valid && settingsForm.controls['email'].touched">Email không đúng định dạng</small> -->
+        <small class="alert text-danger" *ngIf="!userForm.controls['identityCard'].valid && userForm.controls['identityCard'].touched">Không đúng định dạng.</small>
   </div>
 </div>
 
@@ -93,7 +99,7 @@
     <div class="offset-sm-3">
       <button 
     class="btn btn-primary"
-    type="submit">
+    type="submit" [disabled]="!userForm.valid">
     Submit
   </button>
     </div>
