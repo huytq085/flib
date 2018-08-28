@@ -67,6 +67,7 @@ public class ProfileController {
         } else {
             status = HttpStatus.UNAUTHORIZED;
         }
+//        System.out.println(JsonUtil.encode(books));
 
         return new ResponseEntity<>(books, status);
     }

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -17,8 +18,8 @@ public class BookEntity {
     private String name;
     private int authorId;
     private double rating;
-    private Timestamp dateAdded;
-    private Timestamp datePublished;
+    private Date dateAdded;
+    private Date datePublished;
     private int amount;
     private String description;
     private String coverImage;
@@ -29,6 +30,7 @@ public class BookEntity {
     private Collection<TicketDetailEntity> ticketDetailsById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -69,22 +71,24 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name = "date_added", nullable = false)
-    public Timestamp getDateAdded() {
+    @Column(name = "date_added", nullable = false, insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getDateAdded() {
         return dateAdded;
     }
 
-    public void setDateAdded(Timestamp dateAdded) {
+    public void setDateAdded(Date dateAdded) {
         this.dateAdded = dateAdded;
     }
 
     @Basic
-    @Column(name = "date_published", nullable = false)
-    public Timestamp getDatePublished() {
+    @Column(name = "date_published", nullable = false, insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getDatePublished() {
         return datePublished;
     }
 
-    public void setDatePublished(Timestamp datePublished) {
+    public void setDatePublished(Date datePublished) {
         this.datePublished = datePublished;
     }
 
@@ -139,7 +143,7 @@ public class BookEntity {
         return Objects.hash(id, name, authorId, rating, dateAdded, datePublished, amount, description, coverImage);
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public AuthorEntity getAuthorByAuthorId() {
         return authorByAuthorId;
@@ -150,7 +154,7 @@ public class BookEntity {
     }
 
     @OneToMany(mappedBy = "bookByBookId")
-    @JsonManagedReference
+    @JsonManagedReference(value = "bookTypes")
     public Collection<BookTypeEntity> getBookTypesById() {
         return bookTypesById;
     }
@@ -160,7 +164,7 @@ public class BookEntity {
     }
 
     @OneToMany(mappedBy = "bookByBookId")
-    @JsonManagedReference
+    @JsonManagedReference(value = "contributes")
     public Collection<ContributeEntity> getContributesById() {
         return contributesById;
     }
@@ -170,7 +174,7 @@ public class BookEntity {
     }
 
     @OneToMany(mappedBy = "bookByBookId")
-    @JsonManagedReference
+    @JsonManagedReference(value = "reactions")
     public Collection<ReactionEntity> getReactionsById() {
         return reactionsById;
     }

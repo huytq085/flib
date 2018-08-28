@@ -1,10 +1,7 @@
 package com.fsoft.flib.service;
 
-import com.fsoft.flib.domain.UserEntity;
-import com.fsoft.flib.domain.UserRoleEntity;
-import com.fsoft.flib.repository.RoleRepository;
-import com.fsoft.flib.repository.UserRepository;
-import com.fsoft.flib.repository.UserRolesRepository;
+import com.fsoft.flib.domain.*;
+import com.fsoft.flib.repository.*;
 import com.fsoft.flib.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,17 +23,23 @@ public class UserServiceImpl implements UserService {
     private UserRolesRepository userRolesRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private ContributeRepository contributeRepository;
+    @Autowired
+    private BookRepository bookRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
 
     @Override
-    public boolean save(UserEntity userEntity) {
+    public UserEntity save(UserEntity userEntity) {
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         if (userRepository.save(userEntity) != null) {
             int idUser = userRepository.findByEmail(userEntity.getEmail()).getId();
             int idRole_Member = roleRepository.findByName("ROLE_MEMBER").getId();
             userRolesRepository.save(new UserRoleEntity(idUser, idRole_Member));
-            return true;
+            return userRepository.save(userEntity);
         }
-        return false;
+        return null;
     }
 
     @Override
@@ -103,5 +106,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity getByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public ContributeEntity contributeByEmail(String email, BookEntity book) {
+        UserEntity user = userRepository.findByEmail(email);
+        if (user != null) {
+            ContributeEntity contribute = new ContributeEntity();
+            contribute.setUserId(user.getId());
+//            TODO: auto save author with hibernate
+            AuthorEntity author = new AuthorEntity();
+            author.setName(book.getAuthorByAuthorId().getName());
+            book.setAuthorId(authorRepository.save(author).getId());
+            System.out.println("service");
+            System.out.println(JsonUtil.encode(book));
+            book = bookRepository.save(book);
+            contribute.setBookId(book.getId());
+            return contributeRepository.save(contribute);
+        }
+        return null;
     }
 }

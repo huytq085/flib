@@ -1,22 +1,24 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminHomeComponent } from './admin/home';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/book', pathMatch: 'full' },
   {
-    path: 'settings',
-    loadChildren: './settings/settings.module#SettingsModule'
+    path: '',
+    loadChildren: './website/website.module#WebsiteModule'
   },
-  {
-    path: 'profile',
-    loadChildren: './profile/profile.module#ProfileModule'
-  },
-  { path: 'book', loadChildren: './home/home.module#HomeModule' },
+  { 
+    path: 'admin', 
+    loadChildren: './admin/admin.module#AdminModule'
+  }
+
 ];
 
 @NgModule({
   exports: [RouterModule],
-  imports: [RouterModule.forRoot(routes, { enableTracing: true })]
+  imports: [
+    RouterModule.forRoot(routes, { enableTracing: true })
+  ]
 })
 export class AppRoutingModule { }

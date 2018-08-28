@@ -50,20 +50,17 @@ public class AuthController {
     //    -----CREATE NEW USER-----
     @RequestMapping(
             value = REGISTER_URL,
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            method = RequestMethod.POST
     )
-    public ResponseEntity<String> createNewUser(@RequestBody UserEntity newUser) {
-        System.out.println("Create new user");
-        System.out.println(JsonUtil.encode(newUser));
-        if (userService.save(newUser)) {
+    public ResponseEntity<Object> createNewUser(@RequestBody UserEntity newUser) {
+        System.out.println("Create user");
+        UserEntity user =userService.save(newUser);
+        if (user != null) {
             System.out.println("Created");
             System.out.println(JsonUtil.encode(newUser));
-            return new ResponseEntity<>("Created!", HttpStatus.CREATED);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>("User Existed!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
-
 }
