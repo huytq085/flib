@@ -33,7 +33,7 @@ export class ProfileOrderComponent implements OnInit {
     for (const ticketDetail in ticket.ticketDetailsById) {
       if (ticket.ticketDetailsById.hasOwnProperty(ticketDetail)) {
         const element = ticket.ticketDetailsById[ticketDetail];
-        result+= '[' + element.bookByBookId.name.substr(0,20) + '...], ';// Get 20 characters string from book name & join it
+        result+= '[' + element.bookByBookId.name.toString().substr(0,20) + '...], ';// Get 20 characters string from book name & join it
       }
     }
     return result;
