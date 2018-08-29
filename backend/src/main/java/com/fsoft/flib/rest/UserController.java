@@ -54,7 +54,7 @@ public class UserController {
     }
 
     @RequestMapping(path = FAVOURITE_URL, method = RequestMethod.GET)
-    public boolean favourite(Principal principal) {
+    public Boolean favourite(Principal principal) {
         return true;
 
     }
@@ -123,6 +123,4 @@ public class UserController {
         }
         return false;
     }
-
-
 }
