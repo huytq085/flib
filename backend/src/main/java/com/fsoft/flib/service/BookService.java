@@ -20,4 +20,7 @@ public interface BookService {
     Page<BookEntity> getPageBook(int number, int size);
 
     List<BookEntity> getContributesByEmail(String email);
+
+    List<BookEntity> findByNameLike(String query,String query1);
+
 }

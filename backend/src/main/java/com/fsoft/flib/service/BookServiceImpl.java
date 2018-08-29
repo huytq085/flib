@@ -71,5 +71,10 @@ public class BookServiceImpl implements BookService {
         return Collections.emptyList();
     }
 
+    @Override
+    public List<BookEntity> findByNameLike(String query,String query1) {
+        return this.bookRepository.findByNameLikeOrAuthorByAuthorIdNameLike(query, query1);
+    }
+
 
 }
