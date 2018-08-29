@@ -1,67 +1,96 @@
-<form [formGroup]="bookForm" (ngSubmit)="submitForm()">
+
+<form [formGroup]="bookForm" (ngSubmit)="submitForm()" style="margin-bottom: 200px">
   <fieldset [disabled]="isSubmitting">
     <!-- <fieldset class="form-group">
       <app-avatar-upload [user]="user" (avatarEmit)="changeAvatar($event)"></app-avatar-upload>
     </fieldset> -->
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Image</label>
+      <label for="name" class="col-sm-3 col-form-label">Name</label>
       <div class="col-sm-9">
-        <div class="input-group">
-          <input class="form-control" name="coverImage" (change)="onFileChange($event)" type="file" />
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button">
-              <span class="fa fa-picture-o"></span>
-            </button>
+        <ng-select [items]="bookObservable$ | async"
+            formControlName="name"
+           bindLabel="name"
+           bindValue="id"
+           [addTag]="true"
+           [hideSelected]="true"
+           [loading]="isLoading"
+           [typeahead]="bookInput$"
+           (change)="onChange($event)">
+           <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+            <div style="margin: 10px 0;" class="card">
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-sm-3">
+                          <img height="80" width="100" [src]="item.coverImage" />
+                      </div>
+                      <div class="col-sm-9">
+                          <h2 class="card-title wrap" [ngOptionHighlight]="search">{{item.name.substr(0,40)}}...</h2>
+                          <div class="d-flex">
+                            <p class="text-dark mr-2 mb-0 wrap">Author: {{ item.authorByAuthorId.name }}</p>
+                          </div>
+                          <p class="card-text wrap">
+                              Description: {{ item.description.substr(0,20) }}...
+                           </p>
+                      </div> 
+                  </div>
+                  
+                
+              </div>
+            </div>
+          </ng-template>
+    </ng-select>
+    
+      </div>
+    </div>
+    
+  <ng-container *ngIf="isNew">
+      <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Image</label>
+          <div class="col-sm-9">
+            <div class="input-group">
+              <input class="form-control" name="coverImage" (change)="onFileChange($event)" type="file" />
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">
+                  <span class="fa fa-picture-o"></span>
+                </button>
+              </div>
+            </div>
+    
+          </div>
+    
+    
+        </div>
+        <div class="row">
+          <div class="col-sm-9 offset-sm-3">
+            <div class="image-preview-container" *ngIf="imagePreview">
+              <img [src]="imagePreview" height="200">
+            </div>
           </div>
         </div>
-
-      </div>
-
-
-    </div>
-    <div class="row">
-      <div class="col-sm-9 offset-sm-3">
-        <div class="image-preview-container" *ngIf="imagePreview">
-          <img [src]="imagePreview" height="200">
+    
+      <div class="form-group row">
+          <label for="description" class="col-sm-3 col-form-label">Description</label>
+          <div class="col-sm-9">
+            <input formControlName="description" placeholder="Description" class="form-control " name="description" type="text" />
+            <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['fullName'].valid && settingsForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small> -->
+          </div>
         </div>
-      </div>
-    </div>
-
-
-    <div class="form-group row">
-      <label for="username" class="col-sm-3 col-form-label">Name</label>
-      <div class="col-sm-9">
-        <input class="form-control" type="text" placeholder="Name" name="name" formControlName="name" />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="description" class="col-sm-3 col-form-label">Description</label>
-      <div class="col-sm-9">
-        <input formControlName="description" placeholder="Description" class="form-control " name="description" type="text" />
-        <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['fullName'].valid && settingsForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small> -->
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="author" class="col-sm-3 col-form-label">Author</label>
-      <div class="col-sm-9">
-        <input formControlName="author" placeholder="Author" class="form-control" name="author" type="text" />
-        <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['fullName'].valid && settingsForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small> -->
-      </div>
-    </div>
-    <div class="form-group row">
+        <div class="form-group row">
+          <label for="author" class="col-sm-3 col-form-label">Author</label>
+          <div class="col-sm-9">
+            <input formControlName="author" placeholder="Author" class="form-control" name="author" type="text" />
+            <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['fullName'].valid && settingsForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small> -->
+          </div>
+        </div>
+        
+        
+  </ng-container>
+  <div class="form-group row">
       <label for="amount" class="col-sm-3 col-form-label">Amount</label>
       <div class="col-sm-9">
         <input class="form-control " type="number" name="amount" formControlName="amount" />
-        <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['email'].valid && settingsForm.controls['email'].touched">Email không đúng định dạng</small> -->
       </div>
     </div>
-
-    <!-- <button 
-      [disabled]="!settingsForm.valid"
-      class="btn btn-lg btn-primary pull-xs-right"
-      type="submit">
-      Cập nhật thông tin
-    </button> -->
     <div class="offset-sm-3">
       <button class="btn btn-primary" type="submit">
         Submit
@@ -69,4 +98,24 @@
     </div>
 
   </fieldset>
+  <div class="ievent clearfix" *ngIf="book.id">
+      <div class="entry-image">
+        <a href="#">
+          <img [src]="book.coverImage" [alt]="book.name">
+        </a>
+      </div>
+      <div class="entry-c">
+        <div class="entry-title">
+          <h2><a href="#">{{ book.name }}</a></h2>
+        </div>
+        <ul class="entry-meta clearfix">
+          <li><span class="badge badge-success">{{book.authorByAuthorId.name }}</span></li>
+          <li><a href="#"><i class="icon-time"></i> {{ book.datePublished }}</a></li>
+        </ul>
+        <div class="entry-content">
+          <a [routerLink]="['/book', book.id]" class="btn btn-info">READ MORE</a>
+        </div>
+      </div>
+    </div>  
 </form>
+

@@ -9,6 +9,7 @@ import { FormUserComponent } from './forms/form-user/form-user.component';
 import { ImageUploadComponent } from './image-helper/image-upload/image-upload.component';
 import { WebsiteModule } from '../website/website.module';
 import { SearchBookComponent } from './search-book/search-book.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SearchBookComponent } from './search-book/search-book.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    NgSelectModule,
   ],
   exports: [
     HeaderComponent,
@@ -32,7 +34,8 @@ import { SearchBookComponent } from './search-book/search-book.component';
     ReactiveFormsModule,
     FormsModule,
     FormUserComponent,
-    SearchBookComponent
+    SearchBookComponent,
+    ImageUploadComponent
   ]
 })
 export class SharedModule { }

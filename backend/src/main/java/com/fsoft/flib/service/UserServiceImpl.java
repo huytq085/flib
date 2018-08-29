@@ -4,7 +4,6 @@ import com.fsoft.flib.domain.*;
 import com.fsoft.flib.repository.*;
 import com.fsoft.flib.util.Constants;
 import com.fsoft.flib.util.ImageUtils;
-import com.fsoft.flib.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -37,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity save(UserEntity userEntity) {
-        if (!isExist(userEntity)){
+        if (!isExist(userEntity)) {
             userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
             if (userRepository.save(userEntity) != null) {
                 int idUser = userRepository.findByEmail(userEntity.getEmail()).getId();
@@ -55,7 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean update(UserEntity userEntity) {
         //getpassword từ id của userEntity userEntity không chứa password)
-        if (userEntity != null && userEntity.getPassword() != null && !userEntity.getPassword().equals("")){
+        if (userEntity != null && userEntity.getPassword() != null && !userEntity.getPassword().equals("")) {
             userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         } else {
             UserEntity userFromDb = userRepository.findByEmail(userEntity.getEmail());
@@ -125,21 +123,16 @@ public class UserServiceImpl implements UserService {
             ContributeEntity contribute = new ContributeEntity();
             contribute.setUserId(user.getId());
 //            TODO: auto save author with hibernate
-            AuthorEntity author = new AuthorEntity();
-            author.setName(book.getAuthorByAuthorId().getName());
-            book.setAuthorId(authorRepository.save(author).getId());
+            if (book.getId() == 0) {
+                System.out.println("book id: " + book.getId());
+                AuthorEntity author = new AuthorEntity();
+                author.setName(book.getAuthorByAuthorId().getName());
+                book.setAuthorId(authorRepository.save(author).getId());
 //            Store cover image to resources folder & get url path
-            String coverImagePath = "/cover_img/" + book.getAuthorId() + "_" + new Timestamp(System.currentTimeMillis()).getTime() + ".png";
-            String path = Constants.STATIC_IMG_BOOK_PATH + coverImagePath;
-            try {
-                if (ImageUtils.writeImage(path, book.getCoverImage())){
-                    System.out.println("create file success");
-                    book.setCoverImage(Constants.REAL_STATIC_IMG_BOOK_PATH + coverImagePath);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+                setCoverImage(book);
+
+                book = bookRepository.save(book);
             }
-            book = bookRepository.save(book);
             contribute.setBookId(book.getId());
             return contributeRepository.save(contribute);
         }
@@ -153,6 +146,25 @@ public class UserServiceImpl implements UserService {
 
     private boolean isExist(UserEntity user) {
         return (userRepository.findByEmail(user.getEmail()) != null);
+    }
+
+    private void setCoverImage(BookEntity book) {
+        System.out.println(book.getCoverImage());
+        if (book.getCoverImage() == null || "".equals(book.getCoverImage())) {
+            book.setCoverImage(Constants.DEFAULT_COVER_IMAGE_PATH);
+        } else if (!book.getCoverImage().matches("([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)|^(https?)://.*$")) {
+            System.out.println("set ne");
+            String coverImagePath = "/cover_img/" + book.getAuthorId() + "_" + new Timestamp(System.currentTimeMillis()).getTime() + ".png";
+            String path = Constants.STATIC_IMG_BOOK_PATH + coverImagePath;
+            try {
+                if (ImageUtils.writeImage(path, book.getCoverImage())) {
+                    System.out.println("create file success");
+                    book.setCoverImage(Constants.REAL_STATIC_IMG_BOOK_PATH + coverImagePath);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

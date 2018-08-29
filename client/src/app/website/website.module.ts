@@ -7,13 +7,16 @@ import { HomeModule } from './home';
 import { ProfileModule } from './profile/profile.module';
 import { AuthModule } from './auth/auth.module';
 import { CartComponent } from './cart/cart.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   imports: [
     CommonModule,
     WebsiteRoutingModule,
     SharedModule,
-    AuthModule
+    AuthModule,
 
   ],
   declarations: [WebsiteComponent, CartComponent],

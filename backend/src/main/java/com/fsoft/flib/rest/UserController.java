@@ -104,7 +104,6 @@ public class UserController {
     public ResponseEntity<ContributeEntity> contribute(@RequestBody BookEntity book, Principal principal){
         HttpStatus status = HttpStatus.OK;
         System.out.println("vao contribute ne");
-        System.out.println(JsonUtils.encode(book));
         ContributeEntity contribute = null;
         if (principal != null) {
             contribute = userService.contributeByEmail(principal.getName(), book);
