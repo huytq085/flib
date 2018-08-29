@@ -52,5 +52,10 @@ export class UserService {
     search(value: string): Observable<User[]>{
         return this.apiService.get(`${BASE_URL}?q=${value}`);
     }
+
+    favourite(bookId: number): Observable<boolean>{
+        return this.apiService.get(`${BASE_URL}/favourite/${bookId}`);
+
+    }
     
 }

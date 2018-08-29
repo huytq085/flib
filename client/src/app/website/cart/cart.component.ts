@@ -1,3 +1,4 @@
+import { UserService } from './../../core/services/user.service';
 import {Component, OnInit} from '@angular/core';
 import {Cart} from '../../core/models/cart.model';
 import {BookService} from '../../core/services/book.service';
@@ -7,6 +8,7 @@ import {TokenStorage} from '../auth/authority/token.storage';
 import {TicketService} from '../../core/services/ticket.service';
 import {TicketDetail} from '../../core/models/ticket-detail.model';
 import {Ticket} from '../../core/models';
+import { SharedService } from '../../core';
 
 @Component({
   selector: 'app-cart',
@@ -17,7 +19,12 @@ export class CartComponent implements OnInit {
   cart: Cart = {} as Cart;
   books: Book[] = [];
 
-  constructor(private bookService: BookService, private tokenStorage: TokenStorage, private ticketService: TicketService) {
+  constructor(
+    private bookService: BookService,
+    private tokenStorage: TokenStorage,
+    private ticketService: TicketService,
+    private sharedService: SharedService
+  ) {
     this.cart = JSON.parse(localStorage.getItem('cart')) as Cart;
   }
 
@@ -48,13 +55,18 @@ export class CartComponent implements OnInit {
 
   updateCart() {
     localStorage.setItem('cart', JSON.stringify(this.cart));
+    this.sharedService.updateCart(this.cart);
   }
 
   sendTicket() {
     if (this.tokenStorage.loggedIn()) {
       const cart: Cart = JSON.parse(localStorage.getItem('cart')) as Cart;
       // const ticket: Ticket = {ticketDetailsById: ticketDetail, dateAdded: new Date().toDateString()};
-      this.ticketService.createTicket(cart).subscribe(data => console.log(data));
+      this.ticketService.createTicket(cart).subscribe(data => {
+        console.log(data);
+        this.cart = {} as Cart;
+        localStorage.removeItem('cart');
+      });
     }
   }
 }

@@ -13,7 +13,7 @@ import { FormUserComponent } from './forms/form-user/form-user.component';
     FooterComponent,
     FormBookComponent,
     FormUserComponent
-  ],
+    ],
   imports: [
     CommonModule,
     FormsModule,

@@ -3,6 +3,7 @@ import { Book } from '../../../../core/models/book.model';
 import { PageBook } from '../../../../core/models/page-book.model';
 import { BookService } from '../../../../core/services/book.service';
 import { Cart } from '../../../../core/models/cart.model';
+import { SharedService } from '../../../../core';
 
 @Component({
   selector: 'app-book-list',
@@ -14,7 +15,10 @@ export class BookListComponent implements OnInit {
   @Input() books: Book[];
   pageBooks: PageBook = {} as PageBook;
 
-  constructor(private bookService: BookService) {
+  constructor(
+    private bookService: BookService,
+    private sharedService: SharedService
+  ) {
   }
 
 
@@ -54,6 +58,7 @@ export class BookListComponent implements OnInit {
         cart.cartItems.push({ id: book.id, amount: 1 });
       }
       localStorage.setItem('cart', JSON.stringify(cart));
+      this.sharedService.updateCart(cart);
     } else {
       // const value = JSON.stringify({ id: book.id, amout: 1 });
       // localStorage.setItem('cart', value);

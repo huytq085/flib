@@ -27,6 +27,7 @@ public class UserController {
     private final String GET_ONE_URL = BASE_URL + "/{id}";
     private final String GET_ROLES_URL = BASE_URL + "/roles";
     private final String CONTRIBUTE_URL = BASE_URL + "/contribute";
+    private final String FAVOURITE_URL = BASE_URL + "/favourite/{id}";
 
     @Autowired
     private UserService userService;
@@ -53,6 +54,12 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @RequestMapping(path = FAVOURITE_URL, method = RequestMethod.GET)
+    public ResponseEntity<Boolean> favourite(Principal principal) {
+        return true;
+
+    }
+
     @RequestMapping(path = GET_ROLES_URL, method = RequestMethod.GET)
     public ResponseEntity<Object> getRoles(Authentication authentication) {
         if (authentication != null) {
@@ -62,6 +69,8 @@ public class UserController {
 
         return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
     }
+
+
 
     /* ---------------- DELETE USER ------------------------ */
     @RequestMapping(value = GET_ONE_URL, method = RequestMethod.DELETE)
