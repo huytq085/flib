@@ -1,6 +1,6 @@
 import { UserService } from './../../../../../core/services/user.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Book } from '../../../../../core/models/book.model';
 import { BookService } from '../../../../../core/services/book.service';
 
@@ -13,10 +13,16 @@ export class BookDetailComponent implements OnInit {
   book: Book = {} as Book;
 
   constructor(private bookService: BookService, private route: ActivatedRoute, private userService: UserService) {
-    this.getBook();
+    // this.getBook();
   }
 
   ngOnInit() {
+    this.getBook();
+    this.route.params.subscribe((param: Params) => {
+      this.bookService.getBook(param['id']).subscribe(book => {
+        this.book = book;
+      });
+    })
   }
 
   getBook(): any {
@@ -26,7 +32,7 @@ export class BookDetailComponent implements OnInit {
     });
   }
 
-  toggleFavorite(){
+  toggleFavorite() {
     // this.userService
   }
 

@@ -16,6 +16,7 @@ import { CartComponent } from './cart/cart.component';
     AuthModule
 
   ],
-  declarations: [WebsiteComponent, CartComponent]
+  declarations: [WebsiteComponent, CartComponent],
+  exports:[]
 })
 export class WebsiteModule { }
