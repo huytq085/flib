@@ -128,7 +128,8 @@ public class UserServiceImpl implements UserService {
             AuthorEntity author = new AuthorEntity();
             author.setName(book.getAuthorByAuthorId().getName());
             book.setAuthorId(authorRepository.save(author).getId());
-            String coverImagePath = "/cover_img/" + book.getAuthorId() + "_" + new Timestamp(System.currentTimeMillis()) + ".png";
+//            Store cover image to resources folder & get url path
+            String coverImagePath = "/cover_img/" + book.getAuthorId() + "_" + new Timestamp(System.currentTimeMillis()).getTime() + ".png";
             String path = Constants.STATIC_IMG_BOOK_PATH + coverImagePath;
             try {
                 if (ImageUtils.writeImage(path, book.getCoverImage())){
