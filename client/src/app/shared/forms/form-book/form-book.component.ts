@@ -12,6 +12,7 @@ export class FormBookComponent implements OnInit {
   bookForm: FormGroup;
   isSubmitting = false;
   book: Book = {} as Book;
+  imagePreview;
   @Output() bookEmitter = new EventEmitter<Book>();
 
   constructor(
@@ -28,6 +29,7 @@ export class FormBookComponent implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
   submitForm(){
@@ -39,6 +41,8 @@ export class FormBookComponent implements OnInit {
         console.log(data);
         this.isSubmitting = false;
         this.book.id = data.bookId;
+        // Set book image to base64 to display in contribute list
+        this.book.coverImage = this.imagePreview;
         this.bookEmitter.emit(this.book);
       }
     )
@@ -52,6 +56,17 @@ export class FormBookComponent implements OnInit {
     }
   }
 
-  
+  onFileChange(event){
+    let reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.bookForm.controls['coverImage'].setValue(reader.result.split(',')[1]);
+        this.imagePreview = reader.result;
+      }
+
+    }
+  }  
 
 }

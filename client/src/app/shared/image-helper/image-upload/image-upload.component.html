@@ -1,0 +1,10 @@
+<div class="avatar-upload">
+    <div class="avatar-edit">
+        <input type='file' id="avatar" (change)="onFileChange($event)"/>
+        <label for="avatar"></label>
+    </div>
+    <div class="avatar-preview">
+        <div id="imagePreview" [ngStyle]="myStyle">
+        </div>
+    </div>
+ </div>
