@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @RequestMapping(path = FAVOURITE_URL, method = RequestMethod.GET)
-    public ResponseEntity<Boolean> favourite(Principal principal) {
+    public boolean favourite(Principal principal) {
         return true;
 
     }
