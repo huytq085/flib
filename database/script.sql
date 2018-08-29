@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `flib`.`user` (
   `password` VARCHAR(60) NOT NULL,
   `full_name` VARCHAR(255) NOT NULL,
   `address` VARCHAR(255) NOT NULL,
-  `phone` VARCHAR(12),
+  `phone` VARCHAR(12) NULL DEFAULT NULL,
   `gender` VARCHAR(10) NOT NULL,
   `identity_card` VARCHAR(12) NOT NULL,
   PRIMARY KEY (`id`),
@@ -150,7 +150,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `flib`.`role`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `flib`.`role` (
-  `id` INT(11) NOT NULL auto_increment,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
@@ -210,7 +210,9 @@ CREATE TABLE IF NOT EXISTS `flib`.`user_role` (
     REFERENCES `flib`.`role` (`id`),
   CONSTRAINT `fk_user_has_role_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `flib`.`user` (`id`))
+    REFERENCES `flib`.`user` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 

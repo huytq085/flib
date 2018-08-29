@@ -19,10 +19,13 @@ export class AdminUsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getAll().subscribe(
-      data => {
-        console.log(data);
-        this.users = data;
+    this.userService.currentUser.subscribe(
+      user => {
+        this.userService.getAll().subscribe(
+          data => {
+            this.users = data.filter(data => (data.email != user.email));
+          }
+        )
       }
     )
   }
@@ -49,6 +52,18 @@ export class AdminUsersComponent implements OnInit {
     this.userService.delete(user.id).subscribe(
       data => {
         this.users.splice(this.users.indexOf(user), 1)
+      }
+    )
+  }
+
+  searching(event){
+    this.userService.currentUser.subscribe(
+      user => {
+        this.userService.search(event.target.value).subscribe(
+          data => {
+            this.users = data.filter(data => (data.email != user.email));
+          }
+        )
       }
     )
   }

@@ -1,4 +1,12 @@
 <button class="btn btn-primary btn-sm" (click)="displayForm({})">{{ buttonLabel }}</button>
+<div class="input-group float-right col-md-5 d-flex align-items-stretch input-group float-right">
+  <input type="text" (keyup)="searching($event)" class="form-control" placeholder="Search" aria-label="Search">
+  <div class="input-group-append bg-primary border-primary">
+    <span class="input-group-text bg-transparent">
+      <i class="fa fa-search text-white"></i>
+    </span>
+  </div>
+</div>
 <div class="table-responsive" *ngIf="!isEditor">
   <table class="table table-striped">
     <thead>
@@ -34,7 +42,7 @@
         <td>
           {{ user.id }}
         </td>
-        <td style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+        <td aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
           {{ user.email }}
         </td>
         <td style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
@@ -53,6 +61,9 @@
           {{ user.identityCard }}
         </td>
         <td>
+          <button [routerLink]="['/admin/users', user.id]" type="button" class="btn btn-sm btn-default mr-1">
+            <i class="fa fa-user-circle"></i> Detail
+          </button>
           <button (click)="displayForm(user)" type="button" class="btn btn-sm btn-primary mr-1">
             <i class="fa fa-edit"></i> Edit
           </button>

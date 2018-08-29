@@ -1,6 +1,6 @@
 
 <div class="">
-  <form [formGroup]="infoForm" (ngSubmit)="submitForm()">
+  <!-- <form [formGroup]="infoForm" (ngSubmit)="submitForm()">
     <fieldset [disabled]="isSubmitting">
         <div class="col_half">
             <label for="fullName">Name</label>
@@ -77,6 +77,7 @@
             type="submit">Update</button>
           </div>
     </fieldset>
-  </form>
-
+  </form> -->
+  <app-form-user *ngIf="hasInfo" [user]="profile" (userEmitter)="userEmit($event)"></app-form-user>
+  <app-form-user *ngIf="!hasInfo" [user]="{}" (userEmitter)="userEmit($event)"></app-form-user>
 </div>

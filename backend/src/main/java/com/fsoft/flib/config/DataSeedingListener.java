@@ -57,6 +57,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             admin.setFullName("Nguyen Minh Tam");
             admin.setGender("nam");
             admin.setIdentityCard("123456789");
+            admin.setPhone("01234567890");
             userRepository.save(admin);
             ///////////////////
             UserEntity adminAdded = userRepository.findByEmail("admin@gmail.com");
@@ -78,6 +79,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             member.setFullName("Nguyen Minh Tam");
             member.setGender("nam");
             member.setIdentityCard("123456789");
+            member.setPhone("01234567890");
             userRepository.save(member);
             ////////////
             UserEntity memberAdded = userRepository.findByEmail("member@gmail.com");

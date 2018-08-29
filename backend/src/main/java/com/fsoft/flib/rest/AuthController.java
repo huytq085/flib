@@ -52,15 +52,12 @@ public class AuthController {
             value = REGISTER_URL,
             method = RequestMethod.POST
     )
-    public ResponseEntity<Object> createNewUser(@RequestBody UserEntity newUser) {
-        System.out.println("Create user");
+    public ResponseEntity<UserEntity> createNewUser(@RequestBody UserEntity newUser) {
         UserEntity user =userService.save(newUser);
         if (user != null) {
-            System.out.println("Created");
-            System.out.println(JsonUtil.encode(newUser));
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 }

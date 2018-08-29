@@ -9,25 +9,25 @@ export class TokenStorage {
     constructor(private router: Router) { }
 
     signOut() {
-        window.sessionStorage.removeItem(TOKEN_KEY);
-        window.sessionStorage.clear();
+        window.localStorage.removeItem(TOKEN_KEY);
+        window.localStorage.clear();
     }
 
     public saveToken(token: string) {
-        window.sessionStorage.removeItem(TOKEN_KEY);
-        window.sessionStorage.setItem(TOKEN_KEY, token);
+        window.localStorage.removeItem(TOKEN_KEY);
+        window.localStorage.setItem(TOKEN_KEY, token);
     }
 
     public getToken(): string {
-        return window.sessionStorage.getItem(TOKEN_KEY);
+        return window.localStorage.getItem(TOKEN_KEY);
     }
 
     public loggedIn() {
-        return !!window.sessionStorage.getItem(TOKEN_KEY);
+        return !!window.localStorage.getItem(TOKEN_KEY);
     }
 
     public logOut() {
-        window.sessionStorage.removeItem(TOKEN_KEY);
+        window.localStorage.removeItem(TOKEN_KEY);
         this.router.navigate(['/login']);
     }
 }

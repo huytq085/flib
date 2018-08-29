@@ -11,7 +11,8 @@
               type="text"
               placeholder="Email"
               name="email"
-              formControlName="email" 
+              formControlName="email"
+              [attr.disabled]="user.email"
               />
         </div>
         <small class="alert text-danger" *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">Email không đúng định dạng</small>
@@ -20,7 +21,7 @@
         <label for="password" class="col-sm-3 col-form-label">Password</label>
 
         <div class="col-sm-9" *ngIf="!isPasswordChange">
-          <button (click)="changePassword()">Change</button>
+          <button (click)="changePassword()" type="button" class="btn btn-default">Change</button>
       </div>
         
         <div class="col-sm-9" *ngIf="isPasswordChange">
@@ -96,6 +97,7 @@
       type="submit">
       Cập nhật thông tin
     </button> -->
+    <p class="error-messages" *ngIf="errors != ''">{{errors}}</p>
     <div class="offset-sm-3">
       <button 
     class="btn btn-primary"

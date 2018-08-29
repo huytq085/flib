@@ -29,7 +29,8 @@ export class RegisterComponent implements OnInit {
       this.authService.createUser(this.user).subscribe(data => { 
         alert("Created user");
       });
+    }else{
+      this.repassword="";
     }
-    this.repassword="";
   }
 }

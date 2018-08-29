@@ -17,7 +17,7 @@
                 </td>
   
                 <td class="cart-product-name">
-                  <a [routerLink]="['/profile/ticket', ticket.id]">{{ ticket }}</a>
+                  <a [routerLink]="['/profile/ticket', ticket.id]">{{ getBookNames(ticket) }}</a>
                 </td>
   
                 <td class="cart-product-price">

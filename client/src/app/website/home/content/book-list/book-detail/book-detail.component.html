@@ -55,7 +55,16 @@
                 <input type="button" value="+" class="plus">
               </div>
               <button type="submit" class="add-to-cart button nomargin">Add to cart</button>
+              
+
             </form>
+            <button class="btn btn-sm"
+                      [ngClass]="{ 
+                                    'btn-outline-danger': true,
+                                    'btn-danger': false }"
+                      (click)="toggleFavorite()">
+                        <i class="fa fa-heart-o"></i>
+              </button>
 
             <div class="clear"></div>
             <div class="line"></div>

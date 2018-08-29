@@ -17,12 +17,11 @@
             <form id="register-form" name="register-form" class="nobottommargin" method="post" #resForm="ngForm" (submit)="onSubmit(resForm)">
               <div class="col_full">
                 <label for="register-form-name">Email Address:</label>
-                <input placeholder="Enter your email" type="text" id="register-form-name" name="email" class="form-control" [(ngModel)]="user.email"
+                <input placeholder="Enter your email" type="email" id="register-form-name" name="email" class="form-control" [(ngModel)]="user.email"
                   #txtEmail="ngModel" required email/>
-                <!-- <p *ngIf="txtEmail.touched && txtEmail.errors?.email" style="color:red">
-                  Email not valid
-                </p> -->
-                <p>{{txtEmail.errors | json}}</p>
+                <p *ngIf="txtEmail.touched && txtEmail.invalid" style="color:red">
+                  Invalid pattern
+                </p>
               </div>
 
               <div class="col_full">
@@ -74,7 +73,7 @@
                 <input placeholder="Re-enter password" type="password" id="register-form-repassword" name="repassword" class="form-control"
                   [(ngModel)]="repassword" (blur)="checkPass()" #txtRePass="ngModel" required/>
                 <p *ngIf="txtRePass.touched && txtRePass.errors?.required" style="color:red">
-                  Re-Password is required
+                  Re-Password is required or incorrect
                 </p>
               </div>
 

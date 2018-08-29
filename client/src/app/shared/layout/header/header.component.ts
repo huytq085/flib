@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorage } from '../../../website/auth/authority/token.storage';
+import { Cart } from '../../../core/models/cart.model';
+import { SharedService } from '../../../core';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +10,19 @@ import { TokenStorage } from '../../../website/auth/authority/token.storage';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private tokenStorage: TokenStorage) { }
+  cart: Cart = {} as Cart;
+
+  constructor(
+    private tokenStorage: TokenStorage,
+    private sharedService: SharedService
+  ) { }
 
   ngOnInit() {
+    this.sharedService.cart.subscribe(
+      data => {
+        this.cart = data;
+      }
+    )
   }
 
 }

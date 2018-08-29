@@ -14,6 +14,7 @@ export class ProfileInfoComponent implements OnInit {
   profile: Profile = {} as Profile;
   errors: Object = {};
   isSubmitting = false;
+  hasInfo = false;
 
   constructor(
     private fb: FormBuilder,
@@ -53,7 +54,8 @@ export class ProfileInfoComponent implements OnInit {
         if (data && data.id){
           console.log(data)
           this.profile = data;
-          this.infoForm.patchValue(this.profile);
+          this.hasInfo = true;
+          // this.infoForm.patchValue(this.profile);
         }
       }
     )
@@ -78,5 +80,9 @@ export class ProfileInfoComponent implements OnInit {
   patchProfile(values: Object){
     Object.assign(this.profile, values);
     console.log(this.profile);
+  }
+
+  userEmit(profile: Profile){
+    console.log(profile);
   }
 }
