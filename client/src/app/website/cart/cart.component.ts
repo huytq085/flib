@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Cart} from '../../core/models/cart.model';
-import {BookService} from '../../core/services/book.service';
-import {Book} from '../../core/models/book.model';
-import {CartItem} from '../../core/models/cart-item.model';
-import {TokenStorage} from '../auth/authority/token.storage';
-import {TicketService} from '../../core/services/ticket.service';
-import {TicketDetail} from '../../core/models/ticket-detail.model';
-import {Ticket} from '../../core/models';
+import { Component, OnInit } from '@angular/core';
+import { Cart } from '../../core/models/cart.model';
+import { BookService } from '../../core/services/book.service';
+import { Book } from '../../core/models/book.model';
+import { CartItem } from '../../core/models/cart-item.model';
+import { TokenStorage } from '../auth/authority/token.storage';
+import { TicketService } from '../../core/services/ticket.service';
+import { TicketDetail } from '../../core/models/ticket-detail.model';
+import { Ticket } from '../../core/models';
 import { SharedService } from '../../core';
+import { log } from 'util';
 
 @Component({
   selector: 'app-cart',
@@ -35,7 +36,10 @@ export class CartComponent implements OnInit {
     if (this.cart) {
       for (let i = 0; i < this.cart.cartItems.length; i++) {
         const element = this.cart.cartItems[i];
-        this.bookService.getBook(element.id).subscribe(data => this.books.push(data));
+        this.bookService.getBook(element.id)
+          .subscribe(data => {
+            this.books.push(data); console.log(this.books); console.log(this.cart.cartItems);
+          });
       }
     }
   }
@@ -48,9 +52,12 @@ export class CartComponent implements OnInit {
     this.cart.cartItems[this.cart.cartItems.indexOf(item)].amount += 1;
   }
 
-  remove(item: CartItem) {
-    this.cart.cartItems.splice(this.cart.cartItems.indexOf(item), 1);
+  remove(index: number) {
+    // console.log(item);
+
+    this.cart.cartItems.splice(index, 1);
     if (this.cart) {
+      this.books = [];
       for (let i = 0; i < this.cart.cartItems.length; i++) {
         const element = this.cart.cartItems[i];
         this.bookService.getBook(element.id).subscribe(data => this.books.push(data));
@@ -61,6 +68,7 @@ export class CartComponent implements OnInit {
   updateCart() {
     localStorage.setItem('cart', JSON.stringify(this.cart));
     if (this.cart) {
+      this.books = [];
       for (let i = 0; i < this.cart.cartItems.length; i++) {
         const element = this.cart.cartItems[i];
         this.bookService.getBook(element.id).subscribe(data => this.books.push(data));
