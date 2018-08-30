@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
 import { Book } from '../models/book.model';
 import { PageBook } from '../models/page-book.model';
+import { Author } from '../models/author.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,12 @@ export class BookService {
       return of([]);
     }
     return this.api.get(`/book/search?name=${term}`)
+  }
+
+  searchAuthors(term: string): Observable<Author[]>{
+    if (!term.trim()) {
+      return of([]);
+    }
+    return this.api.get(`/book/author/search?name=${term}`)
   }
 }

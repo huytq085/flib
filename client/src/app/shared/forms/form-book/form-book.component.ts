@@ -1,3 +1,4 @@
+import { Author } from './../../../core/models/author.model';
 import { BookService } from './../../../core/services/book.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -17,12 +18,18 @@ export class FormBookComponent implements OnInit {
   isSubmitting = false;
   isLoading = false;
   book: Book = {} as Book;
+  isNewBook = false;
+  booksObservable$: Observable<Book[]>;
   bookInput$ = new Subject<string>();
+  author: Author = {} as Author;
+  isNewAuthor = false;
+  authorsObservable$: Observable<Author[]>;
+  authorInput$ = new Subject<string>();
   imagePreview;
-  bookObservable$: Observable<Book[]>;
-  isNew = false;
+  
+  isDefaultImage = false;
 
-  @Output() bookEmitter = new EventEmitter<Book>();
+  @Output() bookEmitter = new EventEmitter<any>();
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -38,49 +45,76 @@ export class FormBookComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.bookObservable$ = concat(
+    this.loadBooks();
+    this.loadAuthors();
+
+  }
+  loadBooks(){
+    this.booksObservable$ = concat(
       of([]), // default items
       this.bookInput$.pipe(
-         debounceTime(200),
-         distinctUntilChanged(),
-         tap(() => this.isLoading = true),
-         switchMap(term => this.bookService.searchBooks(term).pipe(
-             catchError(() => of([])), // empty list on error
-             tap(() => this.isLoading = false)
-         )) 
+        debounceTime(200),
+        distinctUntilChanged(),
+        tap(() => this.isLoading = true),
+        switchMap(term => this.bookService.searchBooks(term).pipe(
+          catchError(() => of([])), // empty list on error
+          tap(() => this.isLoading = false)
+        ))
       )
-  );
-
+    );
+  }
+  loadAuthors(){
+    this.authorsObservable$ = concat(
+      of([]), // default items
+      this.authorInput$.pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        tap(() => this.isLoading = true),
+        switchMap(term => this.bookService.searchAuthors(term).pipe(
+          catchError(() => of([])), // empty list on error
+          tap(() => this.isLoading = false)
+        ))
+      )
+    );
   }
 
   submitForm() {
     // this.isSubmitting = true;
     // update the model
-    if (!this.book.id){
+    if (!this.book.id) {
       this.patchBook(this.bookForm.value);
     } else {
       this.book.amount = this.bookForm.controls['amount'].value;
     }
-    console.log(this.book)
+    console.log('is valid: ' + this.bookForm.valid)
     
-    this.userService.contribute(this.book).subscribe(
-      data => {
-        this.isSubmitting = false;
-        this.book.id = data.bookId;
-        // Set book image to base64 to display in contribute list
-        this.book.coverImage = this.imagePreview;
-        this.bookEmitter.emit(this.book);
+    if (this.bookForm.valid) {
+      if (this.isDefaultImage) {
+        this.book.coverImage = '';
       }
-    )
-
+      console.log(this.book)
+      // if (!this.isDefaultImage) {
+      //   this.book.coverImage = this.imagePreview;
+      // }
+      this.bookEmitter.emit({
+        book: this.book,
+        image: this.imagePreview
+      });
+      
+    }
   }
 
   patchBook(values: any) {
+    if (typeof this.book == 'string') {
+      this.book = {} as Book;
+    }
     Object.assign(this.book, values);
     console.log(values)
-    this.book.authorByAuthorId = {
-      name: values.author
-    };
+    if (this.isNewAuthor){
+      this.book.authorByAuthorId = {
+        name: values.author
+      };
+    }
   }
 
   onFileChange(event) {
@@ -96,17 +130,40 @@ export class FormBookComponent implements OnInit {
     }
   }
 
-  onChange($event){
-    this.book = $event;
+  onChangeBook($event) {
+    if (typeof $event == 'object') {
+      this.book = $event;
+    }
   }
 
-  onAdd($event){
-    console.log($event);
-    this.isNew = true;
-    
+  onAddBook($event) {
+    if (typeof $event == 'string') {
+      this.isNewBook = true;
+    }
   }
-  onClear(){
+  onClearBook() {
     this.isLoading = false;
   }
+  onChangeAuthor($event) {
+    console.log('on change author')
+    console.log($event)
+    if (typeof $event == 'object') {
+      this.book.authorByAuthorId = $event;
+    }
+  }
 
+  onAddAuthor($event) {
+    console.log('on add author')
+    console.log($event)
+    if (typeof $event == 'string') {
+      this.isNewAuthor = true;
+    }
+  }
+  onClearAuthor() {
+    this.isLoading = false;
+  }
+  checkNoImage() {
+    console.log('no image');
+    this.isDefaultImage = !this.isDefaultImage
+  }
 }

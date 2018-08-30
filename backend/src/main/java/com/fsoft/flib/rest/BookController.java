@@ -1,5 +1,6 @@
 package com.fsoft.flib.rest;
 
+import com.fsoft.flib.domain.AuthorEntity;
 import com.fsoft.flib.domain.BookEntity;
 import com.fsoft.flib.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class BookController {
     private final String GET_ALL_BOOK = BASE_URL + "/all";
     private final String GET_PAGE_BOOK = BASE_URL + "/page";
     private final String SEARCH_BOOK = BASE_URL+ "/search";
+    private final String SEARCH_AUTHOR = BASE_URL + "/author/search";
 
     private final BookService bookService;
 
@@ -44,5 +46,10 @@ public class BookController {
     @GetMapping(path=SEARCH_BOOK)
     public List<BookEntity> searchBook( @RequestParam String name){
         return bookService.findByNameLike("%"+name+"%","%"+name+"%" );
+    }
+
+    @GetMapping(path=SEARCH_AUTHOR)
+    public List<AuthorEntity> searchAuthor(@RequestParam String name){
+        return bookService.findAuthorByNameLike("%"+name+"%");
     }
 }

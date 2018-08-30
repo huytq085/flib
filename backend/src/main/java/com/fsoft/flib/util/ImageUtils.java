@@ -42,4 +42,8 @@ public class ImageUtils {
             // use directory.mkdirs(); here instead.
         }
     }
+
+    public static void main(String[] args) {
+
+    }
 }

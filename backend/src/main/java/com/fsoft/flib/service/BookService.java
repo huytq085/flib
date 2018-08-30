@@ -1,5 +1,6 @@
 package com.fsoft.flib.service;
 
+import com.fsoft.flib.domain.AuthorEntity;
 import com.fsoft.flib.domain.BookEntity;
 import org.springframework.data.domain.Page;
 
@@ -22,5 +23,7 @@ public interface BookService {
     List<BookEntity> getContributesByEmail(String email);
 
     List<BookEntity> findByNameLike(String query,String query1);
+
+    List<AuthorEntity> findAuthorByNameLike(String query);
 
 }

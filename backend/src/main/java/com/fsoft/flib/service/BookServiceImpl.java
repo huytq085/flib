@@ -1,8 +1,10 @@
 package com.fsoft.flib.service;
 
+import com.fsoft.flib.domain.AuthorEntity;
 import com.fsoft.flib.domain.BookEntity;
 import com.fsoft.flib.domain.ContributeEntity;
 import com.fsoft.flib.domain.UserEntity;
+import com.fsoft.flib.repository.AuthorRepository;
 import com.fsoft.flib.repository.BookRepository;
 import com.fsoft.flib.repository.ContributeRepository;
 import com.fsoft.flib.repository.UserRepository;
@@ -24,6 +26,8 @@ public class BookServiceImpl implements BookService {
     private ContributeRepository contributeRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
 
     @Override
     public BookEntity save(BookEntity BookEntity) {
@@ -73,6 +77,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookEntity> findByNameLike(String query,String query1) {
         return this.bookRepository.findByNameLikeOrAuthorByAuthorIdNameLike(query, query1);
+    }
+
+    @Override
+    public List<AuthorEntity> findAuthorByNameLike(String query) {
+        return authorRepository.findByNameLike(query);
     }
 
 
