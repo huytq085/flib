@@ -1,4 +1,4 @@
-<div id="search-component">
+<!-- <div id="search-component">
   <input #searchBox id="search-box" (keyup)="search(searchBox.value)" placeholder="Hit enter..."/>
   <ul class="search-result">
     <li *ngFor="let book of books$ | async" >
@@ -7,4 +7,10 @@
       </a>
     </li>
   </ul>
-</div>
+</div> -->
+<ng-select [items]="books$ | async" bindLabel="name" [loading]="loading" [typeahead]="searchTerms" (change)="onChange($event)" >
+  <ng-template ng-option-tmp let-item="item">
+    {{item.name}} <br />
+    <small>{{item.authorByAuthorId.name}}</small>
+  </ng-template>
+</ng-select>

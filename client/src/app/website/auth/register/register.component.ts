@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../core';
 import { AuthService } from '../../../core/services/auth.service';
 import { NgForm } from '@angular/forms';
+import { HttpHeaderResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,10 @@ export class RegisterComponent implements OnInit {
   constructor(private authService: AuthService) { }
   user: User= new User();
   repassword;
+  errorMessage="";
+  errorMap: {} = {
+    409: 'Email existed'
+  }
 
   ngOnInit() {
   }
@@ -26,9 +31,14 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(resForm: NgForm){
     if(this.checkPass()){
-      this.authService.createUser(this.user).subscribe(data => { 
+      this.authService.createUser(this.user).subscribe((data) => { 
         alert("Created user");
-      });
+      },
+      (error: HttpHeaderResponse) =>{
+        delete this.user.email;
+        this.errorMessage= this.errorMap[error.status]
+      }
+    );
     }else{
       this.repassword="";
     }

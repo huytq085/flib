@@ -61,7 +61,7 @@ export class FormBookComponent implements OnInit {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.bookForm.controls['coverImage'].setValue(reader.result.split(',')[1]);
+        this.bookForm.controls['coverImage'].setValue(reader.result.toString().split(',')[1]);
         this.imagePreview = reader.result;
       }
 
