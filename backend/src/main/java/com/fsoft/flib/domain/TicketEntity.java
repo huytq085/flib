@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ticket", schema = "flib", catalog = "")
+@Table(name = "ticket", schema = "flib")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TicketEntity {
     private int id;

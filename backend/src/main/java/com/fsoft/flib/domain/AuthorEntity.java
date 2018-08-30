@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "author", schema = "flib", catalog = "")
+@Table(name = "author", schema = "flib")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class AuthorEntity {
     private int id;
@@ -27,7 +27,7 @@ public class AuthorEntity {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }

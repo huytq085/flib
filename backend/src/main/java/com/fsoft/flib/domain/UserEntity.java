@@ -3,11 +3,10 @@ package com.fsoft.flib.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user", schema = "flib", catalog = "")
+@Table(name = "user", schema = "flib")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class UserEntity {
     private int id;
@@ -32,7 +31,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "email", nullable = false, length = 255)
+    @Column(name = "email", nullable = false)
     public String getEmail() {
         return email;
     }
@@ -52,7 +51,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "full_name", nullable = false, length = 255)
+    @Column(name = "full_name", nullable = false)
     public String getFullName() {
         return fullName;
     }
@@ -62,7 +61,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "address", nullable = false, length = 255)
+    @Column(name = "address", nullable = false)
     public String getAddress() {
         return address;
     }
