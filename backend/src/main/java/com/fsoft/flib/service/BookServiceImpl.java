@@ -8,18 +8,18 @@ import com.fsoft.flib.repository.AuthorRepository;
 import com.fsoft.flib.repository.BookRepository;
 import com.fsoft.flib.repository.ContributeRepository;
 import com.fsoft.flib.repository.UserRepository;
+import com.fsoft.flib.domain.*;
+import com.fsoft.flib.repository.*;
+import com.fsoft.flib.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
-public class BookServiceImpl implements BookService {
+public class BookServiceImpl<main> implements BookService {
     @Autowired
     private BookRepository bookRepository;
     @Autowired
@@ -28,6 +28,11 @@ public class BookServiceImpl implements BookService {
     private UserRepository userRepository;
     @Autowired
     private AuthorRepository authorRepository;
+    @Autowired
+    private TypeRepository typeRepository;
+    @Autowired
+    private BookTypeRepository bookTypeRepository;
+
 
     @Override
     public BookEntity save(BookEntity BookEntity) {
@@ -75,7 +80,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookEntity> findByNameLike(String query,String query1) {
+    public List<BookEntity> findByNameLike(String query, String query1) {
         return this.bookRepository.findByNameLikeOrAuthorByAuthorIdNameLike(query, query1);
     }
 
@@ -84,5 +89,24 @@ public class BookServiceImpl implements BookService {
         return authorRepository.findByNameLike(query);
     }
 
+    public List<TypeEntity> getTypes() {
+        return this.typeRepository.findAll();
+    }
 
+    @Override
+    public Collection<BookEntity> getBookByIdType(int[] ids) {
+        System.out.println("vao get book");
+        Set<BookEntity> bookEntities= new HashSet<>();
+        List<BookTypeEntity> bookTypeEntities;
+        for (int id : ids) {
+            bookTypeEntities = bookTypeRepository.findAllByTypeId(id);
+            for (BookTypeEntity bookTypeEntity : bookTypeEntities) {
+                bookEntities.add(bookTypeEntity.getBookByBookId());
+            }
+        }
+        for(BookEntity bok:bookEntities){
+            System.out.println(bok.getName());
+        }
+        return bookEntities;
+    }
 }

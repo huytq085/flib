@@ -1,68 +1,45 @@
 <section id="content">
   <div class="content-wrap">
     <div class="container clearfix">
-
-      <!--&lt;!&ndash;SIDEBAR&ndash;&gt;-->
-      <!--<div class="sidebar nobottommargin">-->
-      <!--<div class="sidebar-widgets-wrap">-->
-      <!--<div class="widget widget-filter-links clearfix">-->
-      <!--<h4>Select Category</h4>-->
-      <!--<ul class="custom-filter" data-container="#shop" data-active-class="active-filter">-->
-      <!--<li class="widget-filter-reset active-filter"><a href="#" data-filter="*">Clear</a></li>-->
-      <!--<li><a href="#" data-filter=".sf-dress">Dress</a></li>-->
-      <!--<li><a href="#" data-filter=".sf-tshirt">Tshirts</a></li>-->
-      <!--<li><a href="#" data-filter=".sf-pant">Pants</a></li>-->
-      <!--<li><a href="#" data-filter=".sf-sunglass">Sunglasses</a></li>-->
-      <!--<li><a href="#" data-filter=".sf-shoes">Shoes</a></li>-->
-      <!--<li><a href="#" data-filter=".sf-watch">Watches</a></li>-->
-      <!--</ul>-->
-      <!--</div>-->
-      <!--<div class="widget widget-filter-links clearfix">-->
-      <!--<h4>Sort By</h4>-->
-      <!--<ul class="shop-sorting">-->
-      <!--<li class="widget-filter-reset active-filter"><a href="#" data-sort-by="original-order">Clear</a></li>-->
-      <!--<li><a href="#" data-sort-by="name">Name</a></li>-->
-      <!--<li><a href="#" data-sort-by="price_lh">Price: Low to High</a></li>-->
-      <!--<li><a href="#" data-sort-by="price_hl">Price: High to Low</a></li>-->
-      <!--</ul>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--&lt;!&ndash;SIDEBAR&ndash;&gt;-->
-
-      <!--SHOP-->
-      <div class="postcontent nobottommargin col_last">
-        <div id="shop" class="shop product-3 grid-container clearfix">
-          <div style="cursor:pointer" class="product sf-pant clearfix" *ngFor="let book of books" routerLink="/book/{{book.id}}">
-            <div class="product-image">
-              <a><img src="{{book.coverImage}}" alt="{{book.name}}"></a>
-              <div class="product-overlay">
-                <a class="add-to-cart" (click)="addToCart(book)"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
-                <a class="item-quick-view" data-lightbox="ajax" routerLink="/book/{{book.id}}"><i class="icon-zoom-in2"></i><span>
-                  Quick View</span></a>
+      <div class="row">
+        <div class="col-sm-3">
+          <app-left-sidebar ></app-left-sidebar>
+        </div>
+        <div class="col-sm-9">
+          <!--SHOP-->
+          <div id="shop" class="shop product-3 grid-container clearfix">
+            <div style="cursor:pointer" class="product sf-pant clearfix" *ngFor="let book of books" routerLink="/book/{{book.id}}">
+              <div class="product-image">
+                <a><img src="{{book.coverImage}}" alt="{{book.name}}"></a>
+                <div class="product-overlay">
+                  <a class="add-to-cart" (click)="addToCart(book)"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                  <a class="item-quick-view" data-lightbox="ajax" routerLink="/book/{{book.id}}"><i class="icon-zoom-in2"></i><span>
+                      Quick View</span></a>
+                </div>
               </div>
-            </div>
-            <div class="product-desc center">
-              <div class="product-title">
-                <h3><a>{{book.name}}</a></h3>
-              </div>
-              <div class="product-price">{{book.authorByAuthorId}}</div>
-              <div class="product-rating">
-                <i class="icon-star3" *ngFor="let number of [1,2,3,4,5]" [ngClass]="{
-                    'icon-star3': number <= book.rating,
-                    'icon-star-half-full': number>book.rating && book.rating+1 >number,
-                    'icon-star-empty':number>book.rating
-                  }">
-                </i>
+              <div class="product-desc center">
+                <div class="product-title">
+                  <h3><a>{{book.name}}</a></h3>
+                </div>
+                <div class="product-price">{{book.authorByAuthorId}}</div>
+                <div class="product-rating">
+                  <i class="icon-star3" *ngFor="let number of [1,2,3,4,5]" [ngClass]="{
+                  'icon-star3': number <= book.rating,
+                  'icon-star-half-full': number>book.rating && book.rating+1 >number,
+                  'icon-star-empty':number>book.rating
+                }">
+                  </i>
+                </div>
               </div>
             </div>
           </div>
+
+          <app-pagination (choose)="onChoose($event)"></app-pagination>
+          <!--SHOP-->
         </div>
-
-        <app-pagination (choose)="onChoose($event)"></app-pagination>
-        <!--SHOP-->
-
       </div>
+
+
     </div>
   </div>
 </section>

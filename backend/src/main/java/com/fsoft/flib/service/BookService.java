@@ -2,10 +2,13 @@ package com.fsoft.flib.service;
 
 import com.fsoft.flib.domain.AuthorEntity;
 import com.fsoft.flib.domain.BookEntity;
+import com.fsoft.flib.domain.TypeEntity;
 import org.springframework.data.domain.Page;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface BookService {
     BookEntity save(BookEntity BookEntity);
@@ -26,4 +29,7 @@ public interface BookService {
 
     List<AuthorEntity> findAuthorByNameLike(String query);
 
+    List<TypeEntity> getTypes ();
+
+    Collection<BookEntity> getBookByIdType(int[] id);
 }
