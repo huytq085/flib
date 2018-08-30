@@ -1,8 +1,7 @@
-import { UserService } from './../../../../../core/services/user.service';
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Book } from '../../../../../core/models/book.model';
-import { BookService } from '../../../../../core/services/book.service';
+import {BookService, UserService} from '../../../../../core/services';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Book} from '../../../../../core/models/book.model';
 
 @Component({
   selector: 'app-book-detail',
@@ -10,7 +9,7 @@ import { BookService } from '../../../../../core/services/book.service';
   styleUrls: ['./book-detail.component.css']
 })
 export class BookDetailComponent implements OnInit {
-  book: Book = {} as Book;
+  book: Book = {authorByAuthorId: {}} as Book;
 
   constructor(private bookService: BookService, private route: ActivatedRoute, private userService: UserService) {
     this.getBook();
@@ -26,7 +25,7 @@ export class BookDetailComponent implements OnInit {
     });
   }
 
-  toggleFavorite(){
+  toggleFavorite() {
     // this.userService
   }
 

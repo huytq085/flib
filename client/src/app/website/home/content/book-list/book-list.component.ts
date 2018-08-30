@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Book } from '../../../../core/models/book.model';
-import { PageBook } from '../../../../core/models/page-book.model';
-import { BookService } from '../../../../core/services/book.service';
-import { Cart } from '../../../../core/models/cart.model';
-import { SharedService } from '../../../../core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Book} from '../../../../core/models/book.model';
+import {PageBook} from '../../../../core/models/page-book.model';
+import {BookService} from '../../../../core/services';
+import {Cart} from '../../../../core/models';
+import {BookListService, SharedService} from '../../../../core';
 
 @Component({
   selector: 'app-book-list',
@@ -17,12 +17,14 @@ export class BookListComponent implements OnInit {
 
   constructor(
     private bookService: BookService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private bookListService: BookListService
   ) {
   }
 
 
   ngOnInit(): void {
+
     this.bookService.getBookByPage(0, 9).subscribe((data: PageBook) => {
       this.books = data.content;
       console.log(data);
@@ -41,6 +43,7 @@ export class BookListComponent implements OnInit {
       }
     }, 16);
   }
+
   addToCart(book: Book) {
     let cart = JSON.parse(localStorage.getItem('cart')) as Cart;
     let isExist = false;
@@ -55,7 +58,7 @@ export class BookListComponent implements OnInit {
         }
       }
       if (!isExist) {
-        cart.cartItems.push({ id: book.id, amount: 1 });
+        cart.cartItems.push({id: book.id, amount: 1});
       }
       localStorage.setItem('cart', JSON.stringify(cart));
       this.sharedService.updateCart(cart);
@@ -67,7 +70,7 @@ export class BookListComponent implements OnInit {
       cart = {
         cartItems: []
       } as Cart;
-      cart.cartItems.push({ id: book.id, amount: 1 });
+      cart.cartItems.push({id: book.id, amount: 1});
       const cartJSON = JSON.stringify(cart);
       localStorage.setItem('cart', cartJSON);
     }

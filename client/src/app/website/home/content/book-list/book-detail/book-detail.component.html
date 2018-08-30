@@ -18,23 +18,13 @@
 								============================================= -->
             <div class="product-image">
               <img src="{{book.coverImage}}" alt="">
-              <!-- <div class="fslider">
-                <div class="flexslider">
-                  <div class="slider-wrap">
-                    <div class="slide">
-                      <a *ngIf="book" title="Pink Printed Dress - Front View">
-                        <img [src]="book.coverImage" alt="Pink Printed Dress">
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
             </div>
           </div>
 
           <div class="col_two_fifth product-desc">
 
-            <div class="product-price"><del>$39.99</del> <ins>$24.99</ins></div><!-- Product Single - Price End -->
+            <div class="product-price"><!--TODO: tac gia--><span class="badge badge-pill badge-primary">{{book.authorByAuthorId.name}}</span>
+            </div><!-- Product Single - Price End -->
 
             <div class="product-rating">
               <i class="icon-star3" *ngFor="let number of [1,2,3,4,5]" [ngClass]="{

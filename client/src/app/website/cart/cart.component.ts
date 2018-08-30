@@ -1,14 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Cart } from '../../core/models/cart.model';
-import { BookService } from '../../core/services/book.service';
-import { Book } from '../../core/models/book.model';
-import { CartItem } from '../../core/models/cart-item.model';
-import { TokenStorage } from '../auth/authority/token.storage';
-import { TicketService } from '../../core/services/ticket.service';
-import { TicketDetail } from '../../core/models/ticket-detail.model';
-import { Ticket } from '../../core/models';
-import { SharedService } from '../../core';
-import { log } from 'util';
+import {Component, OnInit} from '@angular/core';
+import {Cart} from '../../core/models/cart.model';
+import {BookService} from '../../core/services/book.service';
+import {Book} from '../../core/models/book.model';
+import {CartItem} from '../../core/models/cart-item.model';
+import {TokenStorage} from '../auth/authority/token.storage';
+import {TicketService} from '../../core/services/ticket.service';
+import {SharedService} from '../../core';
 
 @Component({
   selector: 'app-cart',
@@ -53,8 +50,6 @@ export class CartComponent implements OnInit {
   }
 
   remove(index: number) {
-    // console.log(item);
-
     this.cart.cartItems.splice(index, 1);
     if (this.cart) {
       this.books = [];
