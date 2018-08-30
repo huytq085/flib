@@ -1,6 +1,6 @@
 import {BookService, UserService} from '../../../../../core/services';
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {Book} from '../../../../../core/models/book.model';
 
 @Component({
@@ -12,10 +12,16 @@ export class BookDetailComponent implements OnInit {
   book: Book = {authorByAuthorId: {}} as Book;
 
   constructor(private bookService: BookService, private route: ActivatedRoute, private userService: UserService) {
-    this.getBook();
+    // this.getBook();
   }
 
   ngOnInit() {
+    this.getBook();
+    this.route.params.subscribe((param: Params) => {
+      this.bookService.getBook(param['id']).subscribe(book => {
+        this.book = book;
+      });
+    })
   }
 
   getBook(): any {

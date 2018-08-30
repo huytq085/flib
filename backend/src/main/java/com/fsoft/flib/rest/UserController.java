@@ -2,11 +2,10 @@ package com.fsoft.flib.rest;
 
 import com.fsoft.flib.domain.BookEntity;
 import com.fsoft.flib.domain.ContributeEntity;
-import com.fsoft.flib.domain.RoleEntity;
 import com.fsoft.flib.domain.UserEntity;
 import com.fsoft.flib.service.BookService;
 import com.fsoft.flib.service.UserService;
-import com.fsoft.flib.util.JsonUtil;
+import com.fsoft.flib.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -105,11 +104,10 @@ public class UserController {
     public ResponseEntity<ContributeEntity> contribute(@RequestBody BookEntity book, Principal principal){
         HttpStatus status = HttpStatus.OK;
         System.out.println("vao contribute ne");
-        System.out.println(JsonUtil.encode(book));
         ContributeEntity contribute = null;
         if (principal != null) {
             contribute = userService.contributeByEmail(principal.getName(), book);
-            System.out.println(JsonUtil.encode(contribute));
+            System.out.println(JsonUtils.encode(contribute));
         } else {
             status = HttpStatus.UNAUTHORIZED;
         }
@@ -124,6 +122,4 @@ public class UserController {
         }
         return false;
     }
-
-
 }

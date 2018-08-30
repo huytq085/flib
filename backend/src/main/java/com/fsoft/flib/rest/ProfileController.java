@@ -7,7 +7,6 @@ import com.fsoft.flib.domain.UserEntity;
 import com.fsoft.flib.service.BookService;
 import com.fsoft.flib.service.TicketService;
 import com.fsoft.flib.service.UserService;
-import com.fsoft.flib.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -67,7 +66,7 @@ public class ProfileController {
         } else {
             status = HttpStatus.UNAUTHORIZED;
         }
-//        System.out.println(JsonUtil.encode(books));
+//        System.out.println(JsonUtils.encode(books));
 
         return new ResponseEntity<>(books, status);
     }

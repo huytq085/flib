@@ -52,7 +52,7 @@ public class ReactionEntity {
     }
 
     @Basic
-    @Column(name = "rating", nullable = false, precision = 0)
+    @Column(name = "rating", nullable = false)
     public double getRating() {
         return rating;
     }

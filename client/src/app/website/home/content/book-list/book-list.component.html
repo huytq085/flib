@@ -31,16 +31,18 @@
       <!--SHOP-->
       <div class="postcontent nobottommargin col_last">
         <div id="shop" class="shop product-3 grid-container clearfix">
-          <div style="cursor:pointer" class="product sf-pant clearfix" *ngFor="let book of books" routerLink="/book/{{book.id}}">
+          <div style="cursor:pointer" class="product sf-pant clearfix" *ngFor="let book of books">
             <div class="product-image">
-              <a><img src="{{book.coverImage}}" alt="{{book.name}}"></a>
+              <a routerLink="/book/{{book.id}}"><img src="{{book.coverImage}}" alt="{{book.name}}"></a>
               <div class="product-overlay">
-                <a class="add-to-cart" (click)="addToCart(book)"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
-                <a class="item-quick-view" data-lightbox="ajax" routerLink="/book/{{book.id}}"><i class="icon-zoom-in2"></i><span>
+                <a class="item-quick-view" data-lightbox="ajax" (click)="addToCart(book)"><i
+                  class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                <a class="item-quick-view" data-lightbox="ajax" routerLink="/book/{{book.id}}"><i
+                  class="icon-zoom-in2"></i><span>
                   Quick View</span></a>
               </div>
             </div>
-            <div class="product-desc center">
+            <div class="product-desc center" routerLink="/book/{{book.id}}">
               <div class="product-title">
                 <h3><a>{{book.name}}</a></h3>
               </div>

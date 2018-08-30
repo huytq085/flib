@@ -1,12 +1,9 @@
 package com.fsoft.flib.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
@@ -41,7 +38,7 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -61,7 +58,7 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name = "rating", nullable = false, precision = 0)
+    @Column(name = "rating", nullable = false)
     public double getRating() {
         return rating;
     }
@@ -103,7 +100,7 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name = "description", nullable = true, length = -1)
+    @Column(name = "description", length = -1)
     public String getDescription() {
         return description;
     }
@@ -113,7 +110,7 @@ public class BookEntity {
     }
 
     @Basic
-    @Column(name = "cover_image", nullable = true, length = 255)
+    @Column(name = "cover_image")
     public String getCoverImage() {
         return coverImage;
     }

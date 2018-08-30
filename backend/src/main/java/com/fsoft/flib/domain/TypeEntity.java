@@ -25,7 +25,7 @@ public class TypeEntity {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }

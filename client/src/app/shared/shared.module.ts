@@ -6,19 +6,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FormBookComponent } from './forms/form-book/form-book.component';
 import { FormUserComponent } from './forms/form-user/form-user.component';
+import { ImageUploadComponent } from './image-helper/image-upload/image-upload.component';
+import { WebsiteModule } from '../website/website.module';
+import { SearchBookComponent } from './search-book/search-book.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     FormBookComponent,
-    FormUserComponent
+    FormUserComponent,
+    ImageUploadComponent,
+    SearchBookComponent
     ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    NgSelectModule,
   ],
   exports: [
     HeaderComponent,
@@ -26,7 +33,9 @@ import { FormUserComponent } from './forms/form-user/form-user.component';
     FormBookComponent,
     ReactiveFormsModule,
     FormsModule,
-    FormUserComponent
+    FormUserComponent,
+    SearchBookComponent,
+    ImageUploadComponent
   ]
 })
 export class SharedModule { }

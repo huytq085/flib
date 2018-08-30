@@ -4,7 +4,6 @@ import com.fsoft.flib.domain.Cart;
 import com.fsoft.flib.domain.TicketEntity;
 import com.fsoft.flib.repository.TicketRepository;
 import com.fsoft.flib.service.TicketService;
-import com.fsoft.flib.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

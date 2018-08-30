@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminUsersComponent } from './users.component';
 import { AdminUsersRoutingModule } from './users-routing.module';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { AdminUsersRoutingModule } from './users-routing.module';
     SharedModule
   ],
   declarations: [
-    AdminUsersComponent
+    AdminUsersComponent,
+    UserDetailComponent
   ]
 })
 export class AdminUsersModule { }

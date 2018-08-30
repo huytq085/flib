@@ -23,8 +23,8 @@
 
           <div class="col_two_fifth product-desc">
 
-            <div class="product-price"><!--TODO: tac gia--><span class="badge badge-pill badge-primary">{{book.authorByAuthorId.name}}</span>
-            </div><!-- Product Single - Price End -->
+            <div class="product-price">Author: {{book.authorByAuthorId.name}}</div>
+            <!-- Product Single - Price End -->
 
             <div class="product-rating">
               <i class="icon-star3" *ngFor="let number of [1,2,3,4,5]" [ngClass]="{
@@ -41,27 +41,29 @@
             <form class="cart nobottommargin clearfix" method="post" enctype='multipart/form-data'>
               <div class="quantity clearfix">
                 <input type="button" value="-" class="minus">
-                <input type="text" step="1" min="1" name="quantity" value="1" title="Qty" class="qty" size="4" />
+                <input type="text" step="1" min="1" name="quantity" value="1" title="Qty" class="qty" size="4"/>
                 <input type="button" value="+" class="plus">
               </div>
               <button type="submit" class="add-to-cart button nomargin">Add to cart</button>
-              
+
 
             </form>
             <button class="btn btn-sm"
-                      [ngClass]="{ 
+                    [ngClass]="{
                                     'btn-outline-danger': true,
                                     'btn-danger': false }"
-                      (click)="toggleFavorite()">
-                        <i class="fa fa-heart-o"></i>
-              </button>
+                    (click)="toggleFavorite()">
+              <i class="fa fa-heart-o"></i>
+            </button>
 
             <div class="clear"></div>
             <div class="line"></div>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero velit id eaque ex quae laboriosam nulla optio
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero velit id eaque ex quae laboriosam nulla
+              optio
               doloribus! Perspiciatis, libero, neque, perferendis at nisi optio dolor!</p>
-            <p>Perspiciatis ad eveniet ea quasi debitis quos laborum eum reprehenderit eaque explicabo assumenda rem modi.</p>
+            <p>Perspiciatis ad eveniet ea quasi debitis quos laborum eum reprehenderit eaque explicabo assumenda rem
+              modi.</p>
           </div>
         </div>
       </div>
