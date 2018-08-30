@@ -100,4 +100,13 @@ export class FormBookComponent implements OnInit {
     this.book = $event;
   }
 
+  onAdd($event){
+    console.log($event);
+    this.isNew = true;
+    
+  }
+  onClear(){
+    this.isLoading = false;
+  }
+
 }

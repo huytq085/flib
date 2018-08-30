@@ -15,6 +15,8 @@
            [hideSelected]="true"
            [loading]="isLoading"
            [typeahead]="bookInput$"
+           (add)="onAdd($event)"
+           (clear)="onClear()"
            (change)="onChange($event)">
            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
             <div style="margin: 10px 0;" class="card">
@@ -98,7 +100,7 @@
     </div>
 
   </fieldset>
-  <div class="ievent clearfix" *ngIf="book.id">
+  <div class="ievent clearfix" *ngIf="book && book?.id">
       <div class="entry-image">
         <a href="#">
           <img [src]="book.coverImage" [alt]="book.name">
