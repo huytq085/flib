@@ -68,10 +68,7 @@ public class UserServiceImpl implements UserService {
     public boolean delete(int id) {
         UserEntity userEntity = userRepository.findById(id);
         userRepository.delete(userEntity);
-        if (userRepository.findById(id) == null) {
-            return true;
-        }
-        return false;
+        return userRepository.findById(id) == null;
     }
 
     @Override
@@ -89,10 +86,7 @@ public class UserServiceImpl implements UserService {
     public boolean checkLogin(UserEntity userLogin) {
         UserEntity userReg = userRepository.findByEmail(userLogin.getEmail());
         if (userReg != null) {
-            if (passwordEncoder.matches(userLogin.getPassword(), userReg.getPassword())) {
-                return true;
-            }
-            return false;
+            return passwordEncoder.matches(userLogin.getPassword(), userReg.getPassword());
         }
         return false;
     }

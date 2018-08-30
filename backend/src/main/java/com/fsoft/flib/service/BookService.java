@@ -21,6 +21,6 @@ public interface BookService {
 
     List<BookEntity> getContributesByEmail(String email);
 
-    List<BookEntity> findByNameLike(String query,String query1);
+    List<BookEntity> findByNameLike(String query, String query1);
 
 }
