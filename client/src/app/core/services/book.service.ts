@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
 import { Book } from '../models/book.model';
 import { PageBook } from '../models/page-book.model';
+import { TypeOfBook } from '../models/type.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,17 @@ export class BookService {
       return of([]);
     }
     return this.api.get(`/book/search?name=${term}`)
+  }
+
+  getTypes():Observable<TypeOfBook[]>{
+    return this.api.get(`/book/types`);
+  }
+
+  getBookByType(idTypes:Number[]):Observable<Book[]>{
+      let httpParams= new HttpParams();
+      idTypes.forEach(id =>{
+        httpParams= httpParams.append('id',id.toString());
+      });
+    return this.api.get(`/book/all`,httpParams);
   }
 }

@@ -1,14 +1,4 @@
-<!-- <div id="search-component">
-  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" placeholder="Hit enter..."/>
-  <ul class="search-result">
-    <li *ngFor="let book of books$ | async" >
-      <a routerLink="/book/{{book.id}}">
-        {{book.name}}
-      </a>
-    </li>
-  </ul>
-</div> -->
-<ng-select [items]="books$ | async" bindLabel="name" [loading]="loading" [typeahead]="searchTerms" (change)="onChange($event)" >
+<ng-select [items]="books$ | async" bindLabel="name" [loading]="loading" [typeahead]="searchTerms" (change)="onChange($event)" placeholder ="Hit enter...">
   <ng-template ng-option-tmp let-item="item">
     {{item.name}} <br />
     <small>{{item.authorByAuthorId.name}}</small>

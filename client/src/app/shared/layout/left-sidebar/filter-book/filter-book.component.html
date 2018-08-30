@@ -1,0 +1,6 @@
+<ul *ngFor="let type of typeBooks; let i= index">
+  <li>
+    <input type="checkbox" name="type" id="type{{i+1}}" value="{{type}}" (change)="check(type,$event)">
+    {{type.name}}
+  </li>
+</ul>

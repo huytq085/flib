@@ -11,6 +11,7 @@ import { SearchBookComponent } from './search-book/search-book.component';
 import { ImageUploadComponent } from './image-helper/image-upload/image-upload.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { LeftSidebarComponent } from './layout/left-sidebar/left-sidebar.component';
+import { FilterBookComponent } from './layout/left-sidebar/filter-book/filter-book.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { LeftSidebarComponent } from './layout/left-sidebar/left-sidebar.compone
     FormUserComponent,
     SearchBookComponent,
     ImageUploadComponent,
-    LeftSidebarComponent
+    LeftSidebarComponent,
+    FilterBookComponent,
+    
     ],
   imports: [
     CommonModule,
