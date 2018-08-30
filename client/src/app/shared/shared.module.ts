@@ -40,7 +40,7 @@ import { FilterBookComponent } from './layout/left-sidebar/filter-book/filter-bo
     FormsModule,
     FormUserComponent,
     SearchBookComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
     LeftSidebarComponent
   ]
 })
