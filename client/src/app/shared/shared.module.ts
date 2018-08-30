@@ -8,6 +8,7 @@ import { FormBookComponent } from './forms/form-book/form-book.component';
 import { FormUserComponent } from './forms/form-user/form-user.component';
 import { WebsiteModule } from '../website/website.module';
 import { SearchBookComponent } from './search-book/search-book.component';
+import { ImageUploadComponent } from './image-helper/image-upload/image-upload.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SearchBookComponent } from './search-book/search-book.component';
     FooterComponent,
     FormBookComponent,
     FormUserComponent,
-    SearchBookComponent
+    SearchBookComponent,
+    ImageUploadComponent
     ],
   imports: [
     CommonModule,

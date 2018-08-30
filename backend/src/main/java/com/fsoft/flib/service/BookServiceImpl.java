@@ -75,6 +75,4 @@ public class BookServiceImpl implements BookService {
     public List<BookEntity> findByNameLike(String query,String query1) {
         return this.bookRepository.findByNameLikeOrAuthorByAuthorIdNameLike(query, query1);
     }
-
-
 }

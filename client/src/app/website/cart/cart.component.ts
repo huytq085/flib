@@ -26,6 +26,7 @@ export class CartComponent implements OnInit {
     private sharedService: SharedService
   ) {
     this.cart = JSON.parse(localStorage.getItem('cart')) as Cart;
+    console.log(this.cart.cartItems)
   }
 
   ngOnInit() {
@@ -49,8 +50,11 @@ export class CartComponent implements OnInit {
     this.cart.cartItems[this.cart.cartItems.indexOf(item)].amount += 1;
   }
 
-  remove(item: CartItem) {
-    this.cart.cartItems.splice(this.cart.cartItems.indexOf(item), 1);
+  remove(i) {
+    console.log('--------')
+    console.log(this.cart.cartItems)
+    console.log('--------')
+    this.cart.cartItems.splice(i, 1);
   }
 
   updateCart() {

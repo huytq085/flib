@@ -4,7 +4,7 @@ package com.fsoft.flib.util;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
-public class JsonUtil {
+public class JsonUtils {
     private static Gson gson = new Gson();
 
     public static String encode(Object obj) {

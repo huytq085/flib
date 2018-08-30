@@ -2,14 +2,19 @@ package com.fsoft.flib.service;
 
 import com.fsoft.flib.domain.*;
 import com.fsoft.flib.repository.*;
-import com.fsoft.flib.util.JsonUtil;
+import com.fsoft.flib.util.Constants;
+import com.fsoft.flib.util.ImageUtils;
+import com.fsoft.flib.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -123,8 +128,17 @@ public class UserServiceImpl implements UserService {
             AuthorEntity author = new AuthorEntity();
             author.setName(book.getAuthorByAuthorId().getName());
             book.setAuthorId(authorRepository.save(author).getId());
-            System.out.println("service");
-            System.out.println(JsonUtil.encode(book));
+//            Store cover image to resources folder & get url path
+            String coverImagePath = "/cover_img/" + book.getAuthorId() + "_" + new Timestamp(System.currentTimeMillis()).getTime() + ".png";
+            String path = Constants.STATIC_IMG_BOOK_PATH + coverImagePath;
+            try {
+                if (ImageUtils.writeImage(path, book.getCoverImage())){
+                    System.out.println("create file success");
+                    book.setCoverImage(Constants.REAL_STATIC_IMG_BOOK_PATH + coverImagePath);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             book = bookRepository.save(book);
             contribute.setBookId(book.getId());
             return contributeRepository.save(contribute);
@@ -140,4 +154,5 @@ public class UserServiceImpl implements UserService {
     private boolean isExist(UserEntity user) {
         return (userRepository.findByEmail(user.getEmail()) != null);
     }
+
 }
