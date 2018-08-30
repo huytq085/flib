@@ -80,7 +80,7 @@ export class FormBookComponent implements OnInit {
     console.log(values)
     this.book.authorByAuthorId = {
       name: values.author
-    }
+    };
   }
 
   onFileChange(event) {
