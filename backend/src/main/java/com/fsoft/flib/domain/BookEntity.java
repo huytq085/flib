@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "book", schema = "flib", catalog = "")
+@Table(name = "book", schema = "flib")
 public class BookEntity {
     private int id;
     private String name;

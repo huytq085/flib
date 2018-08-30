@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "book_type", schema = "flib", catalog = "")
+@Table(name = "book_type", schema = "flib")
 @IdClass(BookTypeEntityPK.class)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class BookTypeEntity {

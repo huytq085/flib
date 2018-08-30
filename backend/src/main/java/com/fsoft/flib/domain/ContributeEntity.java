@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "contribute", schema = "flib", catalog = "")
+@Table(name = "contribute", schema = "flib")
 @IdClass(ContributeEntityPK.class)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ContributeEntity {
