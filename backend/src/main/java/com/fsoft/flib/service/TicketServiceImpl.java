@@ -22,6 +22,11 @@ public class TicketServiceImpl implements TicketService {
     private TicketDetailService ticketDetailService;
 
     @Override
+    public List<TicketEntity> getAll() {
+        return this.ticketRepository.findAll();
+    }
+
+    @Override
     public List<TicketEntity> getAllByUserId(int id) {
         return ticketRepository.findAllByUserId(id);
     }

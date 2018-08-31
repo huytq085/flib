@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Collection;
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
@@ -21,8 +22,6 @@ public class TicketController {
 //    private final String GET_PAGE_BOOK = BASE_URL + "/page";
     private final String POST_NEW_TICKET = BASE_URL + "/create";
     private final TicketService ticketService;
-    @Autowired
-    TicketRepository ticketRepository;
 
     @Autowired
     public TicketController(TicketService ticketService) {
@@ -34,10 +33,10 @@ public class TicketController {
 //        return bookService.getOne(id);
 //    }
 //
-//    @GetMapping(path = GET_ALL_BOOK)
-//    public List<BookEntity> getBook() {
-//        return bookService.getAll();
-//    }
+    @GetMapping(path = BASE_URL)
+    public Collection<TicketEntity> getTickets() {
+        return ticketService.getAll();
+    }
 //
 //    @GetMapping(path = GET_PAGE_BOOK)
 //    public Page<BookEntity> getPageBook(@RequestParam int page, @RequestParam int size) {

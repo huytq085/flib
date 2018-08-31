@@ -104,9 +104,9 @@ public class BookServiceImpl<main> implements BookService {
                 bookEntities.add(bookTypeEntity.getBookByBookId());
             }
         }
-        for(BookEntity bok:bookEntities){
-            System.out.println(bok.getName());
-        }
+//        for(BookEntity bok:bookEntities){
+//            System.out.println(bok.getName());
+//        }
         return bookEntities;
     }
 }

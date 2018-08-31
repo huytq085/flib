@@ -14,7 +14,7 @@
 				</a>
 			</div>
 
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col">
 					<div ngbDropdown class="d-inline-block">
 						<button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
@@ -25,8 +25,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- <div id="top-account" class="dropdown" *ngIf="tokenStorage.loggedIn()">
+			</div> -->
+			<div id="top-account" class="dropdown" *ngIf="tokenStorage.loggedIn()">
 				<a href="#" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 					<i class="icon-user"></i>
 				</a>
@@ -40,7 +40,7 @@
 						<i class="icon-signout"></i>
 					</a>
 				</ul>
-			</div> -->
+			</div>
 			<div id="top-account" *ngIf="!tokenStorage.loggedIn()"> <a [routerLink]="['/login']" class="btn btn-secondary btn-sm">
 					Login
 				</a>
