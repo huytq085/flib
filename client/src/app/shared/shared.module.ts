@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent, FooterComponent } from '.';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormBookComponent } from './forms/form-book/form-book.component';
 import { FormUserComponent } from './forms/form-user/form-user.component';
 import { WebsiteModule } from '../website/website.module';
@@ -31,6 +31,7 @@ import { FilterBookComponent } from './layout/left-sidebar/filter-book/filter-bo
     ReactiveFormsModule,
     RouterModule,
     NgSelectModule,
+    NgbModule.forRoot(),
   ],
   exports: [
     HeaderComponent,

@@ -20,7 +20,7 @@ export class ProfileOrderComponent implements OnInit {
 
     // this.addData();
 
-    this.profileService.getTikets().subscribe(
+    this.profileService.getTickets().subscribe(
       data => {
         this.tickets = data;
       }

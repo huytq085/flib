@@ -24,19 +24,7 @@ export class TicketService {
     return this.apiService.post(`/ticket/create`, cart);
   }
 
-  // update(user: User): Observable<User> {
-  //   return this.apiService.put(`${BASE_URL}`, user, {responseType: 'text'});
-  // }
-  //
-  // contribute(book: Book): Observable<any> {
-  //   return this.apiService.post(`${BASE_URL}/contribute`, book);
-  // }
-  //
-  // getAll(): Observable<User[]> {
-  //   return this.apiService.get(`${BASE_URL}`);
-  // }
-  //
-  // delete(userId: number) {
-  //   return this.apiService.delete(`${BASE_URL}/${userId}`, {responseType: 'text'});
-  // }
+  getTickets(): Observable<Ticket[]>{
+    return this.apiService.get(`/ticket`);
+  }
 }

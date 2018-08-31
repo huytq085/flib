@@ -13,7 +13,20 @@
 					<img src="assets/themes/images/logo@2x.png" alt="Canvas Logo">
 				</a>
 			</div>
-			<div id="top-account" class="dropdown" *ngIf="tokenStorage.loggedIn()">
+
+			<div class="row">
+				<div class="col">
+					<div ngbDropdown class="d-inline-block">
+						<button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
+						<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+							<button class="dropdown-item">Action - 1</button>
+							<button class="dropdown-item">Another Action</button>
+							<button class="dropdown-item">Something else is here</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- <div id="top-account" class="dropdown" *ngIf="tokenStorage.loggedIn()">
 				<a href="#" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 					<i class="icon-user"></i>
 				</a>
@@ -27,14 +40,14 @@
 						<i class="icon-signout"></i>
 					</a>
 				</ul>
-			</div>
+			</div> -->
 			<div id="top-account" *ngIf="!tokenStorage.loggedIn()"> <a [routerLink]="['/login']" class="btn btn-secondary btn-sm">
-				Login
+					Login
 				</a>
 			</div>
 
 			<nav id="primary-menu">
-					
+
 				<!-- <ul class="sf-js-enabled" style="touch-action: pan-y;">
 					<li class="sub-menu">
 						<a href="index.html" class="sf-with-ul">
@@ -1880,7 +1893,7 @@
 					</div>
 				</div>
 
-				<div id="top-search">
+				<!-- <div id="top-search">
 					<a id="top-search-trigger">
 						<i class="icon-search3"></i>
 						<i class="icon-line-cross"></i>
@@ -1888,7 +1901,7 @@
 					<form action="search.html" method="get">
 						<input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
 					</form>
-				</div>
+				</div> -->
 			</nav>
 		</div>
 	</div>

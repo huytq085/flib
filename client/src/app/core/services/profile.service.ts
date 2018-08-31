@@ -24,7 +24,7 @@ export class ProfileService {
     return this.apiService.get(`${BASE_URL}/contributes`);
   }
 
-  getTikets(): Observable<Ticket[]> {
+  getTickets(): Observable<Ticket[]> {
     return this.apiService.get(`${BASE_URL}/tickets`);
   }
 
