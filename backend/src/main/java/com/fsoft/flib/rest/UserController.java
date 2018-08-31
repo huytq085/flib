@@ -31,7 +31,7 @@ public class UserController {
     private final String GET_ROLES_URL = BASE_URL + "/roles";
     private final String CONTRIBUTE_URL = BASE_URL + "/contribute";
     private final String FAVOURITE_URL = BASE_URL + "/favourite/{id}";
-    private final String GET_USER_TICKETS_URL = BASE_URL + "/{id}/tickets";
+    private final String GET_USER_TICKETS_URL = BASE_URL + "/{userId}/tickets";
 
     @Autowired
     private UserService userService;
@@ -135,13 +135,13 @@ public class UserController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<List<TicketEntity>> getTickets(@PathVariable String userId, Authentication authentication){
+    public ResponseEntity<List<TicketEntity>> getTickets(@PathVariable int userId, Authentication authentication){
         HttpStatus status = HttpStatus.OK;
         List<TicketEntity> tickets = Collections.emptyList();
         if (authentication != null) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             if (userHasAuthority(userDetails, ROLE_ADMIN)) {
-                tickets = ticketService.getAllByUserId(Integer.parseInt(userId));
+                tickets = ticketService.getAllByUserId(userId);
             } else {
                 status = HttpStatus.UNAUTHORIZED;
             }
