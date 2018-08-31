@@ -4,6 +4,11 @@ import { CommonModule } from '@angular/common';
 import { AdminUsersComponent } from './users.component';
 import { AdminUsersRoutingModule } from './users-routing.module';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { UserDetailNotificationComponent } from './user-detail/user-detail-notification/user-detail-notification.component';
+import { UserDetailContributeComponent } from './user-detail/user-detail-contribute/user-detail-contribute.component';
+import { UserDetailReactionComponent } from './user-detail/user-detail-reaction/user-detail-reaction.component';
+import { UserDetailBookComponent } from './user-detail/user-detail-book/user-detail-book.component';
+import { UserDetailTicketComponent } from './user-detail/user-detail-ticket/user-detail-ticket.component';
 
 @NgModule({
   imports: [
@@ -13,7 +18,12 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
   ],
   declarations: [
     AdminUsersComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    UserDetailNotificationComponent,
+    UserDetailContributeComponent,
+    UserDetailReactionComponent,
+    UserDetailBookComponent,
+    UserDetailTicketComponent
   ]
 })
 export class AdminUsersModule { }

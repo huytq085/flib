@@ -1,38 +1,38 @@
-<button class="btn btn-primary btn-sm" (click)="goBack()">Back to user list</button>
+<button class="btn btn-primary btn-sm" routerLink="/admin/users">Back to user list</button>
 
 <div class="tabs side-tabs nobottommargin clearfix" id="tab-6">
-
-  <ul class="tab-nav tab-nav2 clearfix">
-    <li class="">
-      <a href="#tabs-21">
-        <i class="icon-home2 ac"></i> Ticket Request
-      </a>
-    </li>
-    <li>
-      <a href="#tabs-21">
-        <i class="icon-home2 ac"></i> Sách đang mượn
-      </a>
-    </li>
-    <li>
-      <a href="#tabs-23">
-          <i class="icon-home2 ac"></i> Reaction
-      </a>
-    </li>
-    <li>
-      <a href="#tabs-24">
-          <i class="icon-home2 ac"></i> Contribute Request
-      </a>
-    </li>
-    <li>
-      <a href="#tabs-24">
-          <i class="icon-home2 ac"></i> Notifications
-      </a>
-    </li>
-  </ul>
+  <nav class="sidebar float-right" style="min-height: initial">
+    <ul class="nav">
+      <li class="nav-item" [routerLink]="['tickets']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" style="cursor: pointer;">
+          <i class="menu-icon mdi mdi-television"></i> Ticket Request
+        </a>
+      </li>
+      <li class="nav-item" [routerLink]="['books']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" style="cursor: pointer;">
+          <i class="menu-icon mdi mdi-television"></i> Sách đang mượn
+        </a>
+      </li>
+      <li class="nav-item" [routerLink]="['reactions']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" style="cursor: pointer;">
+          <i class="menu-icon mdi mdi-television"></i> Reaction
+        </a>
+      </li>
+      <li class="nav-item" [routerLink]="['contributes']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" style="cursor: pointer;">
+          <i class="menu-icon mdi mdi-television"></i> Contribute Request
+        </a>
+      </li>
+      <li class="nav-item" [routerLink]="['notificatoins']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" style="cursor: pointer;">
+          <i class="menu-icon mdi mdi-television"></i> Notifications
+        </a>
+      </li>
+    </ul>
+  </nav>
 
   <div class="tab-container">
-
-
+    <router-outlet></router-outlet>
   </div>
 
 </div>

@@ -24,10 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)]
 })
 
-@NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: []
-})
 export class AdminRoutingModule { }

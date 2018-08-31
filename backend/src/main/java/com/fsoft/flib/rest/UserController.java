@@ -2,8 +2,10 @@ package com.fsoft.flib.rest;
 
 import com.fsoft.flib.domain.BookEntity;
 import com.fsoft.flib.domain.ContributeEntity;
+import com.fsoft.flib.domain.TicketEntity;
 import com.fsoft.flib.domain.UserEntity;
 import com.fsoft.flib.service.BookService;
+import com.fsoft.flib.service.TicketService;
 import com.fsoft.flib.service.UserService;
 import com.fsoft.flib.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +18,29 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 //@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class UserController {
+    private final String ROLE_ADMIN = "ROLE_ADMIN";
     private final String BASE_URL = "/users";
     private final String GET_ONE_URL = BASE_URL + "/{id}";
     private final String GET_ROLES_URL = BASE_URL + "/roles";
     private final String CONTRIBUTE_URL = BASE_URL + "/contribute";
     private final String FAVOURITE_URL = BASE_URL + "/favourite/{id}";
+    private final String GET_USER_TICKETS_URL = BASE_URL + "/{id}/tickets";
 
     @Autowired
     private UserService userService;
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private TicketService ticketService;
 
     /* ---------------- GET ALL USER ------------------------ */
     @RequestMapping(path = BASE_URL, method = RequestMethod.GET)
@@ -121,4 +129,26 @@ public class UserController {
         }
         return false;
     }
+
+    @RequestMapping(
+            value = GET_USER_TICKETS_URL,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<TicketEntity>> getTickets(@PathVariable String userId, Authentication authentication){
+        HttpStatus status = HttpStatus.OK;
+        List<TicketEntity> tickets = Collections.emptyList();
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            if (userHasAuthority(userDetails, ROLE_ADMIN)) {
+                tickets = ticketService.getAllByUserId(Integer.parseInt(userId));
+            } else {
+                status = HttpStatus.UNAUTHORIZED;
+            }
+        }
+
+
+        return new ResponseEntity<>(tickets, status);
+    }
+
 }
