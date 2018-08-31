@@ -32,6 +32,7 @@ public class UserController {
     private final String CONTRIBUTE_URL = BASE_URL + "/contribute";
     private final String FAVOURITE_URL = BASE_URL + "/favourite/{id}";
     private final String GET_USER_TICKETS_URL = BASE_URL + "/{userId}/tickets";
+    private final String ACTION_TICKET_URL = BASE_URL + "/tickets/{ticketId}";
 
     @Autowired
     private UserService userService;
@@ -78,7 +79,6 @@ public class UserController {
     }
 
 
-
     /* ---------------- DELETE USER ------------------------ */
     @RequestMapping(value = GET_ONE_URL, method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteUserById(@PathVariable int id) {
@@ -95,7 +95,7 @@ public class UserController {
     public ResponseEntity<Object> updateUserById(@RequestBody UserEntity userEntity, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        if(userEntity.getEmail().equals(userDetails.getUsername()) || userHasAuthority(userDetails, "ROLE_ADMIN")){
+        if (userEntity.getEmail().equals(userDetails.getUsername()) || userHasAuthority(userDetails, "ROLE_ADMIN")) {
             if (userService.update(userEntity)) {
                 return new ResponseEntity<>("Updated!", HttpStatus.OK);
             }
@@ -109,7 +109,7 @@ public class UserController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<ContributeEntity> contribute(@RequestBody BookEntity book, Principal principal){
+    public ResponseEntity<ContributeEntity> contribute(@RequestBody BookEntity book, Principal principal) {
         HttpStatus status = HttpStatus.OK;
         System.out.println("vao contribute ne");
         ContributeEntity contribute = null;
@@ -135,7 +135,7 @@ public class UserController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<List<TicketEntity>> getTickets(@PathVariable int userId, Authentication authentication){
+    public ResponseEntity<List<TicketEntity>> getTicketsByUserId(@PathVariable int userId, Authentication authentication) {
         HttpStatus status = HttpStatus.OK;
         List<TicketEntity> tickets = Collections.emptyList();
         if (authentication != null) {
@@ -146,9 +146,31 @@ public class UserController {
                 status = HttpStatus.UNAUTHORIZED;
             }
         }
-
-
         return new ResponseEntity<>(tickets, status);
+    }
+
+    @RequestMapping(
+            value = ACTION_TICKET_URL,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Boolean> approveTicket(@PathVariable int ticketId, Authentication authentication, @RequestParam(required = false) int status) {
+        HttpStatus httpStatus = HttpStatus.OK;
+        boolean ok = false;
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            if (userHasAuthority(userDetails, ROLE_ADMIN)) {
+                if (ticketService.action(ticketId, status)) {
+                    httpStatus = HttpStatus.OK;
+                    ok = true;
+                } else {
+                    httpStatus = HttpStatus.NO_CONTENT;
+                }
+            } else {
+                httpStatus = HttpStatus.UNAUTHORIZED;
+            }
+        }
+        return new ResponseEntity<>(ok, httpStatus);
     }
 
 }

@@ -1,0 +1,47 @@
+<button class="float-right btn btn-primary btn-sm" (click)="action(1)" *ngIf="ticket.status == 0">Approve</button>
+<button class="float-right btn btn-danger btn-sm" (click)="action(0)">{{ (ticket.status == 0) ? 'Reject' : 'Remove' }}</button>
+<h4 class="card-title">Ticket Detail</h4>
+<p class="card-description">
+  Ticket ID: #{{ticket.id}}
+  <label class="badge badge-success ml-1" *ngIf="ticket.status == 1">Approved</label>
+  <label class="badge badge-danger ml-1" *ngIf="ticket.status == 0">Pending</label>
+</p>
+<div class="table-responsive">
+  <table class="table table table-bordered">
+    <thead>
+      <tr>
+        <th>Cover Image</th>
+        <th>Product</th>
+        <th>Author</th>
+        <th>Quantity</th>
+        <th>Status</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticketDetail of ticketDetails">
+        <td>
+          <a [routerLink]="['/book',ticketDetail.bookByBookId.id ]">
+            <img width="64" height="64" src="{{ ticketDetail.bookByBookId.coverImage }}" alt="{{ ticketDetail.bookByBookId.name }}">
+          </a>
+        </td>
+        <td>
+          <a [routerLink]="['/book',ticketDetail.bookByBookId.id ]">{{ ticketDetail.bookByBookId.name }}</a>
+        </td>
+        <td>
+          <a [routerLink]="['/author',ticketDetail.bookByBookId.authorByAuthorId.id ]">{{ ticketDetail.bookByBookId.authorByAuthorId.name }}</a>
+        </td>
+        <td>
+          <span class="amount">{{ ticketDetail.amount }}</span>
+        </td>
+        <td>
+          <span class="amount">$39.98</span>
+        </td>
+        <td>
+          $39.98
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>

@@ -18,4 +18,6 @@ public interface TicketService {
 
     TicketEntity requestTicket(String email, Cart cart);
 
+    boolean action(int ticketId, int status);
+
 }

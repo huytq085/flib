@@ -9,6 +9,11 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'users',
+        pathMatch: 'full'
+      },
+      {
         path: 'users',
         loadChildren: './users/users.module#AdminUsersModule'
       },

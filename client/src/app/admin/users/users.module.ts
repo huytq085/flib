@@ -9,6 +9,7 @@ import { UserDetailContributeComponent } from './user-detail/user-detail-contrib
 import { UserDetailReactionComponent } from './user-detail/user-detail-reaction/user-detail-reaction.component';
 import { UserDetailBookComponent } from './user-detail/user-detail-book/user-detail-book.component';
 import { UserDetailTicketComponent } from './user-detail/user-detail-ticket/user-detail-ticket.component';
+import { UserDetailTicketDetailComponent } from './user-detail/user-detail-ticket/user-detail-ticket-detail/user-detail-ticket-detail.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { UserDetailTicketComponent } from './user-detail/user-detail-ticket/user
     UserDetailContributeComponent,
     UserDetailReactionComponent,
     UserDetailBookComponent,
-    UserDetailTicketComponent
+    UserDetailTicketComponent,
+    UserDetailTicketDetailComponent
   ]
 })
 export class AdminUsersModule { }

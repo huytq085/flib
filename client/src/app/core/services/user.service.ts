@@ -1,7 +1,7 @@
 import { ApiService } from './api.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { User } from '../models';
+import { User, Ticket } from '../models';
 import { Book } from '../models/book.model';
 
 const BASE_URL = '/users';
@@ -49,13 +49,19 @@ export class UserService {
         return this.apiService.get(`${BASE_URL}/roles`);
     }
 
-    search(value: string): Observable<User[]>{
+    search(value: string): Observable<User[]> {
         return this.apiService.get(`${BASE_URL}?q=${value}`);
     }
 
-    favourite(bookId: number): Observable<boolean>{
+    favourite(bookId: number): Observable<boolean> {
         return this.apiService.get(`${BASE_URL}/favourite/${bookId}`);
 
     }
-    
+    getTicketsByUserId(userId: number): Observable<Ticket[]> {
+        return this.apiService.get(`${BASE_URL}/${userId}/tickets`);
+    }
+    actionTicket(ticketId: number, status?: number): Observable<boolean> {
+        return this.apiService.get(`${BASE_URL}/tickets/${ticketId}?status=${status}`);
+    }
+
 }

@@ -62,6 +62,21 @@ public class TicketServiceImpl implements TicketService {
         return null;
     }
 
+    @Override
+    public boolean action(int ticketId, int status) {
+        TicketEntity ticketEntity = ticketRepository.findById(ticketId).orElse(null);
+        if (ticketEntity != null) {
+            if (status == 0) {
+                ticketRepository.deleteById(ticketId);
+                return true;
+            }
+            ticketEntity.setStatus(status);
+            return ticketRepository.save(ticketEntity) != null;
+        }
+        return false;
+    }
+
+
 //    @Override
 //    public TicketEntity requestTicket(String email, String[] bookIDs) {
 //        UserEntity user = userRepository.findByEmail(email);

@@ -1,54 +1,34 @@
 <div class="table-responsive">
-  <table class="table">
+  <table class="table table table-bordered">
     <thead>
       <tr>
-        <th>Profile</th>
-        <th>VatNo.</th>
-        <th>Created</th>
+        <th>Ticket ID</th>
+        <th>Book</th>
+        <th>Date</th>
         <th>Status</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Jacob</td>
-        <td>53275531</td>
-        <td>12 May 2017</td>
+      <tr *ngFor="let ticket of tickets">
         <td>
-          <label class="badge badge-danger">Pending</label>
+          <a [routerLink]="[ticket.id]">{{ ticket.id }}</a>
+        </td>
+        <td>
+          <a [routerLink]="[ticket.id]">{{ profileService.getBookNames(ticket) }}</a>
+        </td>
+        <td>{{ ticket.dateAdded | date: 'longDate' }}</td>
+        <td>
+          <label class="badge badge-success" *ngIf="ticket.status == 1">Approved</label>
+          <label class="badge badge-danger" *ngIf="ticket.status == 0">Pending</label>
+        </td>
+        <td>
+          <button [routerLink]="[ticket.id]" type="button" class="btn btn-sm btn-default mr-1">
+            <i class="fa fa-user-circle"></i> Detail
+          </button>
         </td>
       </tr>
-      <tr>
-        <td>Messsy</td>
-        <td>53275532</td>
-        <td>15 May 2017</td>
-        <td>
-          <label class="badge badge-warning">In progress</label>
-        </td>
-      </tr>
-      <tr>
-        <td>John</td>
-        <td>53275533</td>
-        <td>14 May 2017</td>
-        <td>
-          <label class="badge badge-info">Fixed</label>
-        </td>
-      </tr>
-      <tr>
-        <td>Peter</td>
-        <td>53275534</td>
-        <td>16 May 2017</td>
-        <td>
-          <label class="badge badge-success">Completed</label>
-        </td>
-      </tr>
-      <tr>
-        <td>Dave</td>
-        <td>53275535</td>
-        <td>20 May 2017</td>
-        <td>
-          <label class="badge badge-warning">In progress</label>
-        </td>
-      </tr>
+
     </tbody>
   </table>
 </div>
