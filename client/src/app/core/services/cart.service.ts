@@ -2,7 +2,6 @@ import {Injectable, OnInit} from '@angular/core';
 import {Book, Cart} from '../models';
 import {BookService} from './book.service';
 import {CartItem} from '../models/cart-item.model';
-import {element} from 'protractor';
 import {SharedService} from './shared.service';
 
 @Injectable({
@@ -19,26 +18,24 @@ export class CartService implements OnInit {
   ngOnInit(): void {
   }
 
-  addToCart(book: Book): boolean {
+  addToCart(item: CartItem): boolean {
     this.cart = JSON.parse(localStorage.getItem('cart')) as Cart;
     let isExist = false;
     if (this.cart) {
-      console.log('ko null');
-      // cart = JSON.parse(localStorage.getItem('cart')) as Cart;
       for (let i = 0; i < this.cart.cartItems.length; i++) {
         const currBook = this.cart.cartItems[i].book;
-        if (currBook.id === book.id) {
+        if (currBook.id === item.book.id) {
           this.cart.cartItems[i].amount += 1;
           isExist = true;
           break;
         }
       }
       if (!isExist) {
-        this.cart.cartItems.push({book: book, amount: 1});
+        this.cart.cartItems.push(item);
       }
-
     } else {
-      this.cart.cartItems.push({book: book, amount: 1});
+      this.cart = {cartItems: {}} as Cart;
+      this.cart.cartItems.push(item);
     }
     localStorage.setItem('cart', JSON.stringify(this.cart));
     this.sharedService.updateCart(this.cart);
@@ -48,5 +45,6 @@ export class CartService implements OnInit {
   minusAmount(item: CartItem) {
     this.cart.cartItems[this.cart.cartItems.indexOf(item)].amount -= 1;
   }
+
 
 }

@@ -27,12 +27,13 @@
             <!-- Product Single - Price End -->
 
             <div class="product-rating">
-              <i class="icon-star3" *ngFor="let number of [1,2,3,4,5]" [ngClass]="{
-                        'icon-star3': number <= book.rating,
-                        'icon-star-half-full': number>book.rating && book.rating+1 >number,
-                        'icon-star-empty':number>book.rating
-                      }">
-              </i>
+              <ng-template #t let-fill="fill">
+                  <span class="star" [class.full]="fill === 100">
+                    <span class="half" [style.width.%]="fill">&#x022C6;</span>&#x022C6;
+                  </span>
+              </ng-template>
+
+              <ngb-rating [(rate)]="book.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
             </div>
 
             <div class="clear"></div>
@@ -40,18 +41,18 @@
 
             <form class="cart nobottommargin clearfix" method="post" enctype='multipart/form-data'>
               <div class="quantity clearfix">
-                <input type="button" value="-" class="minus">
-                <input type="text" step="1" min="1" name="quantity" value="1" title="Qty" class="qty" size="4"/>
-                <input type="button" value="+" class="plus">
+                <input type="button" value="-" class="minus" (click)="minus()">
+                <input type="text" step="1" min="1" name="quantity" [value]="amount" title="Qty" class="qty" size="4"/>
+                <input type="button" value="+" class="plus" (click)="plus()">
               </div>
-              <button type="submit" class="add-to-cart button nomargin">Add to cart</button>
+              <button type="submit" class="add-to-cart button nomargin" (click)="addToCart(book,this.amount)">Add to
+                cart
+              </button>
 
 
             </form>
             <button class="btn btn-sm"
-                    [ngClass]="{
-                                    'btn-outline-danger': true,
-                                    'btn-danger': false }"
+                    [ngClass]="{'btn-outline-danger': true,'btn-danger': false }"
                     (click)="toggleFavorite()">
               <i class="fa fa-heart-o"></i>
             </button>

@@ -48,12 +48,20 @@
               </div>
               <div class="product-price">{{book.authorByAuthorId.name}}</div>
               <div class="product-rating">
-                <i class="icon-star3" *ngFor="let number of [1,2,3,4,5]" [ngClass]="{
-                    'icon-star3': number <= book.rating,
-                    'icon-star-half-full': number>book.rating && book.rating+1 >number,
-                    'icon-star-empty':number>book.rating
-                  }">
-                </i>
+                <!--<i class="icon-star3" *ngFor="let number of [1,2,3,4,5]" [ngClass]="{-->
+                <!--'icon-star3': number <= book.rating,-->
+                <!--'icon-star-half-full': number>book.rating && book.rating+1 >number,-->
+                <!--'icon-star-empty':number>book.rating-->
+                <!--}">-->
+                <!--</i>-->
+                <!--<ngb-rating [rate]="book.rating"></ngb-rating>-->
+                <ng-template #t let-fill="fill">
+                  <span class="star" [class.full]="fill === 100">
+                    <span class="half" [style.width.%]="fill">&#x022C6;</span>&#x022C6;
+                  </span>
+                </ng-template>
+
+                <ngb-rating [(rate)]="book.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
               </div>
             </div>
           </div>

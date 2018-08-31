@@ -1,7 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { PageBook } from '../../../../../core/models/page-book.model';
-import { Book } from '../../../../../core/models/book.model';
-import { BookService } from '../../../../../core/services/book.service';
+import {PageBook} from '../../../../../core/models/page-book.model';
+import {Book} from '../../../../../core/models/book.model';
+import {BookService} from '../../../../../core/services/book.service';
+import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-pagination',
@@ -10,21 +12,25 @@ import { BookService } from '../../../../../core/services/book.service';
 })
 export class PaginationComponent implements OnInit {
   pageBook: PageBook;
+  emitPageBook: Observable<PageBook>;
   pages = [];
   @Output() choose = new EventEmitter<Book[]>();
 
-  constructor(private bookService: BookService) {
+  constructor(private bookService: BookService, private router: Router) {
+
   }
 
   ngOnInit() {
     this.bookService.getBookByPage(0, 9).subscribe(data => {
       this.pageBook = data;
-      for (let i = 0; i < this.pageBook.totalPages; i++) {
-        this.pages.push(i);
-      }
-      // console.log(this.pages);
-      console.log(this.pageBook.number);
-      this.choose.emit(this.pageBook.content);
+      this.pageBook.number += 1;
+      console.log(this.pageBook.totalElements);
+      // for (let i = 0; i < this.pageBook.totalPages; i++) {
+      //   this.pages.push(i);
+      // }
+      // // console.log(this.pages);
+      // console.log(this.pageBook.number);
+      // this.choose.emit(this.pageBook.content);
     });
   }
 
@@ -35,5 +41,9 @@ export class PaginationComponent implements OnInit {
       console.log('Number of page' + this.pageBook.number);
       this.choose.emit(this.pageBook.content);
     });
+  }
+
+  onChange(page: number) {
+    this.router.navigate(['/book/page/' + (page)]);
   }
 }

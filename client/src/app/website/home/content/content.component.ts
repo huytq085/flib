@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Book } from '../../../core/models/book.model';
-import { ActivatedRoute } from '@angular/router';
-import { BookService } from '../../../core/services/book.service';
+import {Component, OnInit} from '@angular/core';
+import {Book} from '../../../core/models';
+import {ActivatedRoute} from '@angular/router';
+import {BookService} from '../../../core/services';
 
 @Component({
   selector: 'app-content',
@@ -17,6 +17,6 @@ export class ContentComponent implements OnInit {
 
   ngOnInit(): void {
     const number = +this.activedRoute.snapshot.paramMap.get('number');
-    this.bookService.getBookByPage(number, 9).subscribe(data => this.books = data.content);
+    this.bookService.getBookByPage(number - 1, 9).subscribe(data => this.books = data.content);
   }
 }

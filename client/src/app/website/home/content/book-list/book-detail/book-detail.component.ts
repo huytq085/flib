@@ -1,7 +1,7 @@
-import {BookService, UserService} from '../../../../../core/services';
+import {BookService, CartService, UserService} from '../../../../../core/services';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import {Book} from '../../../../../core/models/book.model';
+import {Book} from '../../../../../core/models';
 
 @Component({
   selector: 'app-book-detail',
@@ -10,9 +10,10 @@ import {Book} from '../../../../../core/models/book.model';
 })
 export class BookDetailComponent implements OnInit {
   book: Book = {authorByAuthorId: {}} as Book;
+  amount = 1;
 
-  constructor(private bookService: BookService, private route: ActivatedRoute, private userService: UserService) {
-    // this.getBook();
+  constructor(private bookService: BookService, private route: ActivatedRoute,
+              private userService: UserService, private cartService: CartService) {
   }
 
   ngOnInit() {
@@ -21,7 +22,7 @@ export class BookDetailComponent implements OnInit {
       this.bookService.getBook(param['id']).subscribe(book => {
         this.book = book;
       });
-    })
+    });
   }
 
   getBook(): any {
@@ -29,6 +30,20 @@ export class BookDetailComponent implements OnInit {
     this.bookService.getBook(id).subscribe(book => {
       this.book = book;
     });
+  }
+
+  minus() {
+    this.amount -= 1;
+  }
+
+  plus() {
+    this.amount += 1;
+  }
+
+  addToCart(book: Book, amount: number) {
+    if (this.cartService.addToCart({book: book, amount: amount})) {
+      alert('Add to cart successfully');
+    }
   }
 
   toggleFavorite() {

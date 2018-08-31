@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Book} from '../../../../core/models/book.model';
+import {Book} from '../../../../core/models';
 import {PageBook} from '../../../../core/models/page-book.model';
 import {BookService, CartService} from '../../../../core/services';
-import {Cart} from '../../../../core/models';
-import {BookListService, SharedService} from '../../../../core';
+import {SharedService} from '../../../../core';
+import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
+import {CartItem} from '../../../../core/models/cart-item.model';
 
 @Component({
   selector: 'app-book-list',
@@ -11,7 +12,7 @@ import {BookListService, SharedService} from '../../../../core';
   styleUrls: ['./book-list.component.css']
 })
 export class BookListComponent implements OnInit {
-
+  rate = 3;
   @Input() books: Book[];
 
   // pageBooks: PageBook = {} as PageBook;
@@ -19,14 +20,16 @@ export class BookListComponent implements OnInit {
   constructor(
     private bookService: BookService,
     private sharedService: SharedService,
-    private cartService: CartService
+    private cartService: CartService,
     // private bookListService: BookListService
+    config: NgbRatingConfig
   ) {
+    config.max = 5;
+    config.readonly = true;
   }
 
 
   ngOnInit(): void {
-
     this.bookService.getBookByPage(0, 9).subscribe((data: PageBook) => {
       this.books = data.content;
       console.log(data);
@@ -76,7 +79,7 @@ export class BookListComponent implements OnInit {
     //   const cartJSON = JSON.stringify(cart);
     //   localStorage.setItem('cart', cartJSON);
     // }
-    if (this.cartService.addToCart(book)) {
+    if (this.cartService.addToCart({book: book, amount: 1}as CartItem)) {
       alert('Add to cart successfully');
     }
   }

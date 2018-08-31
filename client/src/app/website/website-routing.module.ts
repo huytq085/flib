@@ -1,18 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { WebsiteComponent } from './website.component';
-import { CartComponent } from './cart/cart.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {WebsiteComponent} from './website.component';
+import {CartComponent} from './cart/cart.component';
 
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
+import {LoginComponent} from './auth/login/login.component';
+import {RegisterComponent} from './auth/register/register.component';
 
 const routes: Routes = [
     {
         path: '',
         component: WebsiteComponent,
         children: [
-            { path: '', redirectTo: '/book/page/0', pathMatch: 'full' },
+          {path: '', redirectTo: '/book/page/1', pathMatch: 'full'},
             {
                 path: 'profile',
                 loadChildren: './profile/profile.module#ProfileModule'
