@@ -14,4 +14,5 @@ public class TicketDetailServiceImpl implements TicketDetailService {
     public TicketDetailEntity save(TicketDetailEntity ticketDetailEntity) {
         return ticketDetailRepository.save(ticketDetailEntity);
     }
+
 }

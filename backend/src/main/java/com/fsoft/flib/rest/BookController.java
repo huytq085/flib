@@ -24,8 +24,8 @@ public class BookController {
     private final String SEARCH_AUTHOR = BASE_URL + "/author/search";
     private final String SEARCH_BOOK = BASE_URL + "/search";
     private final String GET_TYPE = BASE_URL + "/types";
-
     private final BookService bookService;
+
 
     @Autowired
     public BookController(BookService bookService) {

@@ -1,8 +1,11 @@
 package com.fsoft.flib.rest;
 
+import com.fsoft.flib.domain.BookEntity;
 import com.fsoft.flib.domain.Cart;
+import com.fsoft.flib.domain.TicketDetailEntity;
 import com.fsoft.flib.domain.TicketEntity;
 import com.fsoft.flib.repository.TicketRepository;
+import com.fsoft.flib.service.BookService;
 import com.fsoft.flib.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,9 +14,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Collection;
+import java.util.List;
 
-@RestController
+
 //@CrossOrigin(origins = "http://localhost:4200")
+@RestController
 @RequestMapping("/api")
 public class TicketController {
     private final String BASE_URL = "/ticket";
@@ -33,10 +38,30 @@ public class TicketController {
 //        return bookService.getOne(id);
 //    }
 //
+//    Lay tat ca
     @GetMapping(path = BASE_URL)
     public Collection<TicketEntity> getTickets() {
         return ticketService.getAll();
     }
+
+    @RequestMapping(path = BASE_URL+"/{id}", method = RequestMethod.GET)
+    public ResponseEntity<TicketEntity> getOneTicket(@PathVariable int id){
+        TicketEntity ticketEntity=ticketService.getById(id);
+        if(ticketEntity != null){
+            return new ResponseEntity<>(ticketEntity,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(path = BASE_URL+"/update", method = RequestMethod.PUT)
+    public ResponseEntity<TicketEntity> update(@RequestBody TicketEntity ticket){
+        TicketEntity ticketEntity=ticketService.updateStatus(ticket);
+        if(ticketEntity != null){
+            return new ResponseEntity<>(ticketEntity,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 //
 //    @GetMapping(path = GET_PAGE_BOOK)
 //    public Page<BookEntity> getPageBook(@RequestParam int page, @RequestParam int size) {

@@ -4,12 +4,14 @@ import com.fsoft.flib.domain.AuthorEntity;
 import com.fsoft.flib.domain.BookEntity;
 import com.fsoft.flib.domain.TypeEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+@Service
 public interface BookService {
     BookEntity save(BookEntity BookEntity);
 
@@ -32,4 +34,5 @@ public interface BookService {
     List<TypeEntity> getTypes ();
 
     Collection<BookEntity> getBookByIdType(int[] id);
+
 }

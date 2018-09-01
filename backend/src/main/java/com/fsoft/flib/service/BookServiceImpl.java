@@ -32,6 +32,8 @@ public class BookServiceImpl<main> implements BookService {
     private TypeRepository typeRepository;
     @Autowired
     private BookTypeRepository bookTypeRepository;
+    @Autowired
+    private TicketDetailRepository ticketDetailRepository;
 
 
     @Override
@@ -96,7 +98,7 @@ public class BookServiceImpl<main> implements BookService {
     @Override
     public Collection<BookEntity> getBookByIdType(int[] ids) {
         System.out.println("vao get book");
-        Set<BookEntity> bookEntities= new HashSet<>();
+        Set<BookEntity> bookEntities = new HashSet<>();
         List<BookTypeEntity> bookTypeEntities;
         for (int id : ids) {
             bookTypeEntities = bookTypeRepository.findAllByTypeId(id);
