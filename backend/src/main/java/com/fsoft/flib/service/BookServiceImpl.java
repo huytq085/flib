@@ -71,7 +71,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookEntity> findByNameLike(String query,String query1) {
+    public List<BookEntity> findByNameLike(String query, String query1) {
         return this.bookRepository.findByNameLikeOrAuthorByAuthorIdNameLike(query, query1);
     }
 

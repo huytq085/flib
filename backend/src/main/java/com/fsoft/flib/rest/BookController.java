@@ -17,7 +17,7 @@ public class BookController {
     private final String GET_BOOK_BY_ID = BASE_URL + "/{id}";
     private final String GET_ALL_BOOK = BASE_URL + "/all";
     private final String GET_PAGE_BOOK = BASE_URL + "/page";
-    private final String SEARCH_BOOK = BASE_URL+ "/search";
+    private final String SEARCH_BOOK = BASE_URL + "/search";
 
     private final BookService bookService;
 
@@ -41,8 +41,8 @@ public class BookController {
         return bookService.getPageBook(page, size);
     }
 
-    @GetMapping(path=SEARCH_BOOK)
-    public List<BookEntity> searchBook( @RequestParam String name){
-        return bookService.findByNameLike("%"+name+"%","%"+name+"%" );
+    @GetMapping(path = SEARCH_BOOK)
+    public List<BookEntity> searchBook(@RequestParam String name) {
+        return bookService.findByNameLike("%" + name + "%", "%" + name + "%");
     }
 }

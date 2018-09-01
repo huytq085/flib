@@ -4,7 +4,7 @@ import { HeaderComponent, FooterComponent } from '.';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { FormBookComponent } from './forms/form-book/form-book.component';
+import { FormBookComponent } from './forms';
 import { FormUserComponent } from './forms/form-user/form-user.component';
 import { ImageUploadComponent } from './image-helper/image-upload/image-upload.component';
 import { WebsiteModule } from '../website/website.module';
