@@ -8,43 +8,37 @@
   </div>
 </div> -->
 <h4>TICKET LIST</h4>
-<div class="table-responsive" *ngIf="!!tickets">
+<div class="table-responsive">
   <table class="table table-striped" style="width: 80%">
     <thead>
       <tr>
         <th>
-          Id
+          Image
         </th>
         <th>
-          Email
+          Book name
         </th>
         <th>
-          Date added
+          Author
         </th>
         <th>
-          Status
-        </th>
-        <th>
-          Detail
+          Amount
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ticket of tickets">
+      <tr *ngFor="let book of books">
         <td>
-          {{ ticket.id }}
+            Image
         </td>
         <td aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-          {{ ticket.userByUserId.email }}
+          {{ book.name }}
         </td>
         <td style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-          {{ ticket.dateAdded }}
+          {{ book.authorByAuthorId.name }}
         </td>
         <td>
-          {{ ticket.status }}
-        </td>
-        <td>
-          <a [routerLink]="['/admin/tickets',ticket.id]">detail</a>
+          amount
         </td>
       </tr>
     </tbody>

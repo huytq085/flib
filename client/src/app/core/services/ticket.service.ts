@@ -4,6 +4,7 @@ import {Ticket, User} from '../models';
 import {Observable} from 'rxjs';
 import {Book} from '../models/book.model';
 import {Cart} from '../models/cart.model';
+import { TicketDetail } from '../models/ticket-detail.model';
 
 const BASE_URL = '/ticket';
 const CREATE_TICKET = BASE_URL + '/create';
@@ -26,5 +27,10 @@ export class TicketService {
 
   getTickets(): Observable<Ticket[]>{
     return this.apiService.get(`/ticket`);
+  }
+
+  getTicketDetail(id: number):Observable<TicketDetail[]>{
+    console.log(id);
+    return this.apiService.get(`/ticket/${id}`)
   }
 }

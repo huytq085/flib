@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Route, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TicketDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private location: Location,
+    private route: ActivatedRoute,
+
+  ) { }
 
   ngOnInit() {
   }
 
+  getBooks() {
+    const idTicket = +this.route.snapshot.paramMap.get('id');
+    
+  }
+
+
+  goBack() {
+    this.location.back();
+  }
 }

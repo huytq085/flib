@@ -44,7 +44,7 @@
           {{ ticket.status }}
         </td>
         <td>
-          <a [routerLink]="['/admin/tickets',ticket.id]">detail</a>
+          <a routerLink="/admin/tickets/{{ticket.id}">detail</a>
         </td>
       </tr>
     </tbody>
