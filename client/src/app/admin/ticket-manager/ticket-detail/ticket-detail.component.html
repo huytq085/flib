@@ -1,0 +1,46 @@
+<!-- <button class="btn btn-primary btn-sm" (click)="displayForm({})">{{ buttonLabel }}</button>
+<div class="input-group float-right col-md-5 d-flex align-items-stretch input-group float-right">
+  <input type="text" (keyup)="searching($event)" class="form-control" placeholder="Search" aria-label="Search">
+  <div class="input-group-append bg-primary border-primary">
+    <span class="input-group-text bg-transparent">
+      <i class="fa fa-search text-white"></i>
+    </span>
+  </div>
+</div> -->
+<h4>TICKET LIST</h4>
+<div class="table-responsive">
+  <table class="table table-striped" style="width: 80%">
+    <thead>
+      <tr>
+        <th>
+          Image
+        </th>
+        <th>
+          Book name
+        </th>
+        <th>
+          Author
+        </th>
+        <th>
+          Amount
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+        <td>
+            Image
+        </td>
+        <td aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+          {{ book.name }}
+        </td>
+        <td style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+          {{ book.authorByAuthorId.name }}
+        </td>
+        <td>
+          amount
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -8,6 +8,7 @@ import java.util.List;
 
 @Service
 public interface TicketService {
+    List<TicketEntity> getAll();
     List<TicketEntity> getAllByUserId(int id);
 
     List<TicketEntity> getALlByEmail(String email);
