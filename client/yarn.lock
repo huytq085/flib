@@ -175,6 +175,10 @@
   dependencies:
     tslib "^1.9.0"
 
+"@ng-bootstrap/ng-bootstrap@^2.2.0":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-2.2.2.tgz#07c64badd48b563140eb5a6327b5516bf2226834"
+
 "@ng-select/ng-select@^1.4.1":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-1.6.0.tgz#0c80a662e3179ff7ae716ddc20da9153509aca15"

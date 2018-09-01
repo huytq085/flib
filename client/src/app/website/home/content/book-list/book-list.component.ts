@@ -30,7 +30,7 @@ export class BookListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.bookService.getBookByPage(0, 9).subscribe((data: PageBook) => {
+    this.bookService.getBookByPage(1, 9).subscribe((data: PageBook) => {
       this.books = data.content;
       console.log(data);
 

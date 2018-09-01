@@ -23,6 +23,7 @@ export class BookService {
   }
 
   getBookByPage(page: number, size: number): Observable<PageBook> {
+    page -= 1;
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString());
@@ -33,6 +34,6 @@ export class BookService {
     if (!term.trim()) {
       return of([]);
     }
-    return this.api.get(`/book/search?name=${term}`)
+    return this.api.get(`/book/search?name=${term}`);
   }
 }

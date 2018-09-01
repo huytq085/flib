@@ -34,7 +34,7 @@ export class CartService implements OnInit {
         this.cart.cartItems.push(item);
       }
     } else {
-      this.cart = {cartItems: {}} as Cart;
+      this.cart = {cartItems: []} as Cart;
       this.cart.cartItems.push(item);
     }
     localStorage.setItem('cart', JSON.stringify(this.cart));

@@ -1,4 +1,4 @@
-import {TokenStorage} from './../../website/auth/authority/token.storage';
+import {TokenStorage} from '../../website/auth/authority/token.storage';
 import {Injectable} from '@angular/core';
 import {CanActivate, Router} from '@angular/router';
 import {Observable} from 'rxjs';

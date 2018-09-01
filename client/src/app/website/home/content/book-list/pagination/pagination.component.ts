@@ -21,7 +21,7 @@ export class PaginationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.bookService.getBookByPage(0, 9).subscribe(data => {
+    this.bookService.getBookByPage(1, 9).subscribe(data => {
       this.pageBook = data;
       this.pageBook.number += 1;
       console.log(this.pageBook.totalElements);

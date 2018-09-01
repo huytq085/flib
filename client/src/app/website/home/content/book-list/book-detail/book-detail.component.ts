@@ -2,6 +2,7 @@ import {BookService, CartService, UserService} from '../../../../../core/service
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Book} from '../../../../../core/models';
+import {CartItem} from '../../../../../core/models/cart-item.model';
 
 @Component({
   selector: 'app-book-detail',
@@ -12,23 +13,20 @@ export class BookDetailComponent implements OnInit {
   book: Book = {authorByAuthorId: {}} as Book;
   amount = 1;
 
-  constructor(private bookService: BookService, private route: ActivatedRoute,
+  constructor(private bookService: BookService, private activatedRoute: ActivatedRoute,
               private userService: UserService, private cartService: CartService) {
   }
 
   ngOnInit() {
     this.getBook();
-    this.route.params.subscribe((param: Params) => {
-      this.bookService.getBook(param['id']).subscribe(book => {
-        this.book = book;
-      });
-    });
   }
 
   getBook(): any {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.bookService.getBook(id).subscribe(book => {
-      this.book = book;
+    let id;
+    /*= +this.activatedRoute.snapshot.paramMap.get('id');*/
+    this.activatedRoute.params.subscribe(params => {
+      id = params['id'];
+      this.bookService.getBook(id).subscribe(book => this.book = book);
     });
   }
 
@@ -41,7 +39,7 @@ export class BookDetailComponent implements OnInit {
   }
 
   addToCart(book: Book, amount: number) {
-    if (this.cartService.addToCart({book: book, amount: amount})) {
+    if (this.cartService.addToCart({book: book, amount: amount} as CartItem)) {
       alert('Add to cart successfully');
     }
   }

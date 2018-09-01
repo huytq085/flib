@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Book} from '../../../core/models';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {BookService} from '../../../core/services';
 
 @Component({
@@ -11,12 +11,18 @@ import {BookService} from '../../../core/services';
 export class ContentComponent implements OnInit {
   books: Book[] = [];
 
-  constructor(private activedRoute: ActivatedRoute, private bookService: BookService) {
+  constructor(private activatedRoute: ActivatedRoute, private bookService: BookService) {
   }
 
 
   ngOnInit(): void {
-    const number = +this.activedRoute.snapshot.paramMap.get('number');
-    this.bookService.getBookByPage(number - 1, 9).subscribe(data => this.books = data.content);
+    let number = 1;
+    this.activatedRoute.params.subscribe(params => {
+      number = params['number'];
+      this.bookService.getBookByPage(number, 9).subscribe(page => this.books = page.content);
+    });
   }
+
+  // TODO write function to retrive book list with filter conditions
+
 }
