@@ -16,8 +16,8 @@ export class AdminUsersComponent implements OnInit {
   buttonLabel: string = 'New User';
   currentPage: number = 0;
   userSize: number = 5;
-  totalPages: number;
-  pages: number[] = new Array();
+  totalPages: number = 0;
+  // pages: number[] = new Array();
 
   constructor(
     private userService: UserService
@@ -35,7 +35,6 @@ export class AdminUsersComponent implements OnInit {
             console.log(data);
             this.users = data['content'];
             this.totalPages = data['totalPages'];
-            this.pages = new Array(data['totalPages']);
           }
         )
       }

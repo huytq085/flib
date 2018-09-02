@@ -77,20 +77,5 @@
 
 
 </div>
-<ul class="pagination">
-  <li class="page-item" [ngClass]="{ 
-    'disabled': currentPage == 0}">
-    <a class="page-link" (click)="setPage(currentPage - 1)">&laquo;</a>
-  </li>
-  <li class="page-item" *ngFor="let page of pages; let i = index"
-    [ngClass]="{ 
-    'active': i == currentPage}">
-    <a class="page-link" (click)="setPage(i)">{{ i + 1}}
-    </a>
-  </li>
-  <li class="page-item" [ngClass]="{ 
-    'disabled': currentPage == (totalPages - 1)}">
-    <a class="page-link" (click)="setPage(currentPage + 1)">&raquo;</a>
-  </li>
-</ul>
+<pagination *ngIf="totalPages > 0" [currentPage]="currentPage" [totalPages]="totalPages" (setPageEmit)="setPage($event)"></pagination>
 <app-form-user *ngIf="isEditor" [user]="selectedUser" (userEmitter)="userEmit($event)"></app-form-user>

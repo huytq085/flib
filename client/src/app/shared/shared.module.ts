@@ -12,6 +12,7 @@ import { ImageUploadComponent } from './image-helper/image-upload/image-upload.c
 import { NgSelectModule } from '@ng-select/ng-select';
 import { LeftSidebarComponent } from './layout/left-sidebar/left-sidebar.component';
 import { FilterBookComponent } from './layout/left-sidebar/filter-book/filter-book.component';
+import { PaginationComponent } from './layout/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FilterBookComponent } from './layout/left-sidebar/filter-book/filter-bo
     ImageUploadComponent,
     LeftSidebarComponent,
     FilterBookComponent,
+    PaginationComponent,
     
     ],
   imports: [
@@ -42,7 +44,8 @@ import { FilterBookComponent } from './layout/left-sidebar/filter-book/filter-bo
     FormUserComponent,
     SearchBookComponent,
     ImageUploadComponent,
-    LeftSidebarComponent
+    LeftSidebarComponent,
+    PaginationComponent
   ]
 })
 export class SharedModule { }
