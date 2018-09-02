@@ -47,10 +47,12 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public TicketEntity updateStatus(TicketEntity ticketEntity) {
-        if(ticketEntity.getStatus()==0){
+    public TicketEntity updateStatus(int id) {
+        TicketEntity ticketEntity= ticketRepository.getOne(id);
+        if(ticketEntity.getStatus()== 0){
             ticketEntity.setStatus(1);
-            return ticketRepository.save(ticketEntity);
+            ticketRepository.save(ticketEntity);
+            return ticketEntity;
         }
         return ticketEntity;
     }

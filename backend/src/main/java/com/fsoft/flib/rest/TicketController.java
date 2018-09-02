@@ -9,6 +9,7 @@ import com.fsoft.flib.service.BookService;
 import com.fsoft.flib.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,9 +54,12 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(path = BASE_URL+"/update", method = RequestMethod.PUT)
-    public ResponseEntity<TicketEntity> update(@RequestBody TicketEntity ticket){
-        TicketEntity ticketEntity=ticketService.updateStatus(ticket);
+    @RequestMapping(path = BASE_URL,
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TicketEntity> update(@RequestBody int idTicket){
+        System.out.println("Server: Hello! I'm ticket "+idTicket);
+        TicketEntity ticketEntity=ticketService.updateStatus(idTicket);
         if(ticketEntity != null){
             return new ResponseEntity<>(ticketEntity,HttpStatus.OK);
         }

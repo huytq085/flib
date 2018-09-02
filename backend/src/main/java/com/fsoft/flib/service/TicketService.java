@@ -16,7 +16,7 @@ public interface TicketService {
     TicketEntity getById(int id);
 
     TicketEntity save(TicketEntity ticketEntity);
-    TicketEntity updateStatus(TicketEntity ticketEntity);
+    TicketEntity updateStatus(int id);
 
     TicketEntity requestTicket(String email, Cart cart);
 
