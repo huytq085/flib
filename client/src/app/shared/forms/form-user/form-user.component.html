@@ -1,118 +1,128 @@
 <form [formGroup]="userForm" (ngSubmit)="submitForm()" (keyup.enter)="submitForm()">
-  <fieldset [disabled]="isSubmitting">
-    <!-- <fieldset class="form-group">
-      <app-avatar-upload [user]="user" (avatarEmit)="changeAvatar($event)"></app-avatar-upload>
-    </fieldset> -->
-
-    <div class="form-group row">
-        <label for="email" class="col-sm-3 col-form-label">Email</label>
-        <div class="col-sm-9">
-            <input class="form-control"
-              type="text"
-              placeholder="Ex: name@company.com"
-              name="email"
-              formControlName="email"
-              [attr.disabled]="user.email"
-              />
-        </div>
-        <small class="alert text-danger" *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">Email không đúng định dạng</small>
-    </div>
-    <div class="form-group row">
-      <label for="password" class="col-sm-3 col-form-label">Password</label>
-
-      <div class="col-sm-9" *ngIf="!isPasswordChange">
-        <button (click)="changePassword()" type="button" class="btn btn-default">Change</button>
-      </div>
-
-      <div class="col-sm-9" *ngIf="isPasswordChange">
-        <input formControlName="password" placeholder="password" class="form-control " name="password" type="password" />
-        <small class="alert text-danger" *ngIf="!userForm.controls['password'].valid && userForm.controls['password'].touched">Độ
-          dài lớn hơn hoặc bằng 6</small>
-      </div>
-        
-        <div class="col-sm-9" *ngIf="isPasswordChange">
-            <input
-              formControlName="password"
-              placeholder="Ex: dM3u9kdYeHwZ4VBG"
-              class="form-control "
-              name="password"
-              type="password"/>
-              <small class="alert text-danger" *ngIf="!userForm.controls['password'].valid && userForm.controls['password'].touched">Độ dài lớn hơn hoặc bằng 6</small>
-        </div>
-    </div>
-    <div class="form-group row" *ngIf="isPasswordChange">
-      <label for="confirmPassword" class="col-sm-3 col-form-label">Re-enter Password</label>
+    <fieldset [disabled]="isSubmitting">
+      <!-- <fieldset class="form-group">
+        <app-avatar-upload [user]="user" (avatarEmit)="changeAvatar($event)"></app-avatar-upload>
+      </fieldset> -->
       
-      <div class="col-sm-9">
-          <input
-            formControlName="confirmPassword"
-            placeholder="Confirm your password"
-            class="form-control "
-            name="confirmPassword"
-            type="password"/>
-            <small class="alert text-danger" *ngIf="userForm.controls['confirmPassword'].hasError('notEquivalent') && userForm.controls['confirmPassword'].touched">The passwords you entered do not match</small>
+      <div class="form-group row">
+          <label for="email" class="col-sm-3 col-form-label">Email</label>
+          <div class="col-sm-9">
+              <input class="form-control"
+                type="text"
+                placeholder="Ex: name@company.com"
+                name="email"
+                formControlName="email"
+                [attr.disabled]="user.email"
+                />
+          </div>
+          <small class="alert text-danger" *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">Email không đúng định dạng</small>
       </div>
-  </div>
-
-    <div class="form-group row">
-        <label for="fullName" class="col-sm-3 col-form-label">Full Name</label>
+      <div class="form-group row">
+          <label for="password" class="col-sm-3 col-form-label">Password</label>
+  
+          <div class="col-sm-9" *ngIf="!isPasswordChange">
+            <button (click)="changePassword()" type="button" class="btn btn-default">Change</button>
+        </div>
+          
+          <div class="col-sm-9" *ngIf="isPasswordChange">
+              <input
+                formControlName="password"
+                placeholder="Ex: dM3u9kdYeHwZ4VBG"
+                class="form-control "
+                name="password"
+                type="password"/>
+                <small class="alert text-danger" *ngIf="!userForm.controls['password'].valid && userForm.controls['password'].touched">Độ dài lớn hơn hoặc bằng 6</small>
+          </div>
+      </div>
+      <div class="form-group row" *ngIf="isPasswordChange">
+        <label for="confirmPassword" class="col-sm-3 col-form-label">Re-enter Password</label>
+        
         <div class="col-sm-9">
-          <input
-            formControlName="fullName"
-            placeholder="Eddie Vedder"
-            class="form-control"
-            name="fullName"
-            type="text"/>
-            <small class="alert text-danger" *ngIf="!userForm.controls['fullName'].valid && userForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small>
-      </div>
+            <input
+              formControlName="confirmPassword"
+              placeholder="Confirm your password"
+              class="form-control "
+              name="confirmPassword"
+              type="password"/>
+              <small class="alert text-danger" *ngIf="userForm.controls['confirmPassword'].hasError('notEquivalent') && userForm.controls['confirmPassword'].touched">The passwords you entered do not match</small>
+        </div>
     </div>
-    <div class="form-group row">
-        <label for="address" class="col-sm-3 col-form-label">Address</label>
+  
+      <div class="form-group row">
+          <label for="fullName" class="col-sm-3 col-form-label">Full Name</label>
+          <div class="col-sm-9">
+            <input
+              formControlName="fullName"
+              placeholder="Eddie Vedder"
+              class="form-control"
+              name="fullName"
+              type="text"/>
+              <small class="alert text-danger" *ngIf="!userForm.controls['fullName'].valid && userForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small>
+        </div>
+      </div>
+      <div class="form-group row">
+          <label for="address" class="col-sm-3 col-form-label">Address</label>
+          <div class="col-sm-9">
+              <input class="form-control "
+                type="text"
+                name="address"
+                placeholder="Hotel California"
+                formControlName="address" />
+                <small class="alert text-danger" *ngIf="!userForm.controls['address'].valid && userForm.controls['address'].touched">Không được bỏ trống.</small>
+          </div>
+      </div>
+      <div class="form-group row">
+        <label for="phone" class="col-sm-3 col-form-label">Phone</label>
         <div class="col-sm-9">
             <input class="form-control "
               type="text"
-              name="address"
-              placeholder="Hotel California"
-              formControlName="address" />
-              <small class="alert text-danger" *ngIf="!userForm.controls['address'].valid && userForm.controls['address'].touched">Không được bỏ trống.</small>
+              name="phone"
+              placeholder="Ex: 0123633331"
+              formControlName="phone" />
+              <small class="alert text-danger" *ngIf="!userForm.controls['phone'].valid && userForm.controls['phone'].touched">Không đúng định dạng.</small>
         </div>
     </div>
     <div class="form-group row">
-      <label for="phone" class="col-sm-3 col-form-label">Phone</label>
+      <label for="gender" class="col-sm-3 col-form-label">Gender</label>
       <div class="col-sm-9">
-          <input class="form-control "
-            type="text"
-            name="phone"
-            placeholder="Ex: 0123633331"
-            formControlName="phone" />
-            <small class="alert text-danger" *ngIf="!userForm.controls['phone'].valid && userForm.controls['phone'].touched">Không đúng định dạng.</small>
+        <select class="form-control" 
+          formControlName="gender"
+          name="gender"
+          placeholder="Gender"
+          class="form-control">
+          <option value="Male" selected>Male</option>
+          <option value="Female">Female</option>
+        </select>
+        <small class="alert text-danger" *ngIf="!userForm.controls['gender'].valid && userForm.controls['gender'].touched">Không được bỏ trống.</small>
       </div>
-    </div>
-</div>
-<div class="form-group row">
-  <label for="identityCard" class="col-sm-3 col-form-label">Card ID</label>
-  <div class="col-sm-9">
-      <input class="form-control "
-        type="text"
-        name="identityCard"
-        placeholder="Ex: 123456789"
-        formControlName="identityCard" />
-        <small class="alert text-danger" *ngIf="!userForm.controls['identityCard'].valid && userForm.controls['identityCard'].touched">Không đúng định dạng.</small>
   </div>
-</div>
-
-    <!-- <button 
-      [disabled]="!settingsForm.valid"
-      class="btn btn-lg btn-primary pull-xs-right"
-      type="submit">
-      Cập nhật thông tin
-    </button> -->
-    <p class="error-messages" *ngIf="errors != ''">{{errors}}</p>
-    <div class="offset-sm-3">
-      <button class="btn btn-primary" type="submit" [disabled]="!userForm.valid">
-        Submit
-      </button>
+  <div class="form-group row">
+    <label for="identityCard" class="col-sm-3 col-form-label">Card ID</label>
+    <div class="col-sm-9">
+        <input class="form-control "
+          type="text"
+          name="identityCard"
+          placeholder="Ex: 123456789"
+          formControlName="identityCard" />
+          <small class="alert text-danger" *ngIf="!userForm.controls['identityCard'].valid && userForm.controls['identityCard'].touched">Không đúng định dạng.</small>
     </div>
-
-  </fieldset>
-</form>
+  </div>
+  
+      <!-- <button 
+        [disabled]="!settingsForm.valid"
+        class="btn btn-lg btn-primary pull-xs-right"
+        type="submit">
+        Cập nhật thông tin
+      </button> -->
+      <p class="error-messages" *ngIf="errors != ''">{{errors}}</p>
+      <div class="offset-sm-3">
+        <button 
+      class="btn btn-primary"
+      type="submit" [disabled]="!userForm.valid">
+      Submit
+    </button>
+      </div>
+  
+    </fieldset>
+  </form>
+  
