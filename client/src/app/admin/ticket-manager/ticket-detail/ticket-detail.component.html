@@ -1,19 +1,28 @@
-<!-- <button class="btn btn-primary btn-sm" (click)="displayForm({})">{{ buttonLabel }}</button>
-<div class="input-group float-right col-md-5 d-flex align-items-stretch input-group float-right">
-  <input type="text" (keyup)="searching($event)" class="form-control" placeholder="Search" aria-label="Search">
-  <div class="input-group-append bg-primary border-primary">
-    <span class="input-group-text bg-transparent">
-      <i class="fa fa-search text-white"></i>
-    </span>
-  </div>
-</div> -->
-<h4>TICKET LIST</h4>
-<div class="table-responsive">
-  <table class="table table-striped" style="width: 80%">
+<h4>TICKET DETAIL</h4>
+<div class="table-responsive" *ngIf="!!ticket">
+  <h4>Infomation user</h4>
+  <p>Id: {{ticket.userByUserId.id}} </p>
+  <p>Email: {{ticket.userByUserId.email}}</p>
+  <p>Full name: {{ticket.userByUserId.fullName}}</p>
+  <p>Gender: {{ticket.userByUserId.gender}}</p>
+  <p>Identity card: {{ticket.userByUserId.identityCard}}</p>
+</div>
+<hr>
+<div class="table-responsive" *ngIf="!!ticket">
+  <a class="btn" (click)="goBack()">
+    <i class="menu-icon mdi mdi-keyboard-backspace"></i>
+    <span class="menu-title">Back</span>
+  </a>
+  <a class="btn" (click)="confirmStatus()">
+      <i class="menu-icon mdi mdi-check"></i>
+      <span class="menu-title">CONFIRM</span>
+    </a>
+    {{ticket.status}}
+  <table class="table table-striped" style="width: 100%">
     <thead>
       <tr>
         <th>
-          Image
+          Numbers
         </th>
         <th>
           Book name
@@ -27,18 +36,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let book of books">
+      <tr *ngFor="let ticketD of ticketDetail; let i = index">
         <td>
-            Image
+          {{i+1}}
         </td>
         <td aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-          {{ book.name }}
+          {{ticketD.bookByBookId.name}}
         </td>
         <td style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-          {{ book.authorByAuthorId.name }}
+          {{ticketD.bookByBookId.authorByAuthorId.name}}
         </td>
         <td>
-          amount
+          {{ticketD.amount}}
         </td>
       </tr>
     </tbody>

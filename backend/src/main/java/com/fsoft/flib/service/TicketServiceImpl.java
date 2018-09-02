@@ -38,7 +38,6 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public TicketEntity getById(int id) {
-        System.out.println("get by id");
         return ticketRepository.getOne(id);
     }
 
@@ -46,6 +45,16 @@ public class TicketServiceImpl implements TicketService {
     public TicketEntity save(TicketEntity ticket) {
         return ticketRepository.save(ticket);
     }
+
+    @Override
+    public TicketEntity updateStatus(TicketEntity ticketEntity) {
+        if(ticketEntity.getStatus()==0){
+            ticketEntity.setStatus(1);
+            return ticketRepository.save(ticketEntity);
+        }
+        return ticketEntity;
+    }
+
 
     @Override
     public TicketEntity requestTicket(String email, Cart cart) {
