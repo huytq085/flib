@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Contribute, ProfileService } from '../../../../core';
 
 @Component({
   selector: 'app-user-detail-contribute',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserDetailContributeComponent implements OnInit {
 
-  constructor() { }
+  contributes: Contribute[] = new Array();
+
+  constructor(
+    private profileService: ProfileService,
+  ) { }
 
   ngOnInit() {
+    this.profileService.getContributes().subscribe(
+      data => {
+        if (data) {
+          this.contributes = data;
+        }
+      }
+    )
   }
 
 }

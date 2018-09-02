@@ -2,6 +2,7 @@ package com.fsoft.flib.service;
 
 import com.fsoft.flib.domain.AuthorEntity;
 import com.fsoft.flib.domain.BookEntity;
+import com.fsoft.flib.domain.ContributeEntity;
 import com.fsoft.flib.domain.TypeEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,9 @@ public interface BookService {
 
     Page<BookEntity> getPageBook(int number, int size);
 
-    List<BookEntity> getContributesByEmail(String email);
+    List<ContributeEntity> getContributesByEmail(String email);
+
+    List<ContributeEntity> getContributesByUserId(int userId);
 
     List<BookEntity> findByNameLike(String query,String query1);
 

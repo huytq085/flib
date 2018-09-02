@@ -65,18 +65,18 @@ public class BookServiceImpl<main> implements BookService {
     }
 
     @Override
-    public List<BookEntity> getContributesByEmail(String email) {
+    public List<ContributeEntity> getContributesByEmail(String email) {
         UserEntity user = userRepository.findByEmail(email);
-        List<BookEntity> books = new ArrayList<>();
         if (user != null) {
             List<ContributeEntity> contributes = contributeRepository.findAllByUserId(user.getId());
-            for (ContributeEntity contribute : contributes) {
-                System.out.println("user id: " + contribute.getBookByBookId().getName());
-                books.add(contribute.getBookByBookId());
-            }
-            return books;
+            return contributes;
         }
         return Collections.emptyList();
+    }
+
+    @Override
+    public List<ContributeEntity> getContributesByUserId(int userId) {
+        return contributeRepository.findAllByUserId(userId);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class BookServiceImpl<main> implements BookService {
         List<BookTypeEntity> bookTypeEntities;
         List<BookEntity> bookEntitiesTemp = new ArrayList<>();
         List<BookEntity> bookEntities = new ArrayList<>();
-        for (int idType: idTypes) {
+        for (int idType : idTypes) {
             bookTypeEntities = bookTypeRepository.findAllByTypeId(idType);
             for (BookTypeEntity bookTypeEntity : bookTypeEntities) {
                 BookEntity book = bookTypeEntity.getBookByBookId();

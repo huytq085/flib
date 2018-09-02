@@ -36,6 +36,7 @@ public class UserController {
     private final String ACTION_TICKET_URL = BASE_URL + "/tickets/{ticketId}";
     private final String GET_USER_BOOKS_URL = BASE_URL + "/{userId}/books";
     private final String USER_BOOKS_URL = BASE_URL + "/{userId}/books/{bookId}";
+    private final String GET_USER_CONTRIBUTES_URL = BASE_URL + "/{userId}/contributes";
 
     @Autowired
     private UserService userService;
@@ -217,6 +218,25 @@ public class UserController {
             }
         }
         return new ResponseEntity<>(ok, httpStatus);
+    }
+
+    @RequestMapping(
+            value = GET_USER_CONTRIBUTES_URL,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<ContributeEntity>> getContributesByUserId(@PathVariable int userId, Authentication authentication) {
+        HttpStatus status = HttpStatus.OK;
+        List<ContributeEntity> conributes = Collections.emptyList();
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            if (userHasAuthority(userDetails, ROLE_ADMIN)) {
+                conributes = bookService.getContributesByUserId(userId);
+            } else {
+                status = HttpStatus.UNAUTHORIZED;
+            }
+        }
+        return new ResponseEntity<>(conributes, status);
     }
 
 }

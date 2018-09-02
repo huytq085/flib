@@ -1,7 +1,6 @@
 package com.fsoft.flib.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -161,7 +160,7 @@ public class BookEntity {
     }
 
     @OneToMany(mappedBy = "bookByBookId")
-    @JsonManagedReference(value = "contributes")
+    @JsonIgnore
     public Collection<ContributeEntity> getContributesById() {
         return contributesById;
     }

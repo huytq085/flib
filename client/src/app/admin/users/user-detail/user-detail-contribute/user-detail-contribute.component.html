@@ -1,3 +1,45 @@
-<p>
-  user-detail-contribute works!
-</p>
+<div class="table-responsive" *ngIf="contributes.length > 0; else noBooks">
+  <table class="table table table-bordered">
+    <thead>
+      <tr>
+        <th>Cover Image</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Quantity</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contribute of contributes; let i = index">
+        <td>
+          <a [routerLink]="['/book',contribute.bookByBookId.id ]">
+            <img width="64" height="64" src="{{ contribute.bookByBookId.coverImage }}" alt="{{ contribute.bookByBookId.name }}">
+          </a>
+        </td>
+        <td>
+          <a [routerLink]="['/book',contribute.bookByBookId.id ]">{{ contribute.bookByBookId.name }}</a>
+        </td>
+        <td>
+          <a [routerLink]="['/author',contribute.bookByBookId.authorByAuthorId.id ]">{{ contribute.bookByBookId.authorByAuthorId.name }}</a>
+        </td>
+        <td>
+          <span class="amount">{{ contribute.bookByBookId.amount }}</span>
+        </td>
+        <td>
+            <label class="badge badge-success" *ngIf="contribute.status == 1">Approved</label>
+            <label class="badge badge-danger" *ngIf="contribute.status == 0">Pending</label>
+          </td>
+        <td>
+          <button (click)="approve(contribute, i)" type="button" class="btn btn-sm btn-primary mr-1">
+            Approve
+          </button>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+<ng-template #noBooks>
+  <p>No books</p>
+</ng-template>
