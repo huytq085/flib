@@ -6,6 +6,8 @@ import com.fsoft.flib.util.Constants;
 import com.fsoft.flib.util.ImageUtils;
 import com.fsoft.flib.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -79,6 +81,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserEntity> getAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public Page<UserEntity> findUserPaginated(int page, int size) {
+        return userRepository.findAll(PageRequest.of(page, size));
     }
 
     @Override

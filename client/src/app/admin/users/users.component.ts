@@ -14,21 +14,37 @@ export class AdminUsersComponent implements OnInit {
   isEditor: boolean = false;
   selectedUser: User;
   buttonLabel: string = 'New User';
+  currentPage: number = 0;
+  userSize: number = 5;
+  totalPages: number;
+  pages: number[] = new Array();
 
   constructor(
     private userService: UserService
   ) { }
 
   ngOnInit() {
+    this.loadUsers();
+  }
+
+  loadUsers() {
     this.userService.currentUser.subscribe(
       user => {
-        this.userService.getAll().subscribe(
+        this.userService.getUsersPages(this.currentPage, this.userSize).subscribe(
           data => {
-            this.users = data.filter(data => (data.email != user.email));
+            console.log(data);
+            this.users = data['content'];
+            this.totalPages = data['totalPages'];
+            this.pages = new Array(data['totalPages']);
           }
         )
       }
     )
+  }
+
+  setPage(i) {
+    this.currentPage = i;
+    this.loadUsers();
   }
 
   displayForm(user?: User) {

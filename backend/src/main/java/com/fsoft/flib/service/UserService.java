@@ -3,6 +3,7 @@ package com.fsoft.flib.service;
 import com.fsoft.flib.domain.BookEntity;
 import com.fsoft.flib.domain.ContributeEntity;
 import com.fsoft.flib.domain.UserEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,8 @@ public interface UserService {
     boolean delete(int id);
 
     List<UserEntity> getAll();
+
+    Page<UserEntity> findUserPaginated(int page, int size);
 
     UserEntity getOne(int userId);
 

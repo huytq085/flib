@@ -2,6 +2,7 @@ package com.fsoft.flib.repository;
 
 import com.fsoft.flib.domain.BookEntity;
 import com.fsoft.flib.domain.UserEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+
     UserEntity findById(int id);
 
     UserEntity findByEmail(String mail);
