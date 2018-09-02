@@ -1,7 +1,7 @@
-import {Book} from './book.model';
+import {React} from './react.model';
 
-export class PageBook {
-  content: Book[];
+export class PageReact {
+  content: React[];
   last: boolean;
   totalPages: number;
   totalElements: number;

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {ApiService} from './api.service';
-import {Book} from '../models/book.model';
+import {Book} from '../models';
 import {PageBook} from '../models/page-book.model';
 
 @Injectable({

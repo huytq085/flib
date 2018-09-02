@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {PageBook} from '../../../../../core/models/page-book.model';
-import {Book} from '../../../../../core/models/book.model';
-import {BookService} from '../../../../../core/services/book.service';
+import {Book} from '../../../../../core/models';
+import {BookService} from '../../../../../core/services';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 
@@ -12,7 +12,6 @@ import {Router} from '@angular/router';
 })
 export class PaginationComponent implements OnInit {
   pageBook: PageBook;
-  emitPageBook: Observable<PageBook>;
   pages = [];
   @Output() choose = new EventEmitter<Book[]>();
 
@@ -34,14 +33,14 @@ export class PaginationComponent implements OnInit {
     });
   }
 
-  setPage(number: number) {
-    this.bookService.getBookByPage(number, 9).subscribe(data => {
-      this.pageBook = data;
-      this.pages.slice(this.pageBook.number - 3, this.pageBook.number + 3);
-      console.log('Number of page' + this.pageBook.number);
-      this.choose.emit(this.pageBook.content);
-    });
-  }
+  // setPage(number: number) {
+  //   this.bookService.getBookByPage(number, 9).subscribe(data => {
+  //     this.pageBook = data;
+  //     this.pages.slice(this.pageBook.number - 3, this.pageBook.number + 3);
+  //     console.log('Number of page' + this.pageBook.number);
+  //     this.choose.emit(this.pageBook.content);
+  //   });
+  // }
 
   onChange(page: number) {
     this.router.navigate(['/book/page/' + (page)]);

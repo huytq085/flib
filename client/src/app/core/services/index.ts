@@ -8,3 +8,4 @@ export * from './ticket.service';
 export * from './auth.service';
 export * from './cart.service';
 export * from './book-list.service';
+export * from './react.service';

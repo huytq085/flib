@@ -7,11 +7,13 @@ import {HomeComponent} from './home.component';
 import {PaginationComponent} from './content/book-list/pagination/pagination.component';
 import {HomeRoutingModule} from './home-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     HomeRoutingModule,
     NgbModule.forRoot()
   ],
@@ -20,7 +22,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     BookDetailComponent,
     ContentComponent,
     HomeComponent,
-    PaginationComponent
+    PaginationComponent,
   ]
 })
-export class HomeModule { }
+export class HomeModule {
+}
