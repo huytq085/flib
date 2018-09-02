@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ContributeRepository extends JpaRepository<ContributeEntity, ContributeEntityPK> {
-    List<ContributeEntity> findAllByUserId(int userId);
+    List<ContributeEntity> findAllByUserIdOrderByDateAddedDesc(int userId);
 
 }

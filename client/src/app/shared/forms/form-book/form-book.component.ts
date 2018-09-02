@@ -7,6 +7,7 @@ import { UserService, Profile } from '../../../core';
 import { NgSelectModule, NgOption } from '@ng-select/ng-select';
 import { Subject, Observable, concat, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-book',
@@ -26,7 +27,7 @@ export class FormBookComponent implements OnInit {
   authorsObservable$: Observable<Author[]>;
   authorInput$ = new Subject<string>();
   imagePreview;
-  
+
   isDefaultImage = false;
 
   @Output() bookEmitter = new EventEmitter<any>();
@@ -49,7 +50,7 @@ export class FormBookComponent implements OnInit {
     this.loadAuthors();
 
   }
-  loadBooks(){
+  loadBooks() {
     this.booksObservable$ = concat(
       of([]), // default items
       this.bookInput$.pipe(
@@ -63,7 +64,7 @@ export class FormBookComponent implements OnInit {
       )
     );
   }
-  loadAuthors(){
+  loadAuthors() {
     this.authorsObservable$ = concat(
       of([]), // default items
       this.authorInput$.pipe(
@@ -79,29 +80,40 @@ export class FormBookComponent implements OnInit {
   }
 
   submitForm() {
-    // this.isSubmitting = true;
-    // update the model
-    if (!this.book.id) {
-      this.patchBook(this.bookForm.value);
-    } else {
-      this.book.amount = this.bookForm.controls['amount'].value;
-    }
-    console.log('is valid: ' + this.bookForm.valid)
-    
-    if (this.bookForm.valid) {
-      if (this.isDefaultImage) {
-        this.book.coverImage = '';
+
+    swal({
+      title: 'Contribute?',
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.value) {
+        if (!this.book.id) {
+          this.patchBook(this.bookForm.value);
+        } else {
+          this.book.amount = this.bookForm.controls['amount'].value;
+        }
+        console.log('is valid: ' + this.bookForm.valid)
+
+        if (this.bookForm.valid) {
+          if (this.isDefaultImage) {
+            this.book.coverImage = '';
+          }
+          console.log(this.book)
+          // if (!this.isDefaultImage) {
+          //   this.book.coverImage = this.imagePreview;
+          // }
+          this.bookEmitter.emit({
+            book: this.book,
+            image: this.imagePreview
+          });
+
+        }
       }
-      console.log(this.book)
-      // if (!this.isDefaultImage) {
-      //   this.book.coverImage = this.imagePreview;
-      // }
-      this.bookEmitter.emit({
-        book: this.book,
-        image: this.imagePreview
-      });
-      
-    }
+    })
+
+
   }
 
   patchBook(values: any) {
@@ -110,7 +122,7 @@ export class FormBookComponent implements OnInit {
     }
     Object.assign(this.book, values);
     console.log(values)
-    if (this.isNewAuthor){
+    if (this.isNewAuthor) {
       this.book.authorByAuthorId = {
         name: values.author
       };
@@ -133,6 +145,7 @@ export class FormBookComponent implements OnInit {
   onChangeBook($event) {
     if (typeof $event == 'object') {
       this.book = $event;
+      this.imagePreview = $event.coverImage;
     }
   }
 

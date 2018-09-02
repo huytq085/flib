@@ -170,6 +170,21 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    @Override
+    public Boolean approveContribute(int userId, int bookId, int status) {
+        ContributeEntityPK entityPK = new ContributeEntityPK(userId, bookId);
+        ContributeEntity contributeEntity = contributeRepository.findById(entityPK).orElse(null);
+        if (contributeEntity != null) {
+            if (status == 0) {
+                contributeRepository.deleteById(entityPK);
+                return true;
+            }
+            contributeEntity.setStatus(status);
+            return contributeRepository.save(contributeEntity) != null;
+        }
+        return false;
+    }
+
     private boolean isExist(UserEntity user) {
         return (userRepository.findByEmail(user.getEmail()) != null);
     }

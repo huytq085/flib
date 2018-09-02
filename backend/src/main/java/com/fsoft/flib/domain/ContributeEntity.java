@@ -14,7 +14,7 @@ public class ContributeEntity {
     private int userId;
     private int bookId;
     private Date dateAdded;
-    private byte status;
+    private int status;
     private UserEntity userByUserId;
     private BookEntity bookByBookId;
 
@@ -51,11 +51,11 @@ public class ContributeEntity {
 
     @Basic
     @Column(name = "status", nullable = false)
-    public byte getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

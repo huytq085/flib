@@ -7,7 +7,6 @@ import com.fsoft.flib.domain.UserEntity;
 import com.fsoft.flib.service.BookService;
 import com.fsoft.flib.service.TicketService;
 import com.fsoft.flib.service.UserService;
-import com.fsoft.flib.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,10 +32,11 @@ public class UserController {
     private final String CONTRIBUTE_URL = BASE_URL + "/contribute";
     private final String FAVOURITE_URL = BASE_URL + "/favourite/{id}";
     private final String GET_USER_TICKETS_URL = BASE_URL + "/{userId}/tickets";
-    private final String ACTION_TICKET_URL = BASE_URL + "/tickets/{ticketId}";
+    private final String USERS_TICKET_ID_URL = BASE_URL + "/tickets/{ticketId}";
     private final String GET_USER_BOOKS_URL = BASE_URL + "/{userId}/books";
-    private final String USER_BOOKS_URL = BASE_URL + "/{userId}/books/{bookId}";
+    private final String USER_BOOKS_ID_URL = BASE_URL + "/{userId}/books/{bookId}";
     private final String GET_USER_CONTRIBUTES_URL = BASE_URL + "/{userId}/contributes";
+    private final String USERS_CONTRIBUTES_ID_URL = BASE_URL + "/{userId}/contributes/{bookId}";
 
     @Autowired
     private UserService userService;
@@ -154,7 +154,7 @@ public class UserController {
     }
 
     @RequestMapping(
-            value = ACTION_TICKET_URL,
+            value = USERS_TICKET_ID_URL,
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -164,7 +164,7 @@ public class UserController {
         if (authentication != null) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             if (userHasAuthority(userDetails, ROLE_ADMIN)) {
-                if (ticketService.action(ticketId, status)) {
+                if (ticketService.setStatus(ticketId, status)) {
                     httpStatus = HttpStatus.OK;
                     ok = true;
                 } else {
@@ -197,7 +197,7 @@ public class UserController {
     }
 
     @RequestMapping(
-            value = USER_BOOKS_URL,
+            value = USER_BOOKS_ID_URL,
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -237,6 +237,30 @@ public class UserController {
             }
         }
         return new ResponseEntity<>(conributes, status);
+    }
+
+    @RequestMapping(
+            value = USERS_CONTRIBUTES_ID_URL,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Boolean> approveContribute(@PathVariable int userId, @PathVariable int bookId, Authentication authentication, @RequestParam(required = false) int status) {
+        HttpStatus httpStatus = HttpStatus.OK;
+        boolean ok = false;
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            if (userHasAuthority(userDetails, ROLE_ADMIN)) {
+                if (userService.approveContribute(userId, bookId, status)) {
+                    httpStatus = HttpStatus.OK;
+                    ok = true;
+                } else {
+                    httpStatus = HttpStatus.NO_CONTENT;
+                }
+            } else {
+                httpStatus = HttpStatus.UNAUTHORIZED;
+            }
+        }
+        return new ResponseEntity<>(ok, httpStatus);
     }
 
 }

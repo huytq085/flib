@@ -10,7 +10,6 @@ import com.fsoft.flib.repository.ContributeRepository;
 import com.fsoft.flib.repository.UserRepository;
 import com.fsoft.flib.domain.*;
 import com.fsoft.flib.repository.*;
-import com.fsoft.flib.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -68,7 +67,7 @@ public class BookServiceImpl<main> implements BookService {
     public List<ContributeEntity> getContributesByEmail(String email) {
         UserEntity user = userRepository.findByEmail(email);
         if (user != null) {
-            List<ContributeEntity> contributes = contributeRepository.findAllByUserId(user.getId());
+            List<ContributeEntity> contributes = contributeRepository.findAllByUserIdOrderByDateAddedDesc(user.getId());
             return contributes;
         }
         return Collections.emptyList();
@@ -76,7 +75,7 @@ public class BookServiceImpl<main> implements BookService {
 
     @Override
     public List<ContributeEntity> getContributesByUserId(int userId) {
-        return contributeRepository.findAllByUserId(userId);
+        return contributeRepository.findAllByUserIdOrderByDateAddedDesc(userId);
     }
 
     @Override

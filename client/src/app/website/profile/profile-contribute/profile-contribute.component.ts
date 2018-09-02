@@ -3,6 +3,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Profile } from 'selenium-webdriver/firefox';
 import { Book } from '../../../core/models/book.model';
 import { ProfileService, UserService, Contribute } from '../../../core';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile-contribute',
@@ -48,13 +49,21 @@ export class ProfileContributeComponent implements OnInit {
     this.userService.contribute(value.book).subscribe(
       data => {
         console.log(data)
-        value.book.id = data.bookId;
-        // Set book image to base64 to display in contribute list
-        if (value.image) {
-          value.book.coverImage = value.image;
-        } else {
-          value.book.coverImage = this.DEFAULT_IMAGE;
+        if (data) {
+          swal({
+            type: 'success',
+            title: 'Successful',
+          }).then(() => {
+            value.book.id = data.bookId;
+            // Set book image to base64 to display in contribute list
+            if (value.image) {
+              value.book.coverImage = value.image;
+            } else {
+              value.book.coverImage = this.DEFAULT_IMAGE;
+            }
+          })
         }
+
 
       }
     )

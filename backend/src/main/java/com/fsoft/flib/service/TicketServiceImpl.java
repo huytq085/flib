@@ -79,7 +79,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public boolean action(int ticketId, int status) {
+    public boolean setStatus(int ticketId, int status) {
         TicketEntity ticketEntity = ticketRepository.findById(ticketId).orElse(null);
         if (ticketEntity != null) {
             if (status == 0) {

@@ -22,7 +22,8 @@ public interface TicketService {
 
     TicketEntity requestTicket(String email, Cart cart);
 
-    boolean action(int ticketId, int status);
+    boolean setStatus(int ticketId, int status);
+
     TicketEntity delete(int id);
 
 

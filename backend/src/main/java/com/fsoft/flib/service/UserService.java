@@ -34,4 +34,6 @@ public interface UserService {
     Set<BookEntity> getBooksByUserId(int userId);
 
     Boolean takeBook(int userId, int bookId);
+
+    Boolean approveContribute(int userId, int bookId, int status);
 }

@@ -1,7 +1,7 @@
 import { ApiService } from './api.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { User, Ticket } from '../models';
+import { User, Ticket, Contribute } from '../models';
 import { Book } from '../models/book.model';
 
 const BASE_URL = '/users';
@@ -70,6 +70,12 @@ export class UserService {
     }
     takeBook(userId: number, bookId: number): Observable<boolean> {
         return this.apiService.delete(`${BASE_URL}/${userId}/books/${bookId}`);
+    }
+    getContributesByUserId(userId: number): Observable<Contribute[]> {
+        return this.apiService.get(`${BASE_URL}/${userId}/contributes`);
+    }
+    approveContribute(userId: number, bookId: number, status: number): Observable<boolean> {
+        return this.apiService.get(`${BASE_URL}/${userId}/contributes/${bookId}?status=${status}`);
     }
 
 }

@@ -126,7 +126,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 //
 //        if (member != null) {
 //            System.out.println("co member");
-//            List<TicketEntity> tickets = ticketRepository.findAllByUserId(member.getId());
+//            List<TicketEntity> tickets = ticketRepository.findAllByUserIdOrderByDateAddedDesc(member.getId());
 //            if (tickets.size() < 3) {
 //
 //                TicketEntity ticketEntity = new TicketEntity();

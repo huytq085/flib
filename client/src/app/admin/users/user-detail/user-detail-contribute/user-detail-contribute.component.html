@@ -31,8 +31,11 @@
             <label class="badge badge-danger" *ngIf="contribute.status == 0">Pending</label>
           </td>
         <td>
-          <button (click)="approve(contribute, i)" type="button" class="btn btn-sm btn-primary mr-1">
+          <button (click)="action(contribute, 1)" type="button" class="btn btn-sm btn-primary mr-1" *ngIf="contribute.status == 0">
             Approve
+          </button>
+          <button (click)="action(contribute, 0)" type="button" class="btn btn-sm btn-danger mr-1">
+            {{ (contribute.status == 0) ? 'Reject' : 'Remove' }}
           </button>
         </td>
       </tr>
@@ -41,5 +44,5 @@
   </table>
 </div>
 <ng-template #noBooks>
-  <p>No books</p>
+  <p>No contribute requests</p>
 </ng-template>
