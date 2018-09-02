@@ -34,7 +34,7 @@ export class FormUserComponent implements OnInit {
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')
       ])],
       fullName: ['', Validators.compose([
-        Validators.maxLength(25),
+        Validators.maxLength(50),
         Validators.minLength(5),
         Validators.required
       ])],
@@ -45,7 +45,7 @@ export class FormUserComponent implements OnInit {
         Validators.pattern('^([0-9]*)$'),
         Validators.required
       ])],
-      gender: ['', Validators.required],
+      gender: ['Male', Validators.required],
       identityCard: ['', Validators.compose([
         Validators.maxLength(12),
         Validators.minLength(9),

@@ -9,7 +9,7 @@
         <div class="col-sm-9">
             <input class="form-control"
               type="text"
-              placeholder="Email"
+              placeholder="Ex: name@company.com"
               name="email"
               formControlName="email"
               [attr.disabled]="user.email"
@@ -27,7 +27,7 @@
         <div class="col-sm-9" *ngIf="isPasswordChange">
             <input
               formControlName="password"
-              placeholder="password"
+              placeholder="Ex: dM3u9kdYeHwZ4VBG"
               class="form-control "
               name="password"
               type="password"/>
@@ -53,7 +53,7 @@
         <div class="col-sm-9">
           <input
             formControlName="fullName"
-            placeholder="fullName"
+            placeholder="Eddie Vedder"
             class="form-control"
             name="fullName"
             type="text"/>
@@ -66,6 +66,7 @@
             <input class="form-control "
               type="text"
               name="address"
+              placeholder="Hotel California"
               formControlName="address" />
               <small class="alert text-danger" *ngIf="!userForm.controls['address'].valid && userForm.controls['address'].touched">Không được bỏ trống.</small>
         </div>
@@ -76,6 +77,7 @@
           <input class="form-control "
             type="text"
             name="phone"
+            placeholder="Ex: 0123633331"
             formControlName="phone" />
             <small class="alert text-danger" *ngIf="!userForm.controls['phone'].valid && userForm.controls['phone'].touched">Không đúng định dạng.</small>
       </div>
@@ -100,6 +102,7 @@
       <input class="form-control "
         type="text"
         name="identityCard"
+        placeholder="Ex: 123456789"
         formControlName="identityCard" />
         <small class="alert text-danger" *ngIf="!userForm.controls['identityCard'].valid && userForm.controls['identityCard'].touched">Không đúng định dạng.</small>
   </div>
