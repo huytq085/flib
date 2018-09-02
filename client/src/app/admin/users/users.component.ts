@@ -1,6 +1,7 @@
 import { UserService } from './../../core/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../core';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'admin-users',
@@ -10,7 +11,7 @@ import { User } from '../../core';
 export class AdminUsersComponent implements OnInit {
 
   users: User[] = new Array();
-  isEditor:boolean = false;
+  isEditor: boolean = false;
   selectedUser: User;
   buttonLabel: string = 'New User';
 
@@ -30,8 +31,8 @@ export class AdminUsersComponent implements OnInit {
     )
   }
 
-  displayForm(user?: User){
-    if (user){
+  displayForm(user?: User) {
+    if (user) {
       this.selectedUser = user;
     }
     this.isEditor = !this.isEditor;
@@ -40,23 +41,38 @@ export class AdminUsersComponent implements OnInit {
     console.log(this.isEditor);
   }
 
-  userEmit(user: User){
+  userEmit(user: User) {
     console.log(user);
-    if (user){
+    if (user) {
       this.users.push(user);
     }
     this.displayForm();
   }
 
-  delete(user: User){
-    this.userService.delete(user.id).subscribe(
-      data => {
-        this.users.splice(this.users.indexOf(user), 1)
+  delete(user: User) {
+    swal({
+      title: 'Delete this user',
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.value) {
+        this.userService.delete(user.id).subscribe(
+          data => {
+            this.users.splice(this.users.indexOf(user), 1);
+            swal({
+              type: 'success',
+              title: 'Successful',
+            })
+          }
+        )
       }
-    )
+    })
+
   }
 
-  searching(event){
+  searching(event) {
     this.userService.currentUser.subscribe(
       user => {
         this.userService.search(event.target.value).subscribe(

@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div class="table-responsive" *ngIf="tickets.length > 0; else noTickets">
   <table class="table table table-bordered">
     <thead>
       <tr>
@@ -32,3 +32,6 @@
     </tbody>
   </table>
 </div>
+<ng-template #noTickets>
+  <p>No tickets</p>
+</ng-template>

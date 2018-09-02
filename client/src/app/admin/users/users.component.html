@@ -1,5 +1,5 @@
 <button class="btn btn-primary btn-sm" (click)="displayForm({})">{{ buttonLabel }}</button>
-<div class="input-group float-right col-md-5 d-flex align-items-stretch input-group float-right">
+<div class="input-group float-right col-md-5 d-flex align-items-stretch input-group float-right" *ngIf="!isEditor">
   <input type="text" (keyup)="searching($event)" class="form-control" placeholder="Search" aria-label="Search">
   <div class="input-group-append bg-primary border-primary">
     <span class="input-group-text bg-transparent">

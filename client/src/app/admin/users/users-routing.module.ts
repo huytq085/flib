@@ -6,6 +6,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserDetailTicketComponent, UserDetailBookComponent, UserDetailReactionComponent, UserDetailContributeComponent, UserDetailNotificationComponent } from './user-detail';
 import { UserDetailTicketDetailComponent } from './user-detail/user-detail-ticket/user-detail-ticket-detail/user-detail-ticket-detail.component';
 import { TicketDetailResolver } from '../../website/profile/profile-order/ticket-detail/ticket-detail-resolver.service';
+import { UserResolver } from '../../core/resolvers/user.resolver';
 
 const routes: Routes = [
   {
@@ -15,6 +16,9 @@ const routes: Routes = [
   {
     path: ':id',
     component: UserDetailComponent,
+    resolve: {
+      user: UserResolver
+    },
     children: [
       {
         path: '',

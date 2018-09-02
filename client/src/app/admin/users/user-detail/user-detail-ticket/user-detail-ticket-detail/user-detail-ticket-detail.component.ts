@@ -33,8 +33,9 @@ export class UserDetailTicketDetailComponent implements OnInit {
   }
 
   action(status: number) {
+    console.log(status)
     swal({
-      title: (status == 0) ? 'Approve' : 'Reject' + ' this ticket?',
+      title: (status == 1) ? 'Approve this ticket?' : 'Reject this ticket?',
       type: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

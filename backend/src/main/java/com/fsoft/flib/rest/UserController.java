@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 //@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
@@ -33,6 +34,8 @@ public class UserController {
     private final String FAVOURITE_URL = BASE_URL + "/favourite/{id}";
     private final String GET_USER_TICKETS_URL = BASE_URL + "/{userId}/tickets";
     private final String ACTION_TICKET_URL = BASE_URL + "/tickets/{ticketId}";
+    private final String GET_USER_BOOKS_URL = BASE_URL + "/{userId}/books";
+    private final String USER_BOOKS_URL = BASE_URL + "/{userId}/books/{bookId}";
 
     @Autowired
     private UserService userService;
@@ -161,6 +164,49 @@ public class UserController {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             if (userHasAuthority(userDetails, ROLE_ADMIN)) {
                 if (ticketService.action(ticketId, status)) {
+                    httpStatus = HttpStatus.OK;
+                    ok = true;
+                } else {
+                    httpStatus = HttpStatus.NO_CONTENT;
+                }
+            } else {
+                httpStatus = HttpStatus.UNAUTHORIZED;
+            }
+        }
+        return new ResponseEntity<>(ok, httpStatus);
+    }
+
+    @RequestMapping(
+            value = GET_USER_BOOKS_URL,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Set<BookEntity>> getBooksByUserId(@PathVariable int userId, Authentication authentication) {
+        HttpStatus status = HttpStatus.OK;
+        Set<BookEntity> books = Collections.EMPTY_SET;
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            if (userHasAuthority(userDetails, ROLE_ADMIN)) {
+                books = userService.getBooksByUserId(userId);
+            } else {
+                status = HttpStatus.UNAUTHORIZED;
+            }
+        }
+        return new ResponseEntity<>(books, status);
+    }
+
+    @RequestMapping(
+            value = USER_BOOKS_URL,
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Boolean> takeBook(@PathVariable int userId, @PathVariable int bookId, Authentication authentication) {
+        HttpStatus httpStatus = HttpStatus.OK;
+        boolean ok = false;
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            if (userHasAuthority(userDetails, ROLE_ADMIN)) {
+                if (userService.takeBook(userId, bookId)) {
                     httpStatus = HttpStatus.OK;
                     ok = true;
                 } else {

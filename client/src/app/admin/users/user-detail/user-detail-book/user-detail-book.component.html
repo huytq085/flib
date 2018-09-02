@@ -1,54 +1,40 @@
-<div class="table-responsive">
-  <table class="table">
+<div class="table-responsive" *ngIf="books.length > 0; else noBooks">
+  <table class="table table table-bordered">
     <thead>
       <tr>
-        <th>Profile</th>
-        <th>VatNo.</th>
-        <th>Created</th>
-        <th>Status</th>
+        <th>Cover Image</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Quantity</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Jacob</td>
-        <td>53275531</td>
-        <td>12 May 2017</td>
+      <tr *ngFor="let book of books; let i = index">
         <td>
-          <label class="badge badge-danger">Pending</label>
+          <a [routerLink]="['/book',book.id ]">
+            <img width="64" height="64" src="{{ book.coverImage }}" alt="{{ book.name }}">
+          </a>
+        </td>
+        <td>
+          <a [routerLink]="['/book',book.id ]">{{ book.name }}</a>
+        </td>
+        <td>
+          <a [routerLink]="['/author',book.authorByAuthorId.id ]">{{ book.authorByAuthorId.name }}</a>
+        </td>
+        <td>
+          <span class="amount">{{ book.amount }}</span>
+        </td>
+        <td>
+          <button (click)="take(book, i)" type="button" class="btn btn-sm btn-primary mr-1">
+            Take
+          </button>
         </td>
       </tr>
-      <tr>
-        <td>Messsy</td>
-        <td>53275532</td>
-        <td>15 May 2017</td>
-        <td>
-          <label class="badge badge-warning">In progress</label>
-        </td>
-      </tr>
-      <tr>
-        <td>John</td>
-        <td>53275533</td>
-        <td>14 May 2017</td>
-        <td>
-          <label class="badge badge-info">Fixed</label>
-        </td>
-      </tr>
-      <tr>
-        <td>Peter</td>
-        <td>53275534</td>
-        <td>16 May 2017</td>
-        <td>
-          <label class="badge badge-success">Completed</label>
-        </td>
-      </tr>
-      <tr>
-        <td>Dave</td>
-        <td>53275535</td>
-        <td>20 May 2017</td>
-        <td>
-          <label class="badge badge-warning">In progress</label>
-        </td>
-      </tr>
+
     </tbody>
   </table>
 </div>
+<ng-template #noBooks>
+  <p>No books</p>
+</ng-template>

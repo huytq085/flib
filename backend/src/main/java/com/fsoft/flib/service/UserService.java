@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public interface UserService {
@@ -29,4 +30,8 @@ public interface UserService {
     ContributeEntity contributeByEmail(String email, BookEntity book);
 
     List<UserEntity> search(String query);
+
+    Set<BookEntity> getBooksByUserId(int userId);
+
+    Boolean takeBook(int userId, int bookId);
 }

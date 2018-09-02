@@ -13,9 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,6 +32,8 @@ public class UserServiceImpl implements UserService {
     private BookRepository bookRepository;
     @Autowired
     private AuthorRepository authorRepository;
+    @Autowired
+    private TicketRepository ticketRepository;
 
     @Override
     public UserEntity save(UserEntity userEntity) {
@@ -157,6 +157,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserEntity> search(String query) {
         return userRepository.search(query);
+    }
+
+    @Override
+    public Set<BookEntity> getBooksByUserId(int userId) {
+        return userRepository.getBooksByUserId(userId);
+    }
+
+    @Override
+    public Boolean takeBook(int userId, int bookId) {
+        userRepository.deleteBookFromTicketDetail(userId, bookId);
+        return true;
     }
 
     private boolean isExist(UserEntity user) {

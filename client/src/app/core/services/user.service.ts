@@ -62,5 +62,14 @@ export class UserService {
     actionTicket(ticketId: number, status?: number): Observable<boolean> {
         return this.apiService.get(`${BASE_URL}/tickets/${ticketId}?status=${status}`);
     }
+    getOne(userId: number): Observable<User> {
+        return this.apiService.get(`${BASE_URL}/${userId}`);
+    }
+    getBooksByUserId(userId: number): Observable<Book[]> {
+        return this.apiService.get(`${BASE_URL}/${userId}/books`);
+    }
+    takeBook(userId: number, bookId: number): Observable<boolean> {
+        return this.apiService.delete(`${BASE_URL}/${userId}/books/${bookId}`);
+    }
 
 }
