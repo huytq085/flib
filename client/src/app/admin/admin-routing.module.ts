@@ -12,11 +12,12 @@ const routes: Routes = [
         path: 'users',
         loadChildren: './users/users.module#AdminUsersModule'
       },
+      {
+        path: 'tickets',
+        loadChildren: './ticket-manager/ticket-manager.module#TicketManagerModule'
+      },
     ]
   }
-
-
-
 ];
 
 @NgModule({

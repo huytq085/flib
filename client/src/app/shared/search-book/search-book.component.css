@@ -1,0 +1,7 @@
+ng-select.typeahead.opened .ng-placeholder {
+    display: block !important;
+ }
+ 
+ ng-select.typeahead.opened .ng-value {
+    display: none !important;
+ }

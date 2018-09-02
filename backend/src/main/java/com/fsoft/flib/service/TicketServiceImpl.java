@@ -22,6 +22,11 @@ public class TicketServiceImpl implements TicketService {
     private TicketDetailService ticketDetailService;
 
     @Override
+    public List<TicketEntity> getAll() {
+        return this.ticketRepository.findAll();
+    }
+
+    @Override
     public List<TicketEntity> getAllByUserId(int id) {
         return ticketRepository.findAllByUserId(id);
     }
@@ -33,7 +38,6 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public TicketEntity getById(int id) {
-        System.out.println("get by id");
         return ticketRepository.getOne(id);
     }
 
@@ -41,6 +45,18 @@ public class TicketServiceImpl implements TicketService {
     public TicketEntity save(TicketEntity ticket) {
         return ticketRepository.save(ticket);
     }
+
+    @Override
+    public TicketEntity updateStatus(int id) {
+        TicketEntity ticketEntity= ticketRepository.getOne(id);
+        if(ticketEntity.getStatus()== 0){
+            ticketEntity.setStatus(1);
+            ticketRepository.save(ticketEntity);
+            return ticketEntity;
+        }
+        return ticketEntity;
+    }
+
 
     @Override
     public TicketEntity requestTicket(String email, Cart cart) {

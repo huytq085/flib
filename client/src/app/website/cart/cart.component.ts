@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Cart} from '../../core/models/cart.model';
-import {BookService} from '../../core/services/book.service';
+import {Cart} from '../../core/models';
+import {BookService} from '../../core/services';
 import {CartItem} from '../../core/models/cart-item.model';
 import {TokenStorage} from '../auth/authority/token.storage';
-import {TicketService} from '../../core/services/ticket.service';
-import {CartService, SharedService} from '../../core';
+import {TicketService} from '../../core/services';
+import {Book, CartService, SharedService} from '../../core';
 
 @Component({
   selector: 'app-cart',

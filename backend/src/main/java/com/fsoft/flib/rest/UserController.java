@@ -107,7 +107,6 @@ public class UserController {
         ContributeEntity contribute = null;
         if (principal != null) {
             contribute = userService.contributeByEmail(principal.getName(), book);
-            System.out.println(JsonUtils.encode(contribute));
         } else {
             status = HttpStatus.UNAUTHORIZED;
         }

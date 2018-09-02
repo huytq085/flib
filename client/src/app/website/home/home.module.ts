@@ -8,6 +8,7 @@ import {PaginationComponent} from './content/book-list/pagination/pagination.com
 import {HomeRoutingModule} from './home-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {FormsModule} from '@angular/forms';
     CommonModule,
     FormsModule,
     HomeRoutingModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    SharedModule
   ],
   declarations: [
     BookListComponent,

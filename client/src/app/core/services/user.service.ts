@@ -58,7 +58,6 @@ export class UserService {
 
   favourite(bookId: number): Observable<boolean> {
     return this.apiService.get(`${BASE_URL}/favourite/${bookId}`);
-
-  }
+}
 
 }

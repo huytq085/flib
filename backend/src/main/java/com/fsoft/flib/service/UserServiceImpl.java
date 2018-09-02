@@ -4,6 +4,7 @@ import com.fsoft.flib.domain.*;
 import com.fsoft.flib.repository.*;
 import com.fsoft.flib.util.Constants;
 import com.fsoft.flib.util.ImageUtils;
+import com.fsoft.flib.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -113,24 +115,37 @@ public class UserServiceImpl implements UserService {
     @Override
     public ContributeEntity contributeByEmail(String email, BookEntity book) {
         UserEntity user = userRepository.findByEmail(email);
+        ContributeEntity contribute = null;
         if (user != null) {
-            ContributeEntity contribute = new ContributeEntity();
-            contribute.setUserId(user.getId());
+            contribute  = contributeRepository.findById(new ContributeEntityPK(user.getId(), book.getId())).orElse(null);
+            if (contribute != null) {
+                calculateBookAmount(book);
+            } else {
+                contribute = new ContributeEntity();
+                contribute.setUserId(user.getId());
 //            TODO: auto save author with hibernate
-            if (book.getId() == 0) {
-                System.out.println("book id: " + book.getId());
-                AuthorEntity author = new AuthorEntity();
-                author.setName(book.getAuthorByAuthorId().getName());
-                book.setAuthorId(authorRepository.save(author).getId());
+                if (book.getId() == 0) {
+                    System.out.println("book id: " + book.getId());
+                    System.out.println("author id: " + book.getAuthorByAuthorId().getId());
+                    if (book.getAuthorByAuthorId().getId() == 0) {
+                        AuthorEntity author = new AuthorEntity();
+                        author.setName(book.getAuthorByAuthorId().getName());
+                        book.setAuthorId(authorRepository.save(author).getId());
+                    } else {
+                        book.setAuthorId(book.getAuthorByAuthorId().getId());
+                        book.setAuthorByAuthorId(null);
+                    }
 //            Store cover image to resources folder & get url path
-                setCoverImage(book);
+                    setCoverImage(book);
 
-                book = bookRepository.save(book);
+                    book = bookRepository.save(book);
+                }
+                contribute.setBookId(book.getId());
+                return contributeRepository.save(contribute);
             }
-            contribute.setBookId(book.getId());
-            return contributeRepository.save(contribute);
+
         }
-        return null;
+        return contribute;
     }
 
     @Override
@@ -159,6 +174,12 @@ public class UserServiceImpl implements UserService {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void calculateBookAmount(BookEntity bookFromClient) {
+        BookEntity bookFromDb = bookRepository.getOne(bookFromClient.getId());
+        bookFromDb.setAmount(bookFromDb.getAmount() + bookFromClient.getAmount());
+        bookRepository.save(bookFromDb);
     }
 
 }

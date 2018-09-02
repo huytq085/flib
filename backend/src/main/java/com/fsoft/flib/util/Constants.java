@@ -1,7 +1,7 @@
 package com.fsoft.flib.util;
 
 public class Constants {
-    public static final String DEFAULT_COVER_IMAGE_PATH = "src/main/resources/static/images/cover_image_default.jpg";
+    public static final String DEFAULT_COVER_IMAGE_PATH = "http://localhost:8080/images/cover_image_default.jpg";
 
     public static final String STATIC_PATH = "src/main/resources/static";
     public static final String STATIC_IMG_PATH = STATIC_PATH + "/images";

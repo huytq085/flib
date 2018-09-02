@@ -8,6 +8,7 @@ import java.util.List;
 
 @Service
 public interface TicketService {
+    List<TicketEntity> getAll();
     List<TicketEntity> getAllByUserId(int id);
 
     List<TicketEntity> getALlByEmail(String email);
@@ -15,6 +16,7 @@ public interface TicketService {
     TicketEntity getById(int id);
 
     TicketEntity save(TicketEntity ticketEntity);
+    TicketEntity updateStatus(int id);
 
     TicketEntity requestTicket(String email, Cart cart);
 

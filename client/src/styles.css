@@ -2,7 +2,6 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
-
 .error-messages {
     color: #B85C5C !important;
     font-weight: bold; 
@@ -13,4 +12,9 @@
 }
 .card-text {
     word-wrap: break-word;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
 }
