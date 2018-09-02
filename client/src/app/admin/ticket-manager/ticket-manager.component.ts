@@ -22,4 +22,8 @@ export class TicketManagerComponent implements OnInit {
       console.log(data);
     });
   }
+
+  deleteTicket(id : number){
+    this.ticketService.deleteTicket(id);
+  }
 }

@@ -35,7 +35,10 @@ export class TicketService {
   }
 
   updateTicket(id: number): Observable<Ticket> {
-    console.log(`Hello ${id}`)
     return this.apiService.put(`/ticket`, id);
+  }
+
+  deleteTicket(id: number):Observable<Ticket>{
+    return this.apiService.delete(`/ticket`, id);
   }
 }

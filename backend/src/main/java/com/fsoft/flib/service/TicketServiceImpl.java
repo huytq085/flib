@@ -78,6 +78,11 @@ public class TicketServiceImpl implements TicketService {
         return null;
     }
 
+    @Override
+    public TicketEntity delete(int id) {
+        return this.ticketRepository.deleteById(id);
+    }
+
 //    @Override
 //    public TicketEntity requestTicket(String email, String[] bookIDs) {
 //        UserEntity user = userRepository.findByEmail(email);

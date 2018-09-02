@@ -39,7 +39,7 @@ export class FilterBookComponent implements OnInit {
     }
     this.bookService.getBookByType(this.idChecked).subscribe(data => {
       this.books = data;
-      data.forEach(e => { console.log(e.name) })
+      console.log(this.books);
     });
   }
 }

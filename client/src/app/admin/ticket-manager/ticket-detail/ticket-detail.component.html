@@ -1,6 +1,6 @@
 <h4>TICKET DETAIL</h4>
-<div class="table-responsive" *ngIf="!!ticket">
-  <h4>Infomation user</h4>
+<!-- <div class="table-responsive" *ngIf="!!ticket">
+  
   <p>Id: {{ticket.userByUserId.id}} </p>
   <p>Email: {{ticket.userByUserId.email}}</p>
   <p>Full name: {{ticket.userByUserId.fullName}}</p>
@@ -8,7 +8,36 @@
   <p>Phone: {{ticket.userByUserId.phone}}</p>
   <p>Gender: {{ticket.userByUserId.gender}}</p>
   <p>Identity card: {{ticket.userByUserId.identityCard}}</p>
-</div>
+</div> -->
+<h4>Infomation user</h4>
+<form>
+  <div class="form-group row">
+    <label for="email" class="col-sm-3 col-form-label">Email</label>
+    <div class="col-sm-9">{{ticket.userByUserId.email}}</div>
+  </div>
+  <div class="form-group row">
+    <label for="email" class="col-sm-3 col-form-label">Full name</label>
+    <div class="col-sm-9">{{ticket.userByUserId.fullName}}</div>
+  </div>
+  <div class="form-group row">
+    <label for="email" class="col-sm-3 col-form-label">Address</label>
+    <div class="col-sm-9">{{ticket.userByUserId.address}}</div>
+  </div>
+  <div class="form-group row">
+    <label for="email" class="col-sm-3 col-form-label">Cellphone number</label>
+    <div class="col-sm-9"> {{ticket.userByUserId.phone}}</div>
+  </div>
+  <div class="form-group row">
+    <label for="email" class="col-sm-3 col-form-label">Gender</label>
+    <div class="col-sm-9">{{ticket.userByUserId.gender}}</div>
+  </div>
+  <div class="form-group row">
+      <label for="email" class="col-sm-3 col-form-label">Identity card</label>
+      <div class="col-sm-9">{{ticket.userByUserId.identityCard}}</div>
+    </div>
+</form>
+
+
 <hr>
 <div class="table-responsive" *ngIf="!!ticket">
   <a class="btn" (click)="goBack()">

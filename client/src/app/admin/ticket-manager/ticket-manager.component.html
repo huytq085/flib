@@ -27,6 +27,8 @@
         <th>
           Detail
         </th>
+        <th class="menu-icon mdi mdi-delete" >
+          </th>
       </tr>
     </thead>
     <tbody>
@@ -44,7 +46,10 @@
           {{ ticket.status === 0 ? 'chưa xử lý': 'đã xử lý' }}
         </td>
         <td>
-          <a [routerLink]="['/admin/tickets', ticket.id]">detail</a>
+          <a [routerLink]="['/admin/tickets', ticket.id]">Detail</a>
+        </td>
+        <td>
+            <a (click)="deleteTicket(ticket.id)">Delete</a>
         </td>
       </tr>
     </tbody>

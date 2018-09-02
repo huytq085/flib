@@ -66,6 +66,17 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @RequestMapping(path = BASE_URL,
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TicketEntity> delete(@RequestBody int idTicket){
+        System.out.println("Server: Hello! I'm ticket "+idTicket);
+        TicketEntity ticketEntity=ticketService.delete(idTicket);
+        if(ticketEntity != null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 //
 //    @GetMapping(path = GET_PAGE_BOOK)
 //    public Page<BookEntity> getPageBook(@RequestParam int page, @RequestParam int size) {
