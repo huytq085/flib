@@ -4,6 +4,8 @@
   <p>Id: {{ticket.userByUserId.id}} </p>
   <p>Email: {{ticket.userByUserId.email}}</p>
   <p>Full name: {{ticket.userByUserId.fullName}}</p>
+  <p>Address: {{ticket.userByUserId.address}}</p>
+  <p>Phone: {{ticket.userByUserId.phone}}</p>
   <p>Gender: {{ticket.userByUserId.gender}}</p>
   <p>Identity card: {{ticket.userByUserId.identityCard}}</p>
 </div>
@@ -13,11 +15,10 @@
     <i class="menu-icon mdi mdi-keyboard-backspace"></i>
     <span class="menu-title">Back</span>
   </a>
-  <a class="btn" (click)="confirmStatus()">
-      <i class="menu-icon mdi mdi-check"></i>
-      <span class="menu-title">CONFIRM</span>
-    </a>
-    {{ticket.status}}
+  <a class="btn" (click)="confirmStatus()" *ngIf="ticket.status === 0">
+    <i class="menu-icon mdi mdi-check"></i>
+    <span class="menu-title">Confirm ticket</span>
+  </a>
   <table class="table table-striped" style="width: 100%">
     <thead>
       <tr>
