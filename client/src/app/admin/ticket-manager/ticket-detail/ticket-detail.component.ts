@@ -37,6 +37,6 @@ export class TicketDetailComponent implements OnInit {
   }
 
   confirmStatus(){
-      this.ticketService.updateTicket(this.ticket).subscribe(data =>{this.ticket=data})
+      this.ticketService.updateTicket(this.ticket.id).subscribe(data =>{this.ticket=data})
   }
 }

@@ -3,7 +3,7 @@
     <!-- <fieldset class="form-group">
       <app-avatar-upload [user]="user" (avatarEmit)="changeAvatar($event)"></app-avatar-upload>
     </fieldset> -->
-    
+
     <div class="form-group row">
         <label for="email" class="col-sm-3 col-form-label">Email</label>
         <div class="col-sm-9">
@@ -18,10 +18,16 @@
         <small class="alert text-danger" *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">Email không đúng định dạng</small>
     </div>
     <div class="form-group row">
-        <label for="password" class="col-sm-3 col-form-label">Password</label>
+      <label for="password" class="col-sm-3 col-form-label">Password</label>
 
-        <div class="col-sm-9" *ngIf="!isPasswordChange">
-          <button (click)="changePassword()" type="button" class="btn btn-default">Change</button>
+      <div class="col-sm-9" *ngIf="!isPasswordChange">
+        <button (click)="changePassword()" type="button" class="btn btn-default">Change</button>
+      </div>
+
+      <div class="col-sm-9" *ngIf="isPasswordChange">
+        <input formControlName="password" placeholder="password" class="form-control " name="password" type="password" />
+        <small class="alert text-danger" *ngIf="!userForm.controls['password'].valid && userForm.controls['password'].touched">Độ
+          dài lớn hơn hoặc bằng 6</small>
       </div>
         
         <div class="col-sm-9" *ngIf="isPasswordChange">
@@ -81,19 +87,6 @@
             formControlName="phone" />
             <small class="alert text-danger" *ngIf="!userForm.controls['phone'].valid && userForm.controls['phone'].touched">Không đúng định dạng.</small>
       </div>
-  </div>
-  <div class="form-group row">
-    <label for="gender" class="col-sm-3 col-form-label">Gender</label>
-    <div class="col-sm-9">
-      <select class="form-control" 
-        formControlName="gender"
-        name="gender"
-        placeholder="Gender"
-        class="form-control">
-        <option value="Male" selected>Male</option>
-        <option value="Female">Female</option>
-      </select>
-      <small class="alert text-danger" *ngIf="!userForm.controls['gender'].valid && userForm.controls['gender'].touched">Không được bỏ trống.</small>
     </div>
 </div>
 <div class="form-group row">
@@ -116,11 +109,9 @@
     </button> -->
     <p class="error-messages" *ngIf="errors != ''">{{errors}}</p>
     <div class="offset-sm-3">
-      <button 
-    class="btn btn-primary"
-    type="submit" [disabled]="!userForm.valid">
-    Submit
-  </button>
+      <button class="btn btn-primary" type="submit" [disabled]="!userForm.valid">
+        Submit
+      </button>
     </div>
 
   </fieldset>

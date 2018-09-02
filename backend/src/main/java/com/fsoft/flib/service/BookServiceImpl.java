@@ -32,8 +32,6 @@ public class BookServiceImpl<main> implements BookService {
     private TypeRepository typeRepository;
     @Autowired
     private BookTypeRepository bookTypeRepository;
-    @Autowired
-    private TicketDetailRepository ticketDetailRepository;
 
 
     @Override
@@ -96,19 +94,36 @@ public class BookServiceImpl<main> implements BookService {
     }
 
     @Override
-    public Collection<BookEntity> getBookByIdType(int[] ids) {
+    public Collection<BookEntity> getBookByIdType(int[] idTypes) {
         System.out.println("vao get book");
-        Set<BookEntity> bookEntities = new HashSet<>();
         List<BookTypeEntity> bookTypeEntities;
-        for (int id : ids) {
-            bookTypeEntities = bookTypeRepository.findAllByTypeId(id);
+        List<BookEntity> bookEntitiesTemp = new ArrayList<>();
+        List<BookEntity> bookEntities = new ArrayList<>();
+        for (int idType: idTypes) {
+            bookTypeEntities = bookTypeRepository.findAllByTypeId(idType);
             for (BookTypeEntity bookTypeEntity : bookTypeEntities) {
-                bookEntities.add(bookTypeEntity.getBookByBookId());
+                BookEntity book = bookTypeEntity.getBookByBookId();
+                bookEntitiesTemp.add(book);
+            }
+            if (bookEntities.isEmpty()) {
+                bookEntities.addAll(bookEntitiesTemp);
+            } else {
+                bookEntities = intersection(bookEntities, bookEntitiesTemp);
+            }
+            bookEntitiesTemp.clear();
+        }
+        return bookEntities;
+    }
+
+    private <T> List<T> intersection(List<T> list1, List<T> list2) {
+        List<T> list = new ArrayList<T>();
+        for (T t1 : list1) {
+            for (T t2 : list2) {
+                if (t1.equals(t2)) {
+                    list.add(t1);
+                }
             }
         }
-//        for(BookEntity bok:bookEntities){
-//            System.out.println(bok.getName());
-//        }
-        return bookEntities;
+        return list;
     }
 }
