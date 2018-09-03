@@ -2,6 +2,7 @@ package com.fsoft.flib.service;
 
 import com.fsoft.flib.domain.Cart;
 import com.fsoft.flib.domain.TicketEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,9 @@ public interface TicketService {
 
     boolean setStatus(int ticketId, int status);
 
-    TicketEntity delete(int id);
+    boolean delete(int id);
+
+    Page<TicketEntity> findTicketPaninated(int page, int size);
 
 
 }

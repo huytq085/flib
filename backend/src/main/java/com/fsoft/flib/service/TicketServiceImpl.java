@@ -5,6 +5,8 @@ import com.fsoft.flib.repository.BookRepository;
 import com.fsoft.flib.repository.TicketRepository;
 import com.fsoft.flib.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -48,8 +50,8 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public TicketEntity updateStatus(int id) {
-        TicketEntity ticketEntity= ticketRepository.getOne(id);
-        if(ticketEntity.getStatus()== 0){
+        TicketEntity ticketEntity = ticketRepository.getOne(id);
+        if (ticketEntity.getStatus() == 0) {
             ticketEntity.setStatus(1);
             ticketRepository.save(ticketEntity);
             return ticketEntity;
@@ -92,9 +94,19 @@ public class TicketServiceImpl implements TicketService {
         return false;
     }
 
+    @Override
+    public boolean delete(int idTicket) {
+        TicketEntity ticketEntity = ticketRepository.findById(idTicket).get();
+        if (ticketEntity != null) {
+            this.ticketRepository.deleteById(idTicket);
+            return true;
+        }
+        return false;
+    }
 
-    public TicketEntity delete(int id) {
-        return this.ticketRepository.deleteById(id);
+    @Override
+    public Page<TicketEntity> findTicketPaninated(int page, int size) {
+        return ticketRepository.findAll(PageRequest.of(page, size));
     }
 
 //    @Override

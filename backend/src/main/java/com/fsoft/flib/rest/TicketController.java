@@ -8,9 +8,12 @@ import com.fsoft.flib.repository.TicketRepository;
 import com.fsoft.flib.service.BookService;
 import com.fsoft.flib.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -45,11 +48,18 @@ public class TicketController {
         return ticketService.getAll();
     }
 
-    @RequestMapping(path = BASE_URL+"/{id}", method = RequestMethod.GET)
-    public ResponseEntity<TicketEntity> getOneTicket(@PathVariable int id){
-        TicketEntity ticketEntity=ticketService.getById(id);
-        if(ticketEntity != null){
-            return new ResponseEntity<>(ticketEntity,HttpStatus.OK);
+    @RequestMapping(
+            path = BASE_URL + "/pages",
+            method = RequestMethod.GET)
+    public ResponseEntity<Page<TicketEntity>> getTicketsPages(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return new ResponseEntity<>(ticketService.findTicketPaninated(page,size), HttpStatus.OK);
+    }
+
+    @RequestMapping(path = BASE_URL + "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<TicketEntity> getOneTicket(@PathVariable int id) {
+        TicketEntity ticketEntity = ticketService.getById(id);
+        if (ticketEntity != null) {
+            return new ResponseEntity<>(ticketEntity, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -57,27 +67,27 @@ public class TicketController {
     @RequestMapping(path = BASE_URL,
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TicketEntity> update(@RequestBody int idTicket){
-        System.out.println("Server: Hello! I'm ticket "+idTicket);
-        TicketEntity ticketEntity=ticketService.updateStatus(idTicket);
-        if(ticketEntity != null){
-            return new ResponseEntity<>(ticketEntity,HttpStatus.OK);
+    public ResponseEntity<TicketEntity> update(@RequestBody int idTicket) {
+        System.out.println("Server: Hello! I'm ticket " + idTicket);
+        TicketEntity ticketEntity = ticketService.updateStatus(idTicket);
+        if (ticketEntity != null) {
+            return new ResponseEntity<>(ticketEntity, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(path = BASE_URL,
+    @RequestMapping(path = BASE_URL + "/{idTicket}",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TicketEntity> delete(@RequestBody int idTicket){
-        System.out.println("Server: Hello! I'm ticket "+idTicket);
-        TicketEntity ticketEntity=ticketService.delete(idTicket);
-        if(ticketEntity != null){
-            return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Boolean> delete(@PathVariable int idTicket) {
+        System.out.println("Server: Hello! I'm ticket " + idTicket);
+        if (ticketService.delete(idTicket)) {
+            return new ResponseEntity(true, HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(false, HttpStatus.NO_CONTENT);
     }
-//
+
+    //
 //    @GetMapping(path = GET_PAGE_BOOK)
 //    public Page<BookEntity> getPageBook(@RequestParam int page, @RequestParam int size) {
 //        return bookService.getPageBook(page, size);

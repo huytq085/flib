@@ -9,7 +9,7 @@
 </div> -->
 <h4>TICKET LIST</h4>
 <div class="table-responsive" *ngIf="!!tickets">
-  <table class="table table-striped" style="width: 80%">
+  <table class="table table-striped" style="width: 100%">
     <thead>
       <tr>
         <th>
@@ -27,8 +27,9 @@
         <th>
           Detail
         </th>
-        <th class="menu-icon mdi mdi-delete" >
-          </th>
+        <th>
+          Remove
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -49,9 +50,10 @@
           <a [routerLink]="['/admin/tickets', ticket.id]">Detail</a>
         </td>
         <td>
-            <a (click)="deleteTicket(ticket.id)">Delete</a>
+          <a (click)="checkStatus(ticket)">Remove</a>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+<pagination *ngIf="totalPages> 0" [currentPage]="currentPage" [totalPages]="totalPages" (setPageEmit)="setPage($event)"></pagination>

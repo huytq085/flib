@@ -4,6 +4,7 @@ import { Route, ActivatedRoute } from '@angular/router';
 import { TicketService } from '../../../core/services/ticket.service';
 import { Ticket } from '../../../core';
 import { TicketDetail } from '../../../core/models/ticket-detail.model';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -19,7 +20,7 @@ export class TicketDetailComponent implements OnInit {
   ) { }
 
   ticketDetail: TicketDetail[] = new Array();
-  ticket: Ticket;
+  ticket: Ticket= new Ticket();
   ngOnInit() {
     this.getTicket();
   }
@@ -37,6 +38,24 @@ export class TicketDetailComponent implements OnInit {
   }
 
   confirmStatus(){
-      this.ticketService.updateTicket(this.ticket.id).subscribe(data =>{this.ticket=data})
+    swal({
+      title: 'Confirm this ticket',
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.value) {
+        this.ticketService.updateTicket(this.ticket.id).subscribe(
+          data => {
+            this.ticket=data;
+            swal({
+              type: 'success',
+              title: 'Successful',
+            })
+          }
+        )
+      }
+    })
   }
 }
