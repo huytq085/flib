@@ -201,12 +201,12 @@ public class UserServiceImpl implements UserService {
             book.setCoverImage(Constants.DEFAULT_COVER_IMAGE_PATH);
         } else if (!book.getCoverImage().matches("([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)|^(https?)://.*$")) {
             System.out.println("set ne");
-            String coverImagePath = "/cover_img/" + book.getAuthorId() + "_" + new Timestamp(System.currentTimeMillis()).getTime() + ".png";
-            String path = Constants.STATIC_IMG_BOOK_PATH + coverImagePath;
+            String coverImagePath = "/" + book.getAuthorId() + "_" + new Timestamp(System.currentTimeMillis()).getTime() + ".png";
+            String path = Constants.STATIC_PATH + coverImagePath;
             try {
                 if (ImageUtils.writeImage(path, book.getCoverImage())) {
                     System.out.println("create file success");
-                    book.setCoverImage(Constants.REAL_STATIC_IMG_BOOK_PATH + coverImagePath);
+                    book.setCoverImage(Constants.LOAD_BOOK_FILE_API + coverImagePath);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
