@@ -8,7 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 @Service
@@ -182,6 +181,7 @@ public class BookServiceImpl implements BookService {
             authorEntity = this.authorRepository.save(authorEntity);
         }
         bookEntity.setAuthorId(authorEntity.getId());
+        bookEntity.setAuthorByAuthorId(authorEntity);
         if(bookEntity.getCoverImage()==null){
             bookEntity.setCoverImage(dbBook.getCoverImage());
         }
