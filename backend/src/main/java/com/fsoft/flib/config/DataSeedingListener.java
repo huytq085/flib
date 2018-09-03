@@ -55,7 +55,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             admin.setPassword(passwordEncoder.encode("123456"));
             admin.setAddress("AdminHouse");
             admin.setFullName("Nguyen Minh Tam");
-            admin.setGender("nam");
+            admin.setGender("Male");
             admin.setIdentityCard("123456789");
             admin.setPhone("01234567890");
             userRepository.save(admin);
@@ -76,8 +76,8 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             member.setEmail("member@gmail.com");
             member.setPassword(passwordEncoder.encode("123456"));
             member.setAddress("MemberHouse");
-            member.setFullName("Nguyen Minh Tam");
-            member.setGender("nam");
+            member.setFullName("Nguyen Thi Binh");
+            member.setGender("female");
             member.setIdentityCard("123456789");
             member.setPhone("01234567890");
             userRepository.save(member);
@@ -126,7 +126,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 //
 //        if (member != null) {
 //            System.out.println("co member");
-//            List<TicketEntity> tickets = ticketRepository.findAllByUserId(member.getId());
+//            List<TicketEntity> tickets = ticketRepository.findAllByUserIdOrderByDateAddedDesc(member.getId());
 //            if (tickets.size() < 3) {
 //
 //                TicketEntity ticketEntity = new TicketEntity();

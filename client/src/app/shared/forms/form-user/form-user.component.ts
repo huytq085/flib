@@ -2,6 +2,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { User, UserService } from '../../../core';
 import { HttpHeaderResponse } from '@angular/common/http';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-user',
@@ -33,7 +34,7 @@ export class FormUserComponent implements OnInit {
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')
       ])],
       fullName: ['', Validators.compose([
-        Validators.maxLength(25),
+        Validators.maxLength(50),
         Validators.minLength(5),
         Validators.required
       ])],
@@ -44,21 +45,45 @@ export class FormUserComponent implements OnInit {
         Validators.pattern('^([0-9]*)$'),
         Validators.required
       ])],
-      gender: ['', Validators.required],
+      gender: ['Male', Validators.required],
       identityCard: ['', Validators.compose([
         Validators.maxLength(12),
         Validators.minLength(9),
         Validators.pattern('^([0-9]*)$'),
         Validators.required
       ])]
-    });
+    },
+      { validator: this.checkIfMatchingPasswords('password', 'confirmPassword') }
+    );
+  }
+  checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    return (group: FormGroup) => {
+      console.log('check ne')
+      let passwordInput = group.controls[passwordKey],
+        passwordConfirmationInput = group.controls[passwordConfirmationKey];
+      if (passwordInput && passwordConfirmationInput) {
+        if (passwordInput.value !== passwordConfirmationInput.value) {
+          return passwordConfirmationInput.setErrors({ notEquivalent: true })
+        }
+        else {
+          return passwordConfirmationInput.setErrors(null);
+        }
+      }
+
+    }
   }
 
-  addPasswordControl(){
+
+  addPasswordControl() {
     this.userForm.addControl('password', new FormControl('', Validators.compose([
       Validators.maxLength(25),
       Validators.minLength(6),
       Validators.required
+    ])));
+    this.userForm.addControl('confirmPassword', new FormControl('', Validators.compose([
+      Validators.maxLength(25),
+      Validators.minLength(6),
+      Validators.required,
     ])));
   }
 
@@ -67,13 +92,13 @@ export class FormUserComponent implements OnInit {
     if (this.user.email) {
       this.userForm.patchValue(this.user);
       this.isPasswordChange = false;
-      if (this.user.password){
+      if (this.user.password) {
         delete this.user.password;
       }
     } else {
       console.log('else')
       this.addPasswordControl();
-      
+
       this.isPasswordChange = true;
     }
   }
@@ -87,8 +112,10 @@ export class FormUserComponent implements OnInit {
     if (!this.user.id) {
       this.userService.create(this.user).subscribe(
         data => {
-          console.log('created');
-          console.log(data);
+          swal({
+            title: 'Created successfully',
+            type: 'success'
+          })
           this.userEmitter.emit(data);
         },
         (err: HttpHeaderResponse) => {
@@ -99,8 +126,10 @@ export class FormUserComponent implements OnInit {
     } else {
       this.userService.update(this.user).subscribe(
         data => {
-          console.log('updated');
-          console.log(data);
+          swal({
+            title: 'Updated successfully',
+            type: 'success'
+          })
           this.userEmitter.emit(null);
         }
       )
@@ -113,7 +142,7 @@ export class FormUserComponent implements OnInit {
     Object.assign(this.user, values);
   }
 
-  changePassword(){
+  changePassword() {
     this.addPasswordControl();
     this.isPasswordChange = true;
   }

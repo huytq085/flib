@@ -20,16 +20,22 @@
             </button>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/admin/users']">
-            <i class="menu-icon mdi mdi-television"></i>
+        <li class="nav-item cursor-pointer" [routerLink]="['/admin/users']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link">
+            <i class="menu-icon mdi mdi-account"></i>
             <span class="menu-title">User Management</span>
           </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/admin/books']">
-              <i class="menu-icon mdi mdi-television"></i>
+        <li class="nav-item cursor-pointer" [routerLink]="['/admin/books']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link">
+              <i class="menu-icon mdi mdi-book-variant"></i>
               <span class="menu-title">Book Management</span>
+            </a>
+          </li>
+          <li class="nav-item cursor-pointer" [routerLink]="['/admin/tickets']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link">
+              <i class="menu-icon mdi mdi-folder"></i>
+              <span class="menu-title">Ticket Management</span>
             </a>
           </li>
       </ul>

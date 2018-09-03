@@ -1,0 +1,85 @@
+<h4>TICKET DETAIL</h4>
+<!-- <div class="table-responsive" *ngIf="!!ticket">
+  
+  <p>Id: {{ticket.userByUserId.id}} </p>
+  <p>Email: {{ticket.userByUserId.email}}</p>
+  <p>Full name: {{ticket.userByUserId.fullName}}</p>
+  <p>Address: {{ticket.userByUserId.address}}</p>
+  <p>Phone: {{ticket.userByUserId.phone}}</p>
+  <p>Gender: {{ticket.userByUserId.gender}}</p>
+  <p>Identity card: {{ticket.userByUserId.identityCard}}</p>
+</div> -->
+<h4>Infomation user</h4>
+<form>
+  <div class="form-group row">
+    <label for="email" class="col-sm-3 col-form-label">Email</label>
+    <div class="col-sm-9">{{ticket.userByUserId.email}}</div>
+  </div>
+  <div class="form-group row">
+    <label for="email" class="col-sm-3 col-form-label">Full name</label>
+    <div class="col-sm-9">{{ticket.userByUserId.fullName}}</div>
+  </div>
+  <div class="form-group row">
+    <label for="email" class="col-sm-3 col-form-label">Address</label>
+    <div class="col-sm-9">{{ticket.userByUserId.address}}</div>
+  </div>
+  <div class="form-group row">
+    <label for="email" class="col-sm-3 col-form-label">Cellphone number</label>
+    <div class="col-sm-9"> {{ticket.userByUserId.phone}}</div>
+  </div>
+  <div class="form-group row">
+    <label for="email" class="col-sm-3 col-form-label">Gender</label>
+    <div class="col-sm-9">{{ticket.userByUserId.gender}}</div>
+  </div>
+  <div class="form-group row">
+      <label for="email" class="col-sm-3 col-form-label">Identity card</label>
+      <div class="col-sm-9">{{ticket.userByUserId.identityCard}}</div>
+    </div>
+</form>
+
+
+<hr>
+<div class="table-responsive" *ngIf="!!ticket">
+  <a class="btn" (click)="goBack()">
+    <i class="menu-icon mdi mdi-keyboard-backspace"></i>
+    <span class="menu-title">Back</span>
+  </a>
+  <a class="btn" (click)="confirmStatus()" *ngIf="ticket.status === 0">
+    <i class="menu-icon mdi mdi-check"></i>
+    <span class="menu-title">Confirm ticket</span>
+  </a>
+  <table class="table table-striped" style="width: 100%">
+    <thead>
+      <tr>
+        <th>
+          Numbers
+        </th>
+        <th>
+          Book name
+        </th>
+        <th>
+          Author
+        </th>
+        <th>
+          Amount
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticketD of ticketDetail; let i = index">
+        <td>
+          {{i+1}}
+        </td>
+        <td aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+          {{ticketD.bookByBookId.name}}
+        </td>
+        <td style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+          {{ticketD.bookByBookId.authorByAuthorId.name}}
+        </td>
+        <td>
+          {{ticketD.amount}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

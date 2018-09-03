@@ -1,4 +1,3 @@
-
 <form [formGroup]="bookForm" (ngSubmit)="submitForm()" style="margin-bottom: 200px">
   <fieldset [disabled]="isSubmitting">
     <!-- <fieldset class="form-group">
@@ -7,90 +6,109 @@
     <div class="form-group row">
       <label for="name" class="col-sm-3 col-form-label">Name</label>
       <div class="col-sm-9">
-        <ng-select [items]="bookObservable$ | async"
-            formControlName="name"
-           bindLabel="name"
-           bindValue="id"
-           [addTag]="true"
-           [hideSelected]="true"
-           [loading]="isLoading"
-           [typeahead]="bookInput$"
-           (add)="onAdd($event)"
-           (clear)="onClear()"
-           (change)="onChange($event)">
-           <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+        <ng-select 
+          [items]="booksObservable$ | async" 
+          formControlName="name" 
+          bindLabel="name" 
+          bindValue="id" 
+          [addTag]="true" 
+          [hideSelected]="true"
+          [loading]="isLoading" 
+          [typeahead]="bookInput$" 
+          (add)="onAddBook($event)" 
+          (clear)="onClearBook()" 
+          (change)="onChangeBook($event)">
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
             <div style="margin: 10px 0;" class="card">
               <div class="card-body">
-                  <div class="row">
-                      <div class="col-sm-3">
-                          <img height="80" width="100" [src]="item.coverImage" />
-                      </div>
-                      <div class="col-sm-9">
-                          <h2 class="card-title wrap" [ngOptionHighlight]="search">{{item.name.substr(0,40)}}...</h2>
-                          <div class="d-flex">
-                            <p class="text-dark mr-2 mb-0 wrap">Author: {{ item.authorByAuthorId.name }}</p>
-                          </div>
-                          <p class="card-text wrap">
-                              Description: {{ item.description.substr(0,20) }}...
-                           </p>
-                      </div> 
+                <div class="row">
+                  <div class="col-sm-3">
+                    <img height="80" width="100" [src]="item.coverImage" />
                   </div>
-                  
-                
+                  <div class="col-sm-9">
+                    <h2 class="card-title wrap" [ngOptionHighlight]="search">{{item.name.substr(0,30)}}...</h2>
+                    <div class="d-flex">
+                      <p class="text-dark mr-2 mb-0 wrap">Author: {{ item.authorByAuthorId.name }}</p>
+                    </div>
+                    <p class="card-text wrap">
+                      Description: {{ item.description.substr(0,20) }}...
+                    </p>
+                  </div>
+                </div>
+
+
               </div>
             </div>
           </ng-template>
-    </ng-select>
-    
+        </ng-select>
+
       </div>
     </div>
-    
-  <ng-container *ngIf="isNew">
+
+    <ng-container *ngIf="isNewBook">
+
       <div class="form-group row">
-          <label class="col-sm-3 col-form-label">Image</label>
-          <div class="col-sm-9">
-            <div class="input-group">
-              <input class="form-control" name="coverImage" (change)="onFileChange($event)" type="file" />
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">
-                  <span class="fa fa-picture-o"></span>
-                </button>
-              </div>
-            </div>
-    
-          </div>
-    
-    
-        </div>
-        <div class="row">
-          <div class="col-sm-9 offset-sm-3">
-            <div class="image-preview-container" *ngIf="imagePreview">
-              <img [src]="imagePreview" height="200">
+        <label class="col-sm-3 col-form-label">Image</label>
+        <div class="col-sm-6" [class.disabled]="isDefaultImage">
+          <div class="input-group">
+            <input class="form-control" name="coverImage" (change)="onFileChange($event)" type="file" />
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button">
+                <span class="fa fa-picture-o"></span>
+              </button>
             </div>
           </div>
+          <div class="image-preview-container" *ngIf="imagePreview">
+            <img [src]="imagePreview" height="200">
+          </div>
         </div>
-    
+        <div class="col-sm-3 form-group">
+          <div class="form-check form-check-flat">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" [checked]="isDefaultImage" (change)="isDefaultImage = !isDefaultImage"> No Image
+              <i class="input-helper"></i>
+            </label>
+          </div>
+        </div>
+
+
+
+      </div>
       <div class="form-group row">
-          <label for="description" class="col-sm-3 col-form-label">Description</label>
-          <div class="col-sm-9">
-            <input formControlName="description" placeholder="Description" class="form-control " name="description" type="text" />
-            <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['fullName'].valid && settingsForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small> -->
-          </div>
+        <label for="description" class="col-sm-3 col-form-label">Description</label>
+        <div class="col-sm-9">
+          <input formControlName="description" placeholder="Description" class="form-control " name="description" type="text" />
+          <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['fullName'].valid && settingsForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small> -->
         </div>
-        <div class="form-group row">
-          <label for="author" class="col-sm-3 col-form-label">Author</label>
-          <div class="col-sm-9">
-            <input formControlName="author" placeholder="Author" class="form-control" name="author" type="text" />
-            <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['fullName'].valid && settingsForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small> -->
-          </div>
+      </div>
+      <div class="form-group row">
+        
+        <label for="author" class="col-sm-3 col-form-label">Author</label>
+        <div class="col-sm-9">
+            <ng-select 
+              [items]="authorsObservable$ | async" 
+              formControlName="author" 
+              bindLabel="name" 
+              bindValue="id" 
+              [addTag]="true" 
+              [hideSelected]="true"
+              [loading]="isLoading" 
+              [typeahead]="authorInput$" 
+              (add)="onAddAuthor($event)" 
+              (clear)="onClearAuthor()" 
+              (change)="onChangeAuthor($event)">
+            </ng-select>
+          <!-- <input formControlName="author" placeholder="Author" class="form-control" name="author" type="text" /> -->
+          <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['fullName'].valid && settingsForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small> -->
         </div>
-        
-        
-  </ng-container>
-  <div class="form-group row">
+      </div>
+
+
+    </ng-container>
+    <div class="form-group row">
       <label for="amount" class="col-sm-3 col-form-label">Amount</label>
       <div class="col-sm-9">
-        <input class="form-control " type="number" name="amount" formControlName="amount" />
+        <input class="form-control " type="number" min="1" name="amount" formControlName="amount" />
       </div>
     </div>
     <div class="offset-sm-3">
@@ -101,23 +119,29 @@
 
   </fieldset>
   <div class="ievent clearfix" *ngIf="book && book?.id">
-      <div class="entry-image">
-        <a href="#">
-          <img [src]="book.coverImage" [alt]="book.name">
-        </a>
+    <div class="entry-image">
+      <a href="#">
+        <img [src]="book.coverImage" [alt]="book.name">
+      </a>
+    </div>
+    <div class="entry-c">
+      <div class="entry-title">
+        <h2>
+          <a href="#">{{ book.name }}</a>
+        </h2>
       </div>
-      <div class="entry-c">
-        <div class="entry-title">
-          <h2><a href="#">{{ book.name }}</a></h2>
-        </div>
-        <ul class="entry-meta clearfix">
-          <li><span class="badge badge-success">{{book.authorByAuthorId.name }}</span></li>
-          <li><a href="#"><i class="icon-time"></i> {{ book.datePublished }}</a></li>
-        </ul>
-        <div class="entry-content">
-          <a [routerLink]="['/book', book.id]" class="btn btn-info">READ MORE</a>
-        </div>
+      <ul class="entry-meta clearfix">
+        <li>
+          <span class="badge badge-success">{{book.authorByAuthorId.name }}</span>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-time"></i> {{ book.datePublished }}</a>
+        </li>
+      </ul>
+      <div class="entry-content">
+        <a [routerLink]="['/book', book.id]" class="btn btn-info">READ MORE</a>
       </div>
-    </div>  
+    </div>
+  </div>
 </form>
-

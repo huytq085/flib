@@ -6,7 +6,9 @@ import { map, take }              from 'rxjs/operators';
 import { ProfileService, Ticket } from '../../../../core';
  
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TicketDetailResolver implements Resolve<Ticket> {
   constructor(
     private router: Router,
@@ -18,6 +20,7 @@ export class TicketDetailResolver implements Resolve<Ticket> {
     state: RouterStateSnapshot
   ): Observable<any> {
     let id = route.params['id']
+    console.log('resl ne')
     return this.profileService.getTicket(id).pipe(
         take(1),
         map (ticket => {

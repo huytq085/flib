@@ -1,7 +1,6 @@
 package com.fsoft.flib.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,7 +14,7 @@ public class ContributeEntity {
     private int userId;
     private int bookId;
     private Date dateAdded;
-    private byte status;
+    private int status;
     private UserEntity userByUserId;
     private BookEntity bookByBookId;
 
@@ -52,11 +51,11 @@ public class ContributeEntity {
 
     @Basic
     @Column(name = "status", nullable = false)
-    public byte getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -88,7 +87,7 @@ public class ContributeEntity {
     }
 
     @ManyToOne
-    @JsonBackReference(value = "contributes")
+    @JsonManagedReference(value = "contributes")
     @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public BookEntity getBookByBookId() {
         return bookByBookId;

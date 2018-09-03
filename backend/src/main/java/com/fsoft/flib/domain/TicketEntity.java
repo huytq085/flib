@@ -81,6 +81,7 @@ public class TicketEntity {
     }
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public UserEntity getUserByUserId() {
         return userByUserId;

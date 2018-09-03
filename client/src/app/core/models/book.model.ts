@@ -1,7 +1,8 @@
-import { Author } from './author.model';
+import {Author} from './author.model';
+import {React} from './react.model';
 
 export class Book {
-  id: number;
+  id?: number;
   name: string;
   authorByAuthorId: Author;
   rating: number;
@@ -10,7 +11,7 @@ export class Book {
   amount: number;
   description: string;
   coverImage: string;
-
+  reactionsById?: React[];
 
   // constructor(name: string,
   //             authorId: string,

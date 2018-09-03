@@ -1,9 +1,6 @@
 package com.fsoft.flib.rest;
 
-import com.fsoft.flib.domain.BookEntity;
-import com.fsoft.flib.domain.TicketDetailEntity;
-import com.fsoft.flib.domain.TicketEntity;
-import com.fsoft.flib.domain.UserEntity;
+import com.fsoft.flib.domain.*;
 import com.fsoft.flib.service.BookService;
 import com.fsoft.flib.service.TicketService;
 import com.fsoft.flib.service.UserService;
@@ -61,17 +58,17 @@ public class ProfileController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<List<BookEntity>> getContributes(Principal principal){
+    public ResponseEntity<List<ContributeEntity>> getContributes(Principal principal){
         HttpStatus status = HttpStatus.OK;
-        List<BookEntity> books = Collections.emptyList();
+        List<ContributeEntity> contributes = Collections.emptyList();
         if (principal != null) {
-            books = bookService.getContributesByEmail(principal.getName());
+            contributes = bookService.getContributesByEmail(principal.getName());
         } else {
             status = HttpStatus.UNAUTHORIZED;
         }
 //        System.out.println(JsonUtils.encode(books));
 
-        return new ResponseEntity<>(books, status);
+        return new ResponseEntity<>(contributes, status);
     }
 
     @RequestMapping(

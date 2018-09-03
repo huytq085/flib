@@ -1,15 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent, FooterComponent } from '.';
-import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { FormBookComponent } from './forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {HeaderComponent, FooterComponent} from '.';
+import {RouterModule} from '@angular/router';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FormBookComponent } from './forms/form-book/form-book.component';
 import { FormUserComponent } from './forms/form-user/form-user.component';
-import { ImageUploadComponent } from './image-helper/image-upload/image-upload.component';
 import { WebsiteModule } from '../website/website.module';
 import { SearchBookComponent } from './search-book/search-book.component';
+import { ImageUploadComponent } from './image-helper/image-upload/image-upload.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { LeftSidebarComponent } from './layout/left-sidebar/left-sidebar.component';
+import { FilterBookComponent } from './layout/left-sidebar/filter-book/filter-book.component';
+import { PaginationComponent } from './layout/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +20,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FooterComponent,
     FormBookComponent,
     FormUserComponent,
+    SearchBookComponent,
     ImageUploadComponent,
-    SearchBookComponent
+    LeftSidebarComponent,
+    FilterBookComponent,
+    PaginationComponent,
     ],
   imports: [
     CommonModule,
@@ -26,6 +32,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ReactiveFormsModule,
     RouterModule,
     NgSelectModule,
+    NgbModule.forRoot(),
   ],
   exports: [
     HeaderComponent,
@@ -35,7 +42,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     FormUserComponent,
     SearchBookComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+    LeftSidebarComponent,
+    PaginationComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

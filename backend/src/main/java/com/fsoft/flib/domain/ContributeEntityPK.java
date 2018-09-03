@@ -9,6 +9,14 @@ public class ContributeEntityPK implements Serializable {
     private int userId;
     private int bookId;
 
+    public ContributeEntityPK() {
+    }
+
+    public ContributeEntityPK(int userId, int bookId) {
+        this.userId = userId;
+        this.bookId = bookId;
+    }
+
     @Column(name = "user_id", nullable = false)
     @Id
     public int getUserId() {

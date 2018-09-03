@@ -2,20 +2,19 @@ package com.fsoft.flib.rest;
 
 import com.fsoft.flib.domain.Cart;
 import com.fsoft.flib.domain.TicketEntity;
-import com.fsoft.flib.repository.TicketRepository;
 import com.fsoft.flib.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Collection;
 
-@RestController
+
 //@CrossOrigin(origins = "http://localhost:4200")
+@RestController
 @RequestMapping("/api")
 public class TicketController {
     private final String BASE_URL = "/ticket";
@@ -24,8 +23,6 @@ public class TicketController {
 //    private final String GET_PAGE_BOOK = BASE_URL + "/page";
     private final String POST_NEW_TICKET = BASE_URL + "/create";
     private final TicketService ticketService;
-    @Autowired
-    TicketRepository ticketRepository;
 
     @Autowired
     public TicketController(TicketService ticketService) {
@@ -37,10 +34,44 @@ public class TicketController {
 //        return bookService.getOne(id);
 //    }
 //
-//    @GetMapping(path = GET_ALL_BOOK)
-//    public List<BookEntity> getBook() {
-//        return bookService.getAll();
-//    }
+//    Lay tat ca
+    @GetMapping(path = BASE_URL)
+    public Collection<TicketEntity> getTickets() {
+        return ticketService.getAll();
+    }
+
+    @RequestMapping(path = BASE_URL+"/{id}", method = RequestMethod.GET)
+    public ResponseEntity<TicketEntity> getOneTicket(@PathVariable int id){
+        TicketEntity ticketEntity=ticketService.getById(id);
+        if(ticketEntity != null){
+            return new ResponseEntity<>(ticketEntity,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(path = BASE_URL,
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TicketEntity> update(@RequestBody int idTicket){
+        System.out.println("Server: Hello! I'm ticket "+idTicket);
+        TicketEntity ticketEntity=ticketService.updateStatus(idTicket);
+        if(ticketEntity != null){
+            return new ResponseEntity<>(ticketEntity,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(path = BASE_URL,
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TicketEntity> delete(@RequestBody int idTicket){
+        System.out.println("Server: Hello! I'm ticket "+idTicket);
+        TicketEntity ticketEntity=ticketService.delete(idTicket);
+        if(ticketEntity != null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 //
 //    @GetMapping(path = GET_PAGE_BOOK)
 //    public Page<BookEntity> getPageBook(@RequestParam int page, @RequestParam int size) {

@@ -20,7 +20,7 @@ export class ProfileOrderComponent implements OnInit {
 
     // this.addData();
 
-    this.profileService.getTikets().subscribe(
+    this.profileService.getTickets().subscribe(
       data => {
         this.tickets = data;
       }
@@ -28,15 +28,5 @@ export class ProfileOrderComponent implements OnInit {
   }
 
 
-  getBookNames(ticket: Ticket): string{
-    let result = '';
-    for (const ticketDetail in ticket.ticketDetailsById) {
-      if (ticket.ticketDetailsById.hasOwnProperty(ticketDetail)) {
-        const element = ticket.ticketDetailsById[ticketDetail];
-        result+= '[' + element.bookByBookId.name.toString().substr(0,20) + '...], ';// Get 20 characters string from book name & join it
-      }
-    }
-    return result;
-  }
   
 }

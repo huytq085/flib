@@ -1,0 +1,3 @@
+<ngb-pagination class="pull-right" *ngIf="pageBook" [pageSize]="pageBook.numberOfElements" [collectionSize]="pageBook.totalElements"
+                (pageChange)="onChange($event)" [(page)]="pageBook.number" [maxSize]="5" [rotate]="true"
+                [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>

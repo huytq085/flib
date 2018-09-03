@@ -1,0 +1,41 @@
+<div class="table-responsive" *ngIf="books.length > 0; else noBooks">
+  <table class="table table table-bordered">
+    <thead>
+      <tr>
+        <th>Cover Image</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Quantity</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books; let i = index">
+        <td>
+          <a [routerLink]="['/book',book.id ]">
+            <img width="64" height="64" src="{{ book.coverImage }}" alt="{{ book.name }}">
+          </a>
+        </td>
+        <td>
+          <a [routerLink]="['/book',book.id ]">{{ book.name }}</a>
+        </td>
+        <td>
+          <a [routerLink]="['/author',book.authorByAuthorId.id ]">{{ book.authorByAuthorId.name }}</a>
+        </td>
+        <td>
+          <span class="amount">{{ book.amount }}</span>
+        </td>
+        <td>
+          <button (click)="take(book, i)" type="button" class="btn btn-sm btn-primary mr-1">
+            Take
+          </button>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  <pagination *ngIf="totalPages > 0" [currentPage]="currentPage" [totalPages]="totalPages" (setPageEmit)="setPage($event)"></pagination>
+</div>
+<ng-template #noBooks>
+  <p>No books</p>
+</ng-template>

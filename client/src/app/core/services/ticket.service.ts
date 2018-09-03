@@ -1,9 +1,11 @@
-import {Injectable} from '@angular/core';
-import {ApiService} from './api.service';
-import {Ticket, User} from '../models';
-import {Observable} from 'rxjs';
-import {Book} from '../models/book.model';
-import {Cart} from '../models/cart.model';
+import { Injectable } from '@angular/core';
+import { ApiService } from './api.service';
+import { Ticket, User } from '../models';
+import { Observable } from 'rxjs';
+import { Book } from '../models/book.model';
+import { Cart } from '../models/cart.model';
+import { TicketDetail } from '../models/ticket-detail.model';
+import { HttpClient } from 'selenium-webdriver/http';
 
 const BASE_URL = '/ticket';
 const CREATE_TICKET = BASE_URL + '/create';
@@ -14,7 +16,7 @@ const CREATE_TICKET = BASE_URL + '/create';
 export class TicketService {
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
   ) {
   }
 
@@ -24,19 +26,19 @@ export class TicketService {
     return this.apiService.post(`/ticket/create`, cart);
   }
 
-  // update(user: User): Observable<User> {
-  //   return this.apiService.put(`${BASE_URL}`, user, {responseType: 'text'});
-  // }
-  //
-  // contribute(book: Book): Observable<any> {
-  //   return this.apiService.post(`${BASE_URL}/contribute`, book);
-  // }
-  //
-  // getAll(): Observable<User[]> {
-  //   return this.apiService.get(`${BASE_URL}`);
-  // }
-  //
-  // delete(userId: number) {
-  //   return this.apiService.delete(`${BASE_URL}/${userId}`, {responseType: 'text'});
-  // }
+  getTickets(): Observable<Ticket[]> {
+    return this.apiService.get(`/ticket`);
+  }
+
+  getTicket(id: number): Observable<Ticket> {
+    return this.apiService.get(`/ticket/${id}`);
+  }
+
+  updateTicket(id: number): Observable<Ticket> {
+    return this.apiService.put(`/ticket`, id);
+  }
+
+  deleteTicket(id: number):Observable<Ticket>{
+    return this.apiService.delete(`/ticket`, id);
+  }
 }

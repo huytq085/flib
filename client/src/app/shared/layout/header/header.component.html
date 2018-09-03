@@ -13,29 +13,34 @@
 					<img src="assets/themes/images/logo@2x.png" alt="Canvas Logo">
 				</a>
 			</div>
+
+
 			<div id="top-account" class="dropdown" *ngIf="tokenStorage.loggedIn()">
-        <a class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-           aria-expanded="true">
-					<i class="icon-user"></i>
-				</a>
-				<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-					<a class="dropdown-item tleft" [routerLink]="['/profile']">Profile</a>
-					<a class="dropdown-item tleft" [routerLink]="['/messenger']">Messages
-						<span class="badge badge-pill badge-secondary fright" style="margin-top: 3px;">5</span>
+				<div ngbDropdown>
+					<a class="btn btn-secondary btn-sm dropdown-toggle" ngbDropdownToggle>
+						<i class="icon-user"></i>
 					</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item tleft" (click)="tokenStorage.logOut()" style="cursor: pointer;">Logout
-						<i class="icon-signout"></i>
-					</a>
-				</ul>
+					<ul class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+						<a class="dropdown-item tleft" [routerLink]="['/profile']">Profile</a>
+						<a class="dropdown-item tleft" [routerLink]="['/messenger']">Messages
+							<span class="badge badge-pill badge-secondary fright" style="margin-top: 3px;">5</span>
+						</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item tleft" (click)="tokenStorage.logOut()" style="cursor: pointer;">Logout
+							<i class="icon-signout"></i>
+						</a>
+					</ul>
+				</div>
+
 			</div>
-			<div id="top-account" *ngIf="!tokenStorage.loggedIn()"> <a [routerLink]="['/login']" class="btn btn-secondary btn-sm">
-				Login
+			<div id="top-account" *ngIf="!tokenStorage.loggedIn()">
+				<a [routerLink]="['/login']" class="btn btn-secondary btn-sm">
+					Login
 				</a>
 			</div>
 
 			<nav id="primary-menu">
-					<app-search-book></app-search-book>
+
 				<!-- <ul class="sf-js-enabled" style="touch-action: pan-y;">
 					<li class="sub-menu">
 						<a href="index.html" class="sf-with-ul">
@@ -1881,15 +1886,15 @@
 					</div>
 				</div>
 
-				<div id="top-search">
-					<a [routerLink]="['/']" id="top-search-trigger">
+				<!-- <div id="top-search">
+					<a id="top-search-trigger">
 						<i class="icon-search3"></i>
 						<i class="icon-line-cross"></i>
 					</a>
 					<form action="search.html" method="get">
 						<input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
 					</form>
-				</div>
+				</div> -->
 			</nav>
 		</div>
 	</div>

@@ -13,23 +13,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="cart_item" *ngFor="let book of bookContributes">
+          <tr class="cart_item" *ngFor="let contribute of contributes">
             <td class="cart-product-thumbnail">
-                <a [routerLink]="['/book',book.id ]">
-                <img width="64" height="64" src="{{ book.coverImage }}" alt="{{ book.name }}">
+                <a [routerLink]="['/book',contribute.bookByBookId.id ]">
+                <img width="64" height="64" src="{{ contribute.bookByBookId.coverImage }}" alt="{{ contribute.bookByBookId.name }}">
               </a>
             </td>
 
             <td class="cart-product-name">
-              <a [routerLink]="['/book',book.id ]">{{ book.name }}</a>
+              <a [routerLink]="['/book',contribute.bookByBookId.id ]">{{ contribute.bookByBookId.name }}</a>
             </td>
 
             <td class="cart-product-name">
-                <a [routerLink]="['/author',book.authorByAuthorId.id ]">{{ book.authorByAuthorId.name }}</a>
+                <a [routerLink]="['/author',contribute.bookByBookId.authorByAuthorId.id ]">{{ contribute.bookByBookId.authorByAuthorId.name }}</a>
             </td>
 
             <td class="cart-product-quantity">
-              <span class="amount">{{ book.amount }}</span>
+              <span class="amount">{{ contribute.bookByBookId.amount }}</span>
             </td>
 
             <td class="cart-product-subtotal">
