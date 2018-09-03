@@ -9,6 +9,14 @@ public class ReactionEntityPK implements Serializable {
     private int bookId;
     private int userId;
 
+    public ReactionEntityPK(int bookId, int userId) {
+        this.bookId = bookId;
+        this.userId = userId;
+    }
+
+    public ReactionEntityPK() {
+    }
+
     @Column(name = "book_id", nullable = false)
     @Id
     public int getBookId() {

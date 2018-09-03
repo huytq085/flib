@@ -17,11 +17,11 @@
 								<tr class="cart_item" *ngFor="let item of cart.cartItems;let i=index" >
 
 									<td class="cart-product-thumbnail">
-										<a href="#"><img width="64" height="64" src="{{books[i]?.coverImage}}" alt="Pink Printed Dress"></a>
+										<a href="#"><img width="64" height="64" src="{{item.book.coverImage}}" alt="Pink Printed Dress"></a>
 									</td>
 
 									<td class="cart-product-name">
-										<a href="#">{{books[i]?.name}}</a>
+										<a href="#">{{item.book.name}}</a>
 									</td>
 
 									<td class="cart-product-quantity">

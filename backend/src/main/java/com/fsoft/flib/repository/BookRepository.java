@@ -18,5 +18,5 @@ public interface BookRepository extends JpaRepository<BookEntity, Integer> {
     @Query("from BookEntity b join b.contributesById c where c.userByUserId.email = :email")
     List<BookEntity> findAllContributesByEmail(@Param("email") String email);
 
-    List<BookEntity> findByNameLikeOrAuthorByAuthorIdNameLike(String query,String query1);
+    List<BookEntity> findByNameLikeOrAuthorByAuthorIdNameLike(String query, String query1);
 }

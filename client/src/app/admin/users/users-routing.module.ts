@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminUsersComponent } from './users.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
@@ -54,7 +53,7 @@ const routes: Routes = [
       }
     ]
   }
-  
+
 
 ];
 
@@ -62,4 +61,5 @@ const routes: Routes = [
   exports: [RouterModule],
   imports: [RouterModule.forChild(routes)]
 })
-export class AdminUsersRoutingModule { }
+export class AdminUsersRoutingModule {
+}

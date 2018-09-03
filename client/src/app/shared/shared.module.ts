@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent, FooterComponent } from '.';
-import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {HeaderComponent, FooterComponent} from '.';
+import {RouterModule} from '@angular/router';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormBookComponent } from './forms/form-book/form-book.component';
 import { FormUserComponent } from './forms/form-user/form-user.component';
@@ -25,7 +25,6 @@ import { PaginationComponent } from './layout/pagination/pagination.component';
     LeftSidebarComponent,
     FilterBookComponent,
     PaginationComponent,
-    
     ],
   imports: [
     CommonModule,
@@ -48,4 +47,5 @@ import { PaginationComponent } from './layout/pagination/pagination.component';
     PaginationComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

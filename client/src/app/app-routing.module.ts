@@ -1,15 +1,16 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AdminAuthGuard } from './core';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AdminAuthGuard} from './core';
 
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './website/website.module#WebsiteModule'
+    loadChildren: './website/website.module#WebsiteModule',
+    // pathMatch: 'full'
   },
-  { 
-    path: 'admin', 
+  {
+    path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
     canActivate: [AdminAuthGuard]
   }
@@ -20,5 +21,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes)
   ]
+
 })
 export class AppRoutingModule { }

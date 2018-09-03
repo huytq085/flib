@@ -75,7 +75,7 @@ public class TicketServiceImpl implements TicketService {
             for (CartItem i : cart.cartItems) {
                 TicketDetailEntity ticketDetailEntity = new TicketDetailEntity();
                 ticketDetailEntity.setTicketId(savedTicket.getId());
-                ticketDetailEntity.setBookId(i.id);
+                ticketDetailEntity.setBookId(i.book.getId());
                 ticketDetailEntity.setAmount(i.amount);
                 ticketDetailService.save(ticketDetailEntity);
             }

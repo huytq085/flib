@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Profile } from '../../..';
 
 @Component({
-  selector: 'admin-header',
+  selector: 'app-admin-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })

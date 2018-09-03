@@ -2,44 +2,46 @@
   <div class="content-wrap">
     <div class="container clearfix">
       <div class="row">
+
         <div class="col-sm-3">
-          <app-left-sidebar ></app-left-sidebar>
+          <app-left-sidebar></app-left-sidebar>
         </div>
+
         <div class="col-sm-9">
-          <!--SHOP-->
-          <div id="shop" class="shop product-3 grid-container clearfix">
-            <div style="cursor:pointer" class="product sf-pant clearfix" *ngFor="let book of books" routerLink="/book/{{book.id}}">
-              <div class="product-image">
-                <a><img src="{{book.coverImage}}" alt="{{book.name}}"></a>
-                <div class="product-overlay">
-                  <a class="add-to-cart" (click)="addToCart(book)"><i class="icon-shopping-cart"></i><span> Add to Cart</span></a>
-                  <a class="item-quick-view" data-lightbox="ajax" routerLink="/book/{{book.id}}"><i class="icon-zoom-in2"></i><span>
-                      Quick View</span></a>
+          <div class="postcontent nobottommargin col_last">
+            <div id="shop" class="shop product-3 grid-container clearfix">
+              <div style="cursor:pointer" class="product sf-pant clearfix" *ngFor="let book of books">
+                <div class="product-image">
+                  <a routerLink="/book/{{book.id}}"><img src="{{book.coverImage}}" alt="{{book.name}}"></a>
+                  <div class="product-overlay">
+                    <a class="item-quick-view" data-lightbox="ajax" (click)="addToCart(book)"><i
+                      class="icon-shopping-cart"></i><span> Add to Cart</span></a>
+                    <a class="item-quick-view" data-lightbox="ajax" routerLink="/book/{{book.id}}"><i
+                      class="icon-zoom-in2"></i><span>
+                  Quick View</span></a>
+                  </div>
                 </div>
-              </div>
-              <div class="product-desc center">
-                <div class="product-title">
-                  <h3><a>{{book.name}}</a></h3>
-                </div>
-                <div class="product-price">{{book.authorByAuthorId}}</div>
-                <div class="product-rating">
-                  <i class="icon-star3" *ngFor="let number of [1,2,3,4,5]" [ngClass]="{
-                  'icon-star3': number <= book.rating,
-                  'icon-star-half-full': number>book.rating && book.rating+1 >number,
-                  'icon-star-empty':number>book.rating
-                }">
-                  </i>
+                <div class="product-desc center" routerLink="/book/{{book.id}}">
+                  <div class="product-title">
+                    <h3><a>{{book.name}}</a></h3>
+                  </div>
+                  <div class="product-price">{{book.authorByAuthorId.name}}</div>
+                  <div class="product-rating">
+                    <ng-template #t let-fill="fill">
+                  <span class="star" [class.full]="fill === 100">
+                    <span class="half" [style.width.%]="fill">&#x022C6;</span>&#x022C6;
+                  </span>
+                    </ng-template>
+                    <ngb-rating [(rate)]="book.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <app-pagination (choose)="onChoose($event)"></app-pagination>
-          <!--SHOP-->
         </div>
+
+        <app-pagination (choose)="onChoose($event)"></app-pagination>
       </div>
-
-
     </div>
   </div>
 </section>

@@ -1,4 +1,4 @@
-export class TypeOfBook{
-    id: number;
-    name: string;
+export class TypeOfBook {
+  id: number;
+  name: string;
 }

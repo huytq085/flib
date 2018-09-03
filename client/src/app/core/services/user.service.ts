@@ -8,7 +8,7 @@ import { HttpParams } from '@angular/common/http';
 const BASE_URL = '/users';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class UserService {
 

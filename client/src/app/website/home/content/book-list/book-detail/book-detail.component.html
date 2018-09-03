@@ -18,60 +18,113 @@
 								============================================= -->
             <div class="product-image">
               <img src="{{book.coverImage}}" alt="">
-              <!-- <div class="fslider">
-                <div class="flexslider">
-                  <div class="slider-wrap">
-                    <div class="slide">
-                      <a *ngIf="book" title="Pink Printed Dress - Front View">
-                        <img [src]="book.coverImage" alt="Pink Printed Dress">
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
             </div>
           </div>
 
           <div class="col_two_fifth product-desc">
 
-            <div class="product-price"><del>$39.99</del> <ins>$24.99</ins></div><!-- Product Single - Price End -->
+            <div class="product-price">Author: {{book.authorByAuthorId.name}}</div>
+            <!-- Product Single - Price End -->
 
             <div class="product-rating">
-              <i class="icon-star3" *ngFor="let number of [1,2,3,4,5]" [ngClass]="{
-                        'icon-star3': number <= book.rating,
-                        'icon-star-half-full': number>book.rating && book.rating+1 >number,
-                        'icon-star-empty':number>book.rating
-                      }">
-              </i>
+              <ng-template #t let-fill="fill">
+                  <span class="star" [class.full]="fill === 100">
+                    <span class="half" [style.width.%]="fill">&#x022C6;</span>&#x022C6;
+                  </span>
+              </ng-template>
+
+              <ngb-rating [(rate)]="book.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
             </div>
 
             <div class="clear"></div>
             <div class="line"></div>
 
-            <form class="cart nobottommargin clearfix" method="post" enctype='multipart/form-data'>
+            <div class="cart nobottommargin clearfix" method="post" enctype='multipart/form-data'>
               <div class="quantity clearfix">
-                <input type="button" value="-" class="minus">
-                <input type="text" step="1" min="1" name="quantity" value="1" title="Qty" class="qty" size="4" />
-                <input type="button" value="+" class="plus">
+                <input type="button" value="-" class="minus" (click)="minus()">
+                <input type="text" step="1" min="1" name="quantity" [value]="amount" title="Qty" class="qty" size="4"/>
+                <input type="button" value="+" class="plus" (click)="plus()">
               </div>
-              <button type="submit" class="add-to-cart button nomargin">Add to cart</button>
-              
-
-            </form>
-            <button class="btn btn-sm"
-                      [ngClass]="{ 
-                                    'btn-outline-danger': true,
-                                    'btn-danger': false }"
-                      (click)="toggleFavorite()">
-                        <i class="fa fa-heart-o"></i>
+              <button class="add-to-cart button nomargin" (click)="addToCart(book,this.amount)">Add to
+                cart
               </button>
+            </div>
+
+            <button class="btn btn-sm"
+                    [ngClass]="{'btn-outline-danger': true,'btn-danger': false }"
+                    (click)="toggleFavorite()">
+              <i class="fa fa-heart-o"></i>
+            </button>
 
             <div class="clear"></div>
             <div class="line"></div>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero velit id eaque ex quae laboriosam nulla optio
-              doloribus! Perspiciatis, libero, neque, perferendis at nisi optio dolor!</p>
-            <p>Perspiciatis ad eveniet ea quasi debitis quos laborum eum reprehenderit eaque explicabo assumenda rem modi.</p>
+            <p>{{book.description}}</p>
+
+          </div>
+          <hr>
+          <div class="col_full nobottommargin">
+            <div id="reviews" class="clearfix">
+              <div class="comment-div">
+                <ol class="commentlist clearfix">
+                  <li class="comment even thread-even depth-1" id="li-comment-1">
+                    <div id="comment-1" class="comment-wrap clearfix" *ngFor="let react of book.reactionsById">
+                      <div class="comment-meta">
+                        <div class="comment-author vcard">
+																	<span class="comment-avatar clearfix">
+																	<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60'
+                                       height='60' width='60'/></span>
+                        </div>
+                      </div>
+                      <div class="comment-content clearfix">
+                        <div class="comment-author">John Doe<span><a title="Permalink to this comment">{{react.dateUpdated|date}}</a></span>
+                        </div>
+                        <p>{{react.comment}}</p>
+                        <div class="review-comment-ratings">
+                          <ng-template #t let-fill="fill">
+                            <span class="star" [class.full]="fill === 100"><span class="half" [style.width.%]="fill">&#x022C6;</span>&#x022C6;</span>
+                          </ng-template>
+                          <ngb-rating [(rate)]="react.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                        </div>
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                  </li>
+                </ol>
+              </div>
+
+
+              <a class="button button-3d nomargin fright" (click)="open(content)">{{buttonText}}</a>
+              <ng-template #content let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="dateOfBirth">Date of birth</label>
+                      <div class="input-group">
+                        <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+                </div>
+              </ng-template>
+              <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+
+              <hr>
+
+              <pre>{{closeResult}}</pre>
+            </div>
           </div>
         </div>
       </div>

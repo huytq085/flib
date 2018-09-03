@@ -1,0 +1,59 @@
+<div class="main-panel">
+  <div class="container-fullwidth">
+    <div class="row">
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Book in Garage</h4>
+            <p class="card-description">
+              Manage
+              <code style="font-size: large">book</code>
+            </p>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <button type="button" class="pull-right btn btn-info btn-fw" (click)="isAdd=true">
+                  <i class="mdi mdi-book-plus"></i>Add book
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <app-add (clickButton)="isAdd=false" *ngIf="isAdd"></app-add>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                <tr>
+                  <th>Cover Image</th>
+                  <th>Book name</th>
+                  <th>Author</th>
+                  <th>Amount</th>
+                  <th>Rating</th>
+                  <th>Date Published</th>
+                  <th>Date Added</th>
+                </tr>
+                </thead>
+                <tbody *ngIf="pageBook">
+                <tr *ngFor="let book of pageBook.content" routerLink="/admin/book/{{book.id}}" style="cursor: pointer">
+                  <td><img [src]="book.coverImage" class="img-responsive" alt="Image"></td>
+                  <td>{{book.name}}</td>
+                  <td>{{book.authorByAuthorId.name}}</td>
+                  <td>{{book.amount}}</td>
+                  <td>{{book.rating}}</td>
+                  <td>{{book.datePublished | date:'longDate'}}</td>
+                  <td>{{book.dateAdded | date:'longDate'}}</td>
+                  <td>
+                    <label class="badge badge-danger">Pending</label>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <app-pagination></app-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

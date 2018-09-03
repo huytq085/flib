@@ -4,3 +4,4 @@ export * from './user.model';
 export * from './cart.model';
 export * from './contribute.model';
 export * from './page.model';
+export * from './book.model';
