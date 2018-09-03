@@ -22,7 +22,8 @@ export class BookDetailComponent implements OnInit {
 
   constructor(private bookService: BookService, private activatedRoute: ActivatedRoute,
               private userService: UserService, private cartService: CartService,
-              private modalService: NgbModal, private router: Router, private reactService: ReactService) {
+              private modalService: NgbModal, private router: Router, private reactService: ReactService,
+  ) {
   }
 
   ngOnInit() {
@@ -39,8 +40,10 @@ export class BookDetailComponent implements OnInit {
     /*= +this.activatedRoute.snapshot.paramMap.get('id');*/
     this.activatedRoute.params.subscribe(params => {
       id = params['id'];
-      this.bookService.getBook(id).subscribe(book => this.book = book);
-      this.reactService.getReactsByBookId(this.book.id).subscribe(data => this.reacts = data);
+      this.bookService.getBook(id).subscribe(book => {
+        this.book = book;
+        this.reactService.getReactsByBookId(this.book.id).subscribe(data => this.reacts = data);
+      });
     });
   }
 
@@ -62,7 +65,6 @@ export class BookDetailComponent implements OnInit {
     // this.userService
   }
 
-
   open(content) {
     if (localStorage.getItem('Authorization')) {
       this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -73,7 +75,6 @@ export class BookDetailComponent implements OnInit {
     } else {
       this.router.navigate(['/login']);
     }
-
   }
 
   private getDismissReason(reason: any): string {
@@ -87,7 +88,14 @@ export class BookDetailComponent implements OnInit {
   }
 
   submitReact() {
-    // console.log({bookId: this.book.id, rating: this.currentRate, comment: this.comment});
-    this.reactService.submitReact({bookId: this.book.id, rating: this.currentRate, comment: this.comment}).subscribe();
+    this.reactService.submitReact({
+      bookId: this.book.id,
+      rating: this.currentRate,
+      comment: this.comment
+    }).subscribe(data => {
+      if (data.userId) {
+        this.reactService.getReactsByBookId(this.book.id).subscribe(reacts => this.book.reactionsById = reacts);
+      }
+    });
   }
 }

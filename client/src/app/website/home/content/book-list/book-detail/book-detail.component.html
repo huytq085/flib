@@ -80,10 +80,12 @@
                         <div class="comment-author">John Doe<span><a title="Permalink to this comment">{{react.dateUpdated|date}}</a></span>
                         </div>
                         <p>{{react.comment}}</p>
-                        <ng-template #t let-fill="fill">
-                          <span class="star" [class.full]="fill === 100"><span class="half" [style.width.%]="fill">&#x022C6;</span>&#x022C6;</span>
-                        </ng-template>
-                        <ngb-rating [(rate)]="react.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                        <div class="review-comment-ratings">
+                          <ng-template #t let-fill="fill">
+                            <span class="star" [class.full]="fill === 100"><span class="half" [style.width.%]="fill">&#x022C6;</span>&#x022C6;</span>
+                          </ng-template>
+                          <ngb-rating [(rate)]="react.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                        </div>
                       </div>
                       <div class="clear"></div>
                     </div>
@@ -95,68 +97,33 @@
               <a class="button button-3d nomargin fright" (click)="open(content)">{{buttonText}}</a>
               <ng-template #content let-modal>
                 <div class="modal-header">
-                  <h4 class="modal-title" id="reviewFormModalLabel">Submit a Review</h4>
+                  <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
                   <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form class="nobottommargin" id="template-reviewform" name="template-reviewform" method="post">
-                    <!--<div class="col_half">-->
-                    <!--<label for="template-reviewform-name">Name <small>*</small></label>-->
-                    <!--<div class="input-group">-->
-                    <!--<div class="input-group-prepend">-->
-                    <!--<div class="input-group-text"><i class="icon-user"></i></div>-->
-                    <!--</div>-->
-                    <!--<input type="text" id="template-reviewform-name" name="template-reviewform-name" value="" class="form-control required" />-->
-                    <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<div class="col_half col_last">-->
-                    <!--<label for="template-reviewform-email">Email <small>*</small></label>-->
-                    <!--<div class="input-group">-->
-                    <!--<div class="input-group-prepend"><div class="input-group-text">@</div></div>-->
-                    <!--<input type="email" id="template-reviewform-email" name="template-reviewform-email" value="" class="required email form-control" />-->
-                    <!--</div>-->
-                    <!--</div>-->
-
-                    <div class="clear"></div>
-
-                    <div class="col_full col_last">
-                      <label for="template-reviewform-rating">Rating </label>
-                      <!--<select  name="template-reviewform-rating" class="form-control">-->
-                      <!--<option value="">&#45;&#45; Select One &#45;&#45;</option>-->
-                      <!--<option value="1">1</option>-->
-                      <!--<option value="2">2</option>-->
-                      <!--<option value="3">3</option>-->
-                      <!--<option value="4">4</option>-->
-                      <!--<option value="5">5</option>-->
-                      <!--</select>-->
-                      <!--<ngb-rating id="template-reviewform-rating" [(rate)]="currentRate"></ngb-rating>-->
-                      <ngb-rating id="template-reviewform-rating" [(rate)]="currentRate" [readonly]="false"
-                                  max="5"></ngb-rating>
+                  <form>
+                    <div class="form-group">
+                      <label for="dateOfBirth">Date of birth</label>
+                      <div class="input-group">
+                        <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+                        </div>
+                      </div>
                     </div>
-
-                    <div class="clear"></div>
-
-                    <div class="col_full">
-                      <label for="template-reviewform-comment">Comment
-                        <small>*</small>
-                      </label>
-                      <textarea class="required form-control" id="template-reviewform-comment"
-                                name="template-reviewform-comment" rows="6" cols="30" [(ngModel)]="comment"></textarea>
-                    </div>
-
-                    <div class="col_full nobottommargin">
-                      <button class="button button-3d nomargin" id="template-reviewform-submit"
-                              name="template-reviewform-submit" value="submit" (click)="submitReact()">Submit Review
-                      </button>
-                    </div>
-
                   </form>
                 </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+                </div>
               </ng-template>
+              <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
 
+              <hr>
+
+              <pre>{{closeResult}}</pre>
             </div>
           </div>
         </div>

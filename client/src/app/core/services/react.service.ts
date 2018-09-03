@@ -18,7 +18,7 @@ export class ReactService {
   constructor(private api: ApiService) {
   }
 
-  submitReact(react: React): Observable<boolean> {
+  submitReact(react: React): Observable<React> {
     return this.api.post(`${CREATE_URL}`, react);
   }
 

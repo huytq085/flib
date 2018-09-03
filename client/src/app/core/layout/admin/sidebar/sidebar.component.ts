@@ -3,7 +3,7 @@ import { Profile, UserService } from '../../../';
 import { TokenStorage } from '../../../../website/auth/authority/token.storage';
 
 @Component({
-  selector: 'admin-sidebar',
+  selector: 'app-admin-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })

@@ -25,6 +25,7 @@ import { SharedModule } from '../../shared/shared.module';
     ContentComponent,
     HomeComponent,
     PaginationComponent,
+
   ]
 })
 export class HomeModule {

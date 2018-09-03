@@ -9,3 +9,5 @@ export * from './auth.service';
 export * from './cart.service';
 export * from './book-list.service';
 export * from './react.service';
+export * from './type.service';
+

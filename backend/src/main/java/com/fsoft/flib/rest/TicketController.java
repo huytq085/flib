@@ -1,24 +1,16 @@
 package com.fsoft.flib.rest;
 
-import com.fsoft.flib.domain.BookEntity;
 import com.fsoft.flib.domain.Cart;
-import com.fsoft.flib.domain.TicketDetailEntity;
 import com.fsoft.flib.domain.TicketEntity;
-import com.fsoft.flib.repository.TicketRepository;
-import com.fsoft.flib.service.BookService;
 import com.fsoft.flib.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Collection;
-import java.util.List;
 
 
 //@CrossOrigin(origins = "http://localhost:4200")

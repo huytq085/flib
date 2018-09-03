@@ -1,7 +1,6 @@
 package com.fsoft.flib.service;
 
 import com.fsoft.flib.domain.*;
-import com.fsoft.flib.repository.BookRepository;
 import com.fsoft.flib.repository.TicketRepository;
 import com.fsoft.flib.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +68,7 @@ public class TicketServiceImpl implements TicketService {
             for (CartItem i : cart.cartItems) {
                 TicketDetailEntity ticketDetailEntity = new TicketDetailEntity();
                 ticketDetailEntity.setTicketId(savedTicket.getId());
-                ticketDetailEntity.setBookId(i.id);
+                ticketDetailEntity.setBookId(i.book.getId());
                 ticketDetailEntity.setAmount(i.amount);
                 ticketDetailService.save(ticketDetailEntity);
             }

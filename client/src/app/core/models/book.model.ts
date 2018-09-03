@@ -2,7 +2,7 @@ import {Author} from './author.model';
 import {React} from './react.model';
 
 export class Book {
-  id: number;
+  id?: number;
   name: string;
   authorByAuthorId: Author;
   rating: number;

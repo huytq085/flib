@@ -15,6 +15,13 @@ public class AuthorEntity {
     private String name;
     private Collection<BookEntity> booksById;
 
+    public AuthorEntity(String name) {
+    }
+
+    public AuthorEntity() {
+
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

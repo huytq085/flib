@@ -23,8 +23,6 @@ export class AdminAuthGuard implements CanActivate {
         map(
           (data) => {
             if (data) {
-              console.log('co data');
-              console.log(data);
               if (Array.isArray(data)) {
                 for (const key in data) {
                   if (data.hasOwnProperty(key)) {
