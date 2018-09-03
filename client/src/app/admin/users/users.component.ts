@@ -2,6 +2,8 @@ import { UserService } from './../../core/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../core';
 import swal from 'sweetalert2';
+import { Subject, of, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, catchError, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'admin-users',
@@ -9,7 +11,7 @@ import swal from 'sweetalert2';
   styleUrls: ['./users.component.css']
 })
 export class AdminUsersComponent implements OnInit {
-
+  currentUser: User;
   users: User[] = new Array();
   isEditor: boolean = false;
   selectedUser: User;
@@ -19,17 +21,38 @@ export class AdminUsersComponent implements OnInit {
   totalPages: number = 0;
   // pages: number[] = new Array();
 
+  private searchTerm$: Subject<string> = new Subject();
+
+
   constructor(
     private userService: UserService
   ) { }
 
   ngOnInit() {
+
     this.loadUsers();
+    this.loadSearch();
+  }
+
+  loadSearch() {
+    this.search(this.searchTerm$).subscribe(
+      data => {
+        this.users = data.filter(data => (data.email != this.currentUser.email));
+      });
+
+  }
+  search(terms: Observable<string>) {
+    return terms.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(term => this.userService.search(term))
+    )
   }
 
   loadUsers() {
     this.userService.currentUser.subscribe(
       user => {
+        this.currentUser = user;
         this.userService.getUsersPages(this.currentPage, this.userSize).subscribe(
           data => {
             console.log(data);
@@ -88,15 +111,8 @@ export class AdminUsersComponent implements OnInit {
   }
 
   searching(event) {
-    this.userService.currentUser.subscribe(
-      user => {
-        this.userService.search(event.target.value).subscribe(
-          data => {
-            this.users = data.filter(data => (data.email != user.email));
-          }
-        )
-      }
-    )
+    console.log('keyup: ' + event.target.value)
+    this.searchTerm$.next(event.target.value);
   }
 
 
