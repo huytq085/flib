@@ -1847,7 +1847,7 @@
 				<div id="top-cart">
 					<a routerLink="/cart" id="top-cart-trigger">
 						<i class="icon-shopping-cart"></i>
-						<span>{{ cart?.cartItems?.length }}</span>
+						<span *ngIf="cart && cart.cartItems && cart.cartItems.length">{{ cart?.cartItems?.length }}</span>
 					</a>
 					<div class="top-cart-content">
 						<div class="top-cart-title">
