@@ -15,8 +15,7 @@ export class AdminAuthGuard implements CanActivate {
     private router: Router,
     private userService: UserService,
     private tokenStorage: TokenStorage
-  ) {
-  }
+  ) { }
 
   canActivate(): Observable<boolean> {
     if (this.tokenStorage.loggedIn()) {
@@ -49,12 +48,6 @@ export class AdminAuthGuard implements CanActivate {
     } else {
       Swal('Không có quyền')
       this.router.navigateByUrl('/login?back=/admin');
-      return false;
     }
-        )
-      );
-  } else {
-  this.router.navigateByUrl('/login?back=/admin');
-}
   }
 }
