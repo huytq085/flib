@@ -24,8 +24,7 @@ import { PaginationComponent } from './layout/pagination/pagination.component';
     ImageUploadComponent,
     LeftSidebarComponent,
     FilterBookComponent,
-    PaginationComponent,
-    
+    PaginationComponent,   
     ],
   imports: [
     CommonModule,

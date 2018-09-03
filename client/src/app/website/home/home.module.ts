@@ -7,6 +7,7 @@ import { HomeComponent } from './home.component';
 import { PaginationComponent } from './content/book-list/pagination/pagination.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from '../../shared/shared.module';
+import { ShowFilterComponent } from './show-filter/show-filter.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { SharedModule } from '../../shared/shared.module';
     BookDetailComponent,
     ContentComponent,
     HomeComponent,
-    PaginationComponent
+    PaginationComponent,
+    ShowFilterComponent,
   ]
 })
 export class HomeModule { }

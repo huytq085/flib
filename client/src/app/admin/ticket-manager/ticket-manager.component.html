@@ -56,4 +56,4 @@
     </tbody>
   </table>
 </div>
-<pagination *ngIf="totalPages> 0" [currentPage]="currentPage" [totalPages]="totalPages" (setPageEmit)="setPage($event)"></pagination>
+<app-pagination *ngIf="totalPages> 0" [currentPage]="currentPage" [totalPages]="totalPages" (setPageEmit)="setPage($event)"></app-pagination>

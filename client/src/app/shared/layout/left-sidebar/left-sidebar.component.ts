@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { FilterBookComponent } from './filter-book/filter-book.component';
+import { Book } from '../../../core/models/book.model';
 
 @Component({
   selector: 'app-left-sidebar',
@@ -11,5 +13,4 @@ export class LeftSidebarComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

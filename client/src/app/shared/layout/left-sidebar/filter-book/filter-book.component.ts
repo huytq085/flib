@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { TypeOfBook } from '../../../../core/models/type.model';
 import { BookService } from '../../../../core/services/book.service';
 import { Book } from '../../../../core/models/book.model';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-filter-book',
@@ -15,7 +16,7 @@ export class FilterBookComponent implements OnInit {
 
   books: Book[];
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService, private router: Router) { }
 
   ngOnInit() {
     this.getType();
@@ -41,5 +42,16 @@ export class FilterBookComponent implements OnInit {
       this.books = data;
       console.log(this.books);
     });
+    this.onTap();
   }
+
+  public onTap() {
+    let navigationExtras: NavigationExtras = {
+        queryParams: {
+            "TamMap": this.idChecked
+        }
+    };
+    this.router.navigate(["page/:filter"], navigationExtras);
+}
+
 }
