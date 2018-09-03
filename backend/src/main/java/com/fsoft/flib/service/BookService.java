@@ -17,7 +17,7 @@ public interface BookService {
 
     BookEntity update(BookEntity BookEntity);
 
-    BookEntity delete(BookEntity BookEntity);
+    Optional<BookEntity> delete(int bookId);
 
     List<BookEntity> getAll();
 

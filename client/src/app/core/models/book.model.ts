@@ -12,7 +12,7 @@ export class Book {
   description: string;
   coverImage: string;
   reactionsById?: React[];
-
+  bookTypesById?: any;
   // constructor(name: string,
   //             authorId: string,
   //             rating: number,

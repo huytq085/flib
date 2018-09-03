@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface ReactRepository extends JpaRepository<ReactionEntity, ReactionEntityPK> {
     List<ReactionEntity> findAllByBookId(int bookId);
+
+    List<ReactionEntity> deleteAllByBookId(int bookId);
 }

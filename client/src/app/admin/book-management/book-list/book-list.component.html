@@ -1,7 +1,7 @@
 <div class="main-panel">
-  <div class="container-fullwidth">
+  <div class="content-wrapper">
     <div class="row">
-      <div class="col-lg-12 grid-margin stretch-card">
+      <div class="col-12  grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">Book in Garage</h4>
@@ -32,19 +32,38 @@
                   <th>Rating</th>
                   <th>Date Published</th>
                   <th>Date Added</th>
+                  <th></th>
                 </tr>
                 </thead>
                 <tbody *ngIf="pageBook">
-                <tr *ngFor="let book of pageBook.content" routerLink="/admin/book/{{book.id}}" style="cursor: pointer">
-                  <td><img [src]="book.coverImage" class="img-responsive" alt="Image"></td>
-                  <td>{{book.name}}</td>
-                  <td>{{book.authorByAuthorId.name}}</td>
-                  <td>{{book.amount}}</td>
-                  <td>{{book.rating}}</td>
-                  <td>{{book.datePublished | date:'longDate'}}</td>
-                  <td>{{book.dateAdded | date:'longDate'}}</td>
+                <tr *ngFor="let book of pageBook.content" style="cursor: pointer">
+                  <td routerLink="/admin/book/{{book.id}}"><img [src]="book.coverImage" class="img-responsive"
+                                                                alt="Image"></td>
+                  <td routerLink="/admin/book/{{book.id}}">{{book.name}}</td>
+                  <td routerLink="/admin/book/{{book.id}}">{{book.authorByAuthorId.name}}</td>
+                  <td routerLink="/admin/book/{{book.id}}">{{book.amount}}</td>
+                  <td routerLink="/admin/book/{{book.id}}">{{book.rating}}</td>
+                  <td routerLink="/admin/book/{{book.id}}">{{book.datePublished | date:'longDate'}}</td>
+                  <td routerLink="/admin/book/{{book.id}}">{{book.dateAdded | date:'longDate'}}</td>
                   <td>
-                    <label class="badge badge-danger">Pending</label>
+                    <button type="button" class="btn btn-icons btn-rounded btn-danger" (click)="preDelete(content)">
+                      <i class="mdi mdi-delete"></i>
+                    </button>
+                    <ng-template #content let-modal>
+                      <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modalRef.dismiss('Cross click')">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p>This will DELETE every data related and CAN NOT revert. Are you sure?</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="delete(book)">Delete</button>
+                        <button type="button" class="btn btn-default" (click)="modalRef.close('cancel click')">Cancel</button>
+                      </div>
+                    </ng-template>
                   </td>
                 </tr>
                 </tbody>

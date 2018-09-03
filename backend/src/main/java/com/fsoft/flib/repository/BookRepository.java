@@ -1,7 +1,6 @@
 package com.fsoft.flib.repository;
 
 import com.fsoft.flib.domain.BookEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +18,5 @@ public interface BookRepository extends JpaRepository<BookEntity, Integer> {
     List<BookEntity> findAllContributesByEmail(@Param("email") String email);
 
     List<BookEntity> findByNameLikeOrAuthorByAuthorIdNameLike(String query, String query1);
+
 }
