@@ -149,6 +149,7 @@ public class BookServiceImpl implements BookService {
         }
         return list;
     }
+
     @Override
     public BookEntity createBook(BookEntity bookEntity) {
         System.out.println(bookEntity.getAuthorByAuthorId().getName());
@@ -161,12 +162,29 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookEntity updateBook(BookEntity bookEntity) {
-        AuthorEntity authorEntity = new AuthorEntity();
-        authorEntity.setName(bookEntity.getAuthorByAuthorId().getName());
-        authorEntity = this.authorRepository.save(authorEntity);
-        bookEntity.setDateAdded(new Timestamp(new Date().getTime()));
+        BookEntity dbBook = this.bookRepository.findById(bookEntity.getId()).get();
+        if (bookEntity.getName().trim() == "") {
+            bookEntity.setName(dbBook.getName());
+        }
+        if (bookEntity.getDateAdded() == null) {
+            bookEntity.setDateAdded(dbBook.getDateAdded());
+        }
+        if (bookEntity.getDatePublished() == null) {
+            bookEntity.setDatePublished(dbBook.getDatePublished());
+        }
+        AuthorEntity authorEntity;
+        if (bookEntity.getAuthorId() == 0) {
+            bookEntity.setAuthorId(dbBook.getAuthorId());
+            authorEntity = this.authorRepository.findById(bookEntity.getAuthorId()).get();
+        } else {
+            authorEntity = new AuthorEntity();
+            authorEntity.setName(bookEntity.getAuthorByAuthorId().getName());
+            authorEntity = this.authorRepository.save(authorEntity);
+        }
         bookEntity.setAuthorId(authorEntity.getId());
-        bookEntity.setAuthorByAuthorId(authorEntity);
+        if(bookEntity.getCoverImage()==null){
+            bookEntity.setCoverImage(dbBook.getCoverImage());
+        }
         return this.bookRepository.save(bookEntity);
     }
 
