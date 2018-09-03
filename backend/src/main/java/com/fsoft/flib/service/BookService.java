@@ -30,6 +30,8 @@ public interface BookService {
 
     List<ContributeEntity> getContributesByUserId(int userId);
 
+    Page<ContributeEntity> getContributesByUserId(int userId, int page, int size);
+
     List<BookEntity> findByNameLike(String query,String query1);
 
     List<AuthorEntity> findAuthorByNameLike(String query);

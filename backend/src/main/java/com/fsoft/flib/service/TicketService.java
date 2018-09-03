@@ -2,6 +2,7 @@ package com.fsoft.flib.service;
 
 import com.fsoft.flib.domain.Cart;
 import com.fsoft.flib.domain.TicketEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,8 @@ public interface TicketService {
     List<TicketEntity> getAll();
 
     List<TicketEntity> getAllByUserId(int id);
+
+    Page<TicketEntity> getAllByUserId(int id, int page, int size);
 
     List<TicketEntity> getALlByEmail(String email);
 

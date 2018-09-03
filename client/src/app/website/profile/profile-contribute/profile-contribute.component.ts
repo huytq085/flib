@@ -50,17 +50,16 @@ export class ProfileContributeComponent implements OnInit {
       data => {
         console.log(data)
         if (data) {
-          swal({
-            type: 'success',
-            title: 'Successful',
-          }).then(() => {
-            value.book.id = data.bookId;
+          value.book.id = data.bookId;
             // Set book image to base64 to display in contribute list
             if (value.image) {
               value.book.coverImage = value.image;
             } else {
               value.book.coverImage = this.DEFAULT_IMAGE;
             }
+          swal({
+            type: 'success',
+            title: 'Successful',
           })
         }
 

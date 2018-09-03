@@ -14,6 +14,9 @@ export class UserDetailBookComponent implements OnInit {
   books: Book[] = new Array();
   userId: number;
 
+  currentPage: number = 0;
+  totalPages: number;
+
   constructor(
     private userService: UserService,
     private route: ActivatedRoute
@@ -22,12 +25,24 @@ export class UserDetailBookComponent implements OnInit {
   ngOnInit() {
     this.route.parent.params.subscribe(params => {
       this.userId = +params["id"];
-      this.userService.getBooksByUserId(this.userId).subscribe(
-        data => {
-          this.books = data;
-        }
-      )
+      this.loadBooks();
     });
+  }
+  loadBooks() {
+    let pageConfig = {
+      page: this.currentPage,
+      size: 5
+    }
+    this.userService.getBooksByUserId(this.userId, pageConfig).subscribe(
+      data => {
+        this.books = data['content'];
+        this.totalPages = data['totalPages'];
+      }
+    )
+  }
+  setPage(i){
+    this.currentPage = i;
+    this.loadBooks();
   }
   take(book: Book, index) {
     swal({

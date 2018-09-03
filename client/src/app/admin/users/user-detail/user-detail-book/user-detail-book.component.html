@@ -34,6 +34,7 @@
 
     </tbody>
   </table>
+  <pagination *ngIf="totalPages > 0" [currentPage]="currentPage" [totalPages]="totalPages" (setPageEmit)="setPage($event)"></pagination>
 </div>
 <ng-template #noBooks>
   <p>No books</p>

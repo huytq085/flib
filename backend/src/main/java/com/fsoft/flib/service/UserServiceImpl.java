@@ -172,6 +172,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Page<BookEntity> getBooksByUserId(int userId, int page, int size) {
+        return userRepository.getBooksByUserId(userId, PageRequest.of(page, size));
+    }
+
+    @Override
     public Boolean takeBook(int userId, int bookId) {
         userRepository.deleteBookFromTicketDetail(userId, bookId);
         return true;

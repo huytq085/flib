@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { User, Ticket, Contribute } from '../models';
 import { Book } from '../models/book.model';
+import { HttpParams } from '@angular/common/http';
 
 const BASE_URL = '/users';
 
@@ -60,8 +61,8 @@ export class UserService {
     favourite(bookId: number): Observable<boolean> {
         return this.apiService.get(`${BASE_URL}/favourite/${bookId}`);
     }
-    getTicketsByUserId(userId: number): Observable<Ticket[]> {
-        return this.apiService.get(`${BASE_URL}/${userId}/tickets`);
+    getTicketsByUserId(userId: number, pageConfig?: {}): Observable<any> {
+        return this.apiService.get(`${BASE_URL}/${userId}/tickets`, new HttpParams({ fromObject: pageConfig }));
     }
     actionTicket(ticketId: number, status?: number): Observable<boolean> {
         return this.apiService.get(`${BASE_URL}/tickets/${ticketId}?status=${status}`);
@@ -69,14 +70,14 @@ export class UserService {
     getOne(userId: number): Observable<User> {
         return this.apiService.get(`${BASE_URL}/${userId}`);
     }
-    getBooksByUserId(userId: number): Observable<Book[]> {
-        return this.apiService.get(`${BASE_URL}/${userId}/books`);
+    getBooksByUserId(userId: number, pageConfig?: {}): Observable<any> {
+        return this.apiService.get(`${BASE_URL}/${userId}/books`, new HttpParams({ fromObject: pageConfig }));
     }
     takeBook(userId: number, bookId: number): Observable<boolean> {
         return this.apiService.delete(`${BASE_URL}/${userId}/books/${bookId}`);
     }
-    getContributesByUserId(userId: number): Observable<Contribute[]> {
-        return this.apiService.get(`${BASE_URL}/${userId}/contributes`);
+    getContributesByUserId(userId: number, pageConfig?: {}): Observable<Contribute[]> {
+        return this.apiService.get(`${BASE_URL}/${userId}/contributes`, new HttpParams({ fromObject: pageConfig }));
     }
     approveContribute(userId: number, bookId: number, status: number): Observable<boolean> {
         return this.apiService.get(`${BASE_URL}/${userId}/contributes/${bookId}?status=${status}`);

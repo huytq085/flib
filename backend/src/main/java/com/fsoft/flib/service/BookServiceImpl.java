@@ -79,6 +79,11 @@ public class BookServiceImpl<main> implements BookService {
     }
 
     @Override
+    public Page<ContributeEntity> getContributesByUserId(int userId, int page, int size) {
+        return contributeRepository.findAllByUserIdOrderByDateAddedDesc(userId, PageRequest.of(page, size));
+    }
+
+    @Override
     public List<BookEntity> findByNameLike(String query, String query1) {
         return this.bookRepository.findByNameLikeOrAuthorByAuthorIdNameLike(query, query1);
     }

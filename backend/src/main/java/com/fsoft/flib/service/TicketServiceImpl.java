@@ -1,10 +1,11 @@
 package com.fsoft.flib.service;
 
 import com.fsoft.flib.domain.*;
-import com.fsoft.flib.repository.BookRepository;
 import com.fsoft.flib.repository.TicketRepository;
 import com.fsoft.flib.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -28,7 +29,12 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<TicketEntity> getAllByUserId(int id) {
-        return ticketRepository.findAllByUserId(id);
+        return ticketRepository.findAllByUserIdOrderByDateAdded(id);
+    }
+
+    @Override
+    public Page<TicketEntity> getAllByUserId(int id, int page, int size) {
+        return ticketRepository.findAllByUserIdOrderByDateAdded(id, PageRequest.of(page, size));
     }
 
     @Override

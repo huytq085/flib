@@ -31,7 +31,9 @@
 
     </tbody>
   </table>
+  <pagination *ngIf="totalPages > 0" [currentPage]="currentPage" [totalPages]="totalPages" (setPageEmit)="setPage($event)"></pagination>
 </div>
+
 <ng-template #noTickets>
   <p>No tickets</p>
 </ng-template>

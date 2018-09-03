@@ -14,6 +14,9 @@ export class UserDetailContributeComponent implements OnInit {
   contributes: Contribute[] = new Array();
   userId: number;
 
+  currentPage: number = 0;
+  totalPages: number;
+
   constructor(
     private profileService: ProfileService,
     private userService: UserService,
@@ -24,16 +27,29 @@ export class UserDetailContributeComponent implements OnInit {
     this.route.parent.params.subscribe(params => {
       this.userId = +params["id"];
       if (this.userId) {
-        this.userService.getContributesByUserId(this.userId).subscribe(
-          data => {
-            if (data) {
-              this.contributes = data;
-            }
-          }
-        )
+        console.log(this.contributes.length)
+        this.loadContributes();
       }
     });
 
+  }
+  loadContributes() {
+    let pageConfig = {
+      page: this.currentPage,
+      size: 5
+    }
+    this.userService.getContributesByUserId(this.userId, pageConfig).subscribe(
+      data => {
+        if (data) {
+          this.contributes = data['content'];
+          this.totalPages = data['totalPages'];
+        }
+      }
+    )
+  }
+  setPage(i){
+    this.currentPage = i;
+    this.loadContributes();
   }
   action(contribute: Contribute, status) {
     console.log(contribute)
@@ -48,7 +64,7 @@ export class UserDetailContributeComponent implements OnInit {
         this.userService.approveContribute(this.userId, contribute.bookByBookId.id, status).subscribe(
           data => {
             if (data) {
-              if (status == 1){
+              if (status == 1) {
                 contribute.status = 1;
               } else {
                 this.contributes.splice(this.contributes.indexOf(contribute), 1);

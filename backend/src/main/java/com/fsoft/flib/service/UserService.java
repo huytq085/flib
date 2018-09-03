@@ -36,6 +36,8 @@ public interface UserService {
 
     Set<BookEntity> getBooksByUserId(int userId);
 
+    Page<BookEntity> getBooksByUserId(int userId, int page, int size);
+
     Boolean takeBook(int userId, int bookId);
 
     Boolean approveContribute(int userId, int bookId, int status);
