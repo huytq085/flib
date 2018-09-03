@@ -34,7 +34,7 @@
                 </tr>
                 </thead>
                 <tbody *ngIf="pageBook">
-                <tr *ngFor="let book of pageBook.content" routerLink="/admin/book/{{book.id}}" style="cursor: pointer">
+                <tr *ngFor="let book of pageBook.content" style="cursor: pointer">
                   <td routerLink="/admin/book/{{book.id}}"><img [src]="book.coverImage" class="img-responsive" alt="Image"></td>
                   <td routerLink="/admin/book/{{book.id}}">{{book.name}}</td>
                   <td routerLink="/admin/book/{{book.id}}">{{book.authorByAuthorId.name}}</td>

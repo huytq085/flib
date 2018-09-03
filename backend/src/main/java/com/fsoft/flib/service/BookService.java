@@ -1,10 +1,6 @@
 package com.fsoft.flib.service;
 
-import com.fsoft.flib.domain.AuthorEntity;
-import com.fsoft.flib.domain.BookEntity;
-import com.fsoft.flib.domain.ContributeEntity;
-import com.fsoft.flib.domain.BookTypeEntity;
-import com.fsoft.flib.domain.TypeEntity;
+import com.fsoft.flib.domain.*;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
