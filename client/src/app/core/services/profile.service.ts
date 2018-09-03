@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Profile, Ticket, Contribute } from '../models';
 import { Book } from '../models/book.model';
+import { HttpParams } from '@angular/common/http';
 
 const BASE_URL = '/profile';
 
@@ -20,12 +21,12 @@ export class ProfileService {
     return this.apiService.get(`${BASE_URL}/info`);
   }
 
-  getContributes(): Observable<Contribute[]> {
-    return this.apiService.get(`${BASE_URL}/contributes`);
+  getContributes(pageConfig?: {}): Observable<any> {
+    return this.apiService.get(`${BASE_URL}/contributes`, new HttpParams({ fromObject: pageConfig }));
   }
 
-  getTickets(): Observable<Ticket[]> {
-    return this.apiService.get(`${BASE_URL}/tickets`);
+  getTickets(pageConfig?: {}): Observable<Ticket[]> {
+    return this.apiService.get(`${BASE_URL}/tickets`, new HttpParams({ fromObject: pageConfig }));
   }
 
   getTicket(id: number): Observable<Ticket> {

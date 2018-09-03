@@ -5,13 +5,11 @@ import com.fsoft.flib.service.BookService;
 import com.fsoft.flib.service.TicketService;
 import com.fsoft.flib.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Collections;
@@ -72,6 +70,23 @@ public class ProfileController {
     }
 
     @RequestMapping(
+            value = CONTRIBUTE_URL,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            params = {"page", "size"}
+    )
+    public ResponseEntity<Page<ContributeEntity>> getContributes(Principal principal, @RequestParam Integer page, @RequestParam Integer size){
+        HttpStatus status = HttpStatus.OK;
+        Page<ContributeEntity> contributes = null;
+        if (principal != null) {
+            contributes = bookService.getContributesByEmail(principal.getName(), page, size);
+        } else {
+            status = HttpStatus.UNAUTHORIZED;
+        }
+        return new ResponseEntity<>(contributes, status);
+    }
+
+    @RequestMapping(
             value = TICKET_URL,
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -82,6 +97,24 @@ public class ProfileController {
         if (principal != null) {
             UserEntity userEntity = userService.getByEmail(principal.getName());
             tickets = ticketService.getAllByUserId(userEntity.getId());
+        } else {
+            status = HttpStatus.UNAUTHORIZED;
+        }
+
+        return new ResponseEntity<>(tickets, status);
+    }
+    @RequestMapping(
+            value = TICKET_URL,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            params = {"page", "size"}
+    )
+    public ResponseEntity<Page<TicketEntity>> getTickets(Principal principal, Integer page, Integer size){
+        HttpStatus status = HttpStatus.OK;
+        Page<TicketEntity> tickets = null;
+        if (principal != null) {
+            UserEntity userEntity = userService.getByEmail(principal.getName());
+            tickets = ticketService.getAllByUserId(userEntity.getId(), page, size);
         } else {
             status = HttpStatus.UNAUTHORIZED;
         }

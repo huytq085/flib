@@ -12,19 +12,33 @@ export class ProfileOrderComponent implements OnInit {
 
   tickets: Ticket[] = new Array();
 
+  currentPage: number = 0;
+  totalPages:number;
+
   constructor(
     private profileService: ProfileService
   ) { }
 
   ngOnInit() {
+    this.loadTickets();    
+  }
 
-    // this.addData();
-
-    this.profileService.getTickets().subscribe(
+  loadTickets(){
+    let pageConfig = {
+      page: this.currentPage,
+      size: 5 // Get 5 items
+    }
+    this.profileService.getTickets(pageConfig).subscribe(
       data => {
-        this.tickets = data;
+        this.tickets = data['content'];
+        this.totalPages = data['totalPages'];
       }
     )
+  }
+
+  setPage(i){
+    this.currentPage = i;
+    this.loadTickets();
   }
 
 

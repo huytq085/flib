@@ -32,5 +32,6 @@
           </table>
         </div>
       </div>
+      <pagination *ngIf="totalPages > 0" [currentPage]="currentPage" [totalPages]="totalPages" (setPageEmit)="setPage($event)"></pagination>
 </section>
 <!-- #content end -->

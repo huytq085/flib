@@ -10,6 +10,7 @@
           [items]="booksObservable$ | async" 
           formControlName="name" 
           bindLabel="name" 
+          placeholder="Ex: Forrest Gump"
           bindValue="id" 
           [addTag]="true" 
           [hideSelected]="true"
@@ -75,9 +76,30 @@
 
       </div>
       <div class="form-group row">
+          <label for="description" class="col-sm-3 col-form-label">Types</label>
+          <div class="col-sm-9">
+              <ng-select [items]="authorsObservable$ | async"
+                        bindLabel="name"
+                        bindValue="id"
+                        [multiple]="true"
+                        [closeOnSelect]="false"
+                        [searchable]="false"
+                        placeholder="Select types"
+                        formControlName="types">
+              </ng-select>
+            <!-- <input formControlName="description" placeholder="Description" class="form-control " name="description" type="text" /> -->
+            <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['fullName'].valid && settingsForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small> -->
+          </div>
+        </div>
+      <div class="form-group row">
         <label for="description" class="col-sm-3 col-form-label">Description</label>
         <div class="col-sm-9">
-          <input formControlName="description" placeholder="Description" class="form-control " name="description" type="text" />
+            <textarea class="form-control form-control-lg"
+            rows="5"
+            placeholder="This book is about..."
+            formControlName="description">
+          </textarea>
+          <!-- <input formControlName="description" placeholder="Description" class="form-control " name="description" type="text" /> -->
           <!-- <small class="alert text-danger" *ngIf="!settingsForm.controls['fullName'].valid && settingsForm.controls['fullName'].touched">Độ dài: 5 <= Tên của bạn <= 25</small> -->
         </div>
       </div>
@@ -108,7 +130,7 @@
     <div class="form-group row">
       <label for="amount" class="col-sm-3 col-form-label">Amount</label>
       <div class="col-sm-9">
-        <input class="form-control " type="number" min="1" name="amount" formControlName="amount" />
+        <input placeholder="Amount" class="form-control " type="number" min="1" name="amount" formControlName="amount" />
       </div>
     </div>
     <div class="offset-sm-3">

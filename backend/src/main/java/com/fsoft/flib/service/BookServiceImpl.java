@@ -73,6 +73,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Page<ContributeEntity> getContributesByEmail(String email, int page, int size) {
+        UserEntity user = userRepository.findByEmail(email);
+        if (user != null) {
+            Page<ContributeEntity> contributes = contributeRepository.findAllByUserIdOrderByDateAddedDesc(user.getId(), PageRequest.of(page, size));
+            return contributes;
+        }
+        return null;
+    }
+
+    @Override
     public List<ContributeEntity> getContributesByUserId(int userId) {
         return contributeRepository.findAllByUserIdOrderByDateAddedDesc(userId);
     }

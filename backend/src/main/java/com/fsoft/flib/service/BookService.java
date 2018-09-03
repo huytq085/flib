@@ -28,6 +28,8 @@ public interface BookService {
 
     List<ContributeEntity> getContributesByEmail(String email);
 
+    Page<ContributeEntity> getContributesByEmail(String email, int page, int size);
+
     List<ContributeEntity> getContributesByUserId(int userId);
 
     Page<ContributeEntity> getContributesByUserId(int userId, int page, int size);

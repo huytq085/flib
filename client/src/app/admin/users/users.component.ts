@@ -60,7 +60,7 @@ export class AdminUsersComponent implements OnInit {
         this.userService.getAll(pageConfig).subscribe(
           data => {
             console.log(data);
-            this.users = data['content'];
+            this.users = data['content'].filter(user => (user.email != this.currentUser.email));
             this.totalPages = data['totalPages'];
           }
         )

@@ -1,3 +1,4 @@
+import { BookService } from './../../../core/services/book.service';
 
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Profile } from 'selenium-webdriver/firefox';
@@ -18,20 +19,36 @@ export class ProfileContributeComponent implements OnInit {
 
   contributes: Contribute[] = new Array();
 
+  currentPage: number = 0;
+  totalPages: number;
   constructor(
     private profileService: ProfileService,
-    private userService: UserService
+    private userService: UserService,
+    private bookService: BookService
   ) { }
 
   ngOnInit() {
-    this.profileService.getContributes().subscribe(
+    this.loadContributes();
+  }
+
+  loadContributes() {
+    let pageConfig = {
+      page: this.currentPage,
+      size: 5 // Get 5 items
+    }
+    this.profileService.getContributes(pageConfig).subscribe(
       data => {
         if (data) {
-          console.log(data)
-          this.contributes = data;
+          this.contributes = data['content'];
+          this.totalPages = data['totalPages'];
         }
       }
     )
+  }
+
+  setPage(i) {
+    this.currentPage = i;
+    this.loadContributes();
   }
 
   newContribute() {
@@ -51,12 +68,17 @@ export class ProfileContributeComponent implements OnInit {
         console.log(data)
         if (data) {
           value.book.id = data.bookId;
-            // Set book image to base64 to display in contribute list
-            if (value.image) {
-              value.book.coverImage = value.image;
-            } else {
-              value.book.coverImage = this.DEFAULT_IMAGE;
-            }
+          // Set book image to base64 to display in contribute list
+          if (value.image) {
+            value.book.coverImage = value.image;
+          } else {
+            value.book.coverImage = this.DEFAULT_IMAGE;
+          }
+          // Create Types
+          for (const type of value.book.types) {
+            this.bookService.createType(value.book, type).subscribe();
+          }
+          
           swal({
             type: 'success',
             title: 'Successful',
@@ -75,7 +97,7 @@ export class ProfileContributeComponent implements OnInit {
 
     })
     if (isNew) {
-      this.contributes.push({
+      this.contributes.unshift({
         bookByBookId: value.book
       } as Contribute
       );
