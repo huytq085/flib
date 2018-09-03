@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { AdminFooterComponent, AdminHeaderComponent } from '.';
 import { AdminSidebarComponent } from './layout/admin/sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    NgbModule.forRoot(),
   ],
   exports:[
     AdminHeaderComponent,
