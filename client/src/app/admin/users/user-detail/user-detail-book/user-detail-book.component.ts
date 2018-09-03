@@ -31,7 +31,7 @@ export class UserDetailBookComponent implements OnInit {
   loadBooks() {
     let pageConfig = {
       page: this.currentPage,
-      size: 5
+      size: 5 //get 5 items
     }
     this.userService.getBooksByUserId(this.userId, pageConfig).subscribe(
       data => {

@@ -17,7 +17,7 @@ export class AdminUsersComponent implements OnInit {
   selectedUser: User;
   buttonLabel: string = 'New User';
   currentPage: number = 0;
-  userSize: number = 5;
+  userSize: number = 5; //get 5 items
   totalPages: number = 0;
   // pages: number[] = new Array();
 
@@ -50,10 +50,14 @@ export class AdminUsersComponent implements OnInit {
   }
 
   loadUsers() {
+    let pageConfig = {
+      page: this.currentPage,
+      size: this.userSize
+    }
     this.userService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        this.userService.getUsersPages(this.currentPage, this.userSize).subscribe(
+        this.userService.getAll(pageConfig).subscribe(
           data => {
             console.log(data);
             this.users = data['content'];
@@ -112,7 +116,12 @@ export class AdminUsersComponent implements OnInit {
 
   searching(event) {
     console.log('keyup: ' + event.target.value)
-    this.searchTerm$.next(event.target.value);
+    if (event.target.value == ''){
+      this.loadUsers();
+    } else {
+      this.searchTerm$.next(event.target.value);
+    }
+    
   }
 
 

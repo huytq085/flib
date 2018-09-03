@@ -28,7 +28,6 @@ import java.util.Set;
 public class UserController {
     private final String ROLE_ADMIN = "ROLE_ADMIN";
     private final String BASE_URL = "/users";
-    private final String USERS_PAGES_URL = "/users/pages";
     private final String GET_ONE_URL = BASE_URL + "/{id}";
     private final String GET_ROLES_URL = BASE_URL + "/roles";
     private final String CONTRIBUTE_URL = BASE_URL + "/contribute";
@@ -58,7 +57,7 @@ public class UserController {
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
-    @RequestMapping(path = USERS_PAGES_URL, method = RequestMethod.GET)
+    @RequestMapping(path = BASE_URL, method = RequestMethod.GET, params = {"size", "page"})
     public ResponseEntity<Page<UserEntity>> findUserPaginated(@RequestParam("page") int page, @RequestParam("size") int size) {
         return new ResponseEntity<>(userService.findUserPaginated(page, size), HttpStatus.OK);
     }

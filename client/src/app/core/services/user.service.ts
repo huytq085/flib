@@ -38,13 +38,13 @@ export class UserService {
         return this.apiService.post(`${BASE_URL}/contribute`, book);
     }
 
-    getAll(): Observable<User[]> {
-        return this.apiService.get(`${BASE_URL}`);
+    getAll(pageConfig?: {}): Observable<User[]> {
+        return this.apiService.get(`${BASE_URL}`, new HttpParams({ fromObject: pageConfig }));
     }
 
-    getUsersPages(page: number, size: number): Observable<any> {
-        return this.apiService.get(`${BASE_URL}/pages?page=${page}&size=${size}`);
-    }
+    // getUsersPages(page: number, size: number): Observable<any> {
+    //     return this.apiService.get(`${BASE_URL}/pages?page=${page}&size=${size}`);
+    // }
 
     delete(userId: number) {
         return this.apiService.delete(`${BASE_URL}/${userId}`, { responseType: 'text' })

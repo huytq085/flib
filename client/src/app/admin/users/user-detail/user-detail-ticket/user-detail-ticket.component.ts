@@ -32,7 +32,7 @@ export class UserDetailTicketComponent implements OnInit {
   loadTickets(){
     let pageConfig = {
       page: this.currentPage,
-      size: 5
+      size: 5 //get 5 items
     }
     this.userService.getTicketsByUserId(this.userId, pageConfig).subscribe(
       data => {

@@ -36,7 +36,7 @@ export class UserDetailContributeComponent implements OnInit {
   loadContributes() {
     let pageConfig = {
       page: this.currentPage,
-      size: 5
+      size: 5 //get 5 items
     }
     this.userService.getContributesByUserId(this.userId, pageConfig).subscribe(
       data => {
