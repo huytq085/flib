@@ -1,6 +1,5 @@
 package com.fsoft.flib.repository;
 
-import com.fsoft.flib.domain.BookEntity;
 import com.fsoft.flib.domain.ContributeEntity;
 import com.fsoft.flib.domain.ContributeEntityPK;
 import org.springframework.data.domain.Page;
@@ -14,4 +13,5 @@ public interface ContributeRepository extends JpaRepository<ContributeEntity, Co
 
     Page<ContributeEntity> findAllByUserIdOrderByDateAddedDesc(int userId, Pageable pageable);
 
+    List<ContributeEntity> deleteAllByBookId(int bookId);
 }

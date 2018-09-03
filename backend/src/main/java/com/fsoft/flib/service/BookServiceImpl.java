@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -19,9 +20,10 @@ public class BookServiceImpl implements BookService {
     private final TypeRepository typeRepository;
     private final BookTypeRepository bookTypeRepository;
     private final TicketDetailRepository ticketDetailRepository;
+    private final ReactRepository reactRepository;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, ContributeRepository contributeRepository, UserRepository userRepository, AuthorRepository authorRepository, TypeRepository typeRepository, BookTypeRepository bookTypeRepository, TicketDetailRepository ticketDetailRepository) {
+    public BookServiceImpl(BookRepository bookRepository, ContributeRepository contributeRepository, UserRepository userRepository, AuthorRepository authorRepository, TypeRepository typeRepository, BookTypeRepository bookTypeRepository, TicketDetailRepository ticketDetailRepository, ReactRepository reactRepository) {
         this.bookRepository = bookRepository;
         this.contributeRepository = contributeRepository;
         this.userRepository = userRepository;
@@ -29,6 +31,7 @@ public class BookServiceImpl implements BookService {
         this.typeRepository = typeRepository;
         this.bookTypeRepository = bookTypeRepository;
         this.ticketDetailRepository = ticketDetailRepository;
+        this.reactRepository = reactRepository;
     }
 
 
@@ -43,8 +46,15 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookEntity delete(BookEntity BookEntity) {
-        return null;
+    @Transactional
+    public Optional<BookEntity> delete(int bookId) {
+        this.bookTypeRepository.deleteAllByBookId(bookId);
+        this.contributeRepository.deleteAllByBookId(bookId);
+        this.reactRepository.deleteAllByBookId(bookId);
+        this.ticketDetailRepository.deleteAllByBookId(bookId);
+        Optional<BookEntity> bookEntity = this.bookRepository.findById(bookId);
+        this.bookRepository.deleteById(bookId);
+        return bookEntity;
     }
 
     @Override
@@ -156,6 +166,7 @@ public class BookServiceImpl implements BookService {
         authorEntity = this.authorRepository.save(authorEntity);
         bookEntity.setDateAdded(new Timestamp(new Date().getTime()));
         bookEntity.setAuthorId(authorEntity.getId());
+        bookEntity.setAuthorByAuthorId(authorEntity);
         return this.bookRepository.save(bookEntity);
     }
 

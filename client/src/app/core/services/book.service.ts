@@ -89,11 +89,15 @@ export class BookService {
 
   updateBook(book: Book): Observable<Book> {
     console.log(book);
-    return this.api.post(`/book/update`, book);
+    return this.api.put(`/book/update`, book);
   }
 
 
   createType(book: Book, typeId: number): Observable<TypeOfBook> {
     return this.api.post(`/book/${book.id}/${typeId}`, '');
+  }
+
+  deleteBook(book: Book): Observable<Book> {
+    return this.api.delete(`/book/delete/${book.id}`, {responseType: 'text'});
   }
 }

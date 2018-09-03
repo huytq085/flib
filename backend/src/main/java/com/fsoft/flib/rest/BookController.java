@@ -41,6 +41,7 @@ public class BookController {
     private final String UPDATE_BOOK = BASE_URL + "/update";
     private final String CREATE_BOOK = BASE_URL + "/create";
     private final String SAVE_IMAGE = BASE_URL + "/saveimage";
+    private final String DELETE_BOOK = BASE_URL + "/delete/{id}";
 
 
     private final BookService bookService;
@@ -129,8 +130,17 @@ public class BookController {
         return this.bookService.createTypeForBook(bookId, typeId);
     }
 
-    @PostMapping(path = UPDATE_BOOK)
+    @PutMapping(path = UPDATE_BOOK)
     public BookEntity updateBook(@RequestBody BookEntity bookEntity) {
         return this.bookService.updateBook(bookEntity);
+    }
+
+    @DeleteMapping(path = DELETE_BOOK)
+    public String deleteBook(@PathVariable int id) {
+        if (this.bookService.delete(id).isPresent()) {
+            return "success";
+        } else {
+            return "fail";
+        }
     }
 }
