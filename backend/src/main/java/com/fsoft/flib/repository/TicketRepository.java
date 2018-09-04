@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends JpaRepository<TicketEntity, Integer> {
-    Page<TicketEntity> findAllByOrderByDateAdded(Pageable pageable);
+    Page<TicketEntity> findAllByOrderByDateAddedDesc(Pageable pageable);
     List<TicketEntity> findAllByUserIdOrderByDateAdded(int userId);
 
     Page<TicketEntity> findAllByUserIdOrderByDateAdded(int userId, Pageable pageable);

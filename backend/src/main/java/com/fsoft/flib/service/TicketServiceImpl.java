@@ -110,7 +110,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Page<TicketEntity> findTicketPaninated(int page, int size) {
-        return ticketRepository.findAllByOrderByDateAdded(PageRequest.of(page, size));
+        return ticketRepository.findAllByOrderByDateAddedDesc(PageRequest.of(page, size));
     }
 
 //    @Override
