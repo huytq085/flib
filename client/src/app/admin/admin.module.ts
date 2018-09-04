@@ -1,12 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AdminHomeComponent } from './home';
-import { AdminRoutingModule } from './admin-routing.module';
-import { AdminComponent } from './admin.component';
-import { CoreModule } from '../core/core.module';
-import { SharedModule } from '../shared/shared.module';
-
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {AdminHomeComponent} from './home';
+import {AdminRoutingModule} from './admin-routing.module';
+import {AdminComponent} from './admin.component';
+import {CoreModule} from '../core/core.module';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +13,8 @@ import { SharedModule } from '../shared/shared.module';
     CoreModule,
     SharedModule
   ],
-  exports:[AdminHomeComponent],
+  exports: [AdminHomeComponent],
   declarations: [AdminHomeComponent, AdminComponent]
 })
-export class AdminModule { }
+export class AdminModule {
+}

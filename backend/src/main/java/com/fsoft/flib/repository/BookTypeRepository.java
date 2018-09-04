@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface BookTypeRepository extends JpaRepository<BookTypeEntity,BookTypeEntityPK> {
+public interface BookTypeRepository extends JpaRepository<BookTypeEntity, BookTypeEntityPK> {
     List<BookTypeEntity> findAllByTypeId(int id);
+
+    List<BookTypeEntity> deleteAllByBookId(int id);
 }

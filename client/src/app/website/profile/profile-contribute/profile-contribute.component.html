@@ -40,6 +40,7 @@
         </tbody>
 
       </table>
+      <pagination *ngIf="totalPages > 0" [currentPage]="currentPage" [totalPages]="totalPages" (setPageEmit)="setPage($event)"></pagination>
     </div>
     <ng-container *ngIf="isAdding">
       <app-form-book (bookEmitter)="contributeDone($event)"></app-form-book>

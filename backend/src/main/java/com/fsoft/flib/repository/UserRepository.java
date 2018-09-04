@@ -3,6 +3,7 @@ package com.fsoft.flib.repository;
 import com.fsoft.flib.domain.BookEntity;
 import com.fsoft.flib.domain.UserEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -25,6 +26,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
     @Query("from BookEntity b join TicketDetailEntity td on b.id = td.bookId join TicketEntity t on t.id = td.ticketId where t.userId = :userId and t.status = 1")
     Set<BookEntity> getBooksByUserId(@Param("userId") int userId);
+
+    @Query("from BookEntity b join TicketDetailEntity td on b.id = td.bookId join TicketEntity t on t.id = td.ticketId where t.userId = :userId and t.status = 1")
+    Page<BookEntity> getBooksByUserId(@Param("userId") int userId, Pageable pageable);
 
     @Transactional
     @Modifying

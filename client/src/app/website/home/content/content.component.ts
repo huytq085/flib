@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Book } from '../../../core/models/book.model';
+import { Component, OnInit } from '@angular/core';
+import { Book } from '../../../core/models';
 import { ActivatedRoute } from '@angular/router';
-import { BookService } from '../../../core/services/book.service';
+import { BookService, SharedService } from '../../../core/services';
 
 @Component({
   selector: 'app-content',
@@ -11,12 +11,27 @@ import { BookService } from '../../../core/services/book.service';
 export class ContentComponent implements OnInit {
   books: Book[] = [];
 
-  constructor(private activedRoute: ActivatedRoute, private bookService: BookService) {
+  constructor(private activatedRoute: ActivatedRoute, private bookService: BookService, private sharedService: SharedService) {
   }
 
 
   ngOnInit(): void {
-    const number = +this.activedRoute.snapshot.paramMap.get('number');
-    this.bookService.getBookByPage(number, 9).subscribe(data => this.books = data.content);
+    this.sharedService.books.subscribe(
+      data => {
+        this.books = data;
+      }
+    )
+    let number = 1;
+    this.activatedRoute.params.subscribe(params => {
+      number = params['number'];
+      this.bookService.getBookByPage(number, 9).subscribe(
+        page => {
+          this.sharedService.updateBooks(page.content);
+        }
+      );
+    });
   }
+
+  // TODO write function to retrive book list with filter conditions
+
 }

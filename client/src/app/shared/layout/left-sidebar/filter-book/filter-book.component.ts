@@ -3,6 +3,7 @@ import { TypeOfBook } from '../../../../core/models/type.model';
 import { BookService } from '../../../../core/services/book.service';
 import { Book } from '../../../../core/models/book.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { SharedService } from '../../../../core';
 
 @Component({
   selector: 'app-filter-book',
@@ -16,7 +17,7 @@ export class FilterBookComponent implements OnInit {
 
   books: Book[];
 
-  constructor(private bookService: BookService, private router: Router) { }
+  constructor(private bookService: BookService, private router: Router, private sharedService: SharedService) { }
 
   ngOnInit() {
     this.getType();
@@ -38,20 +39,29 @@ export class FilterBookComponent implements OnInit {
         }
       })
     }
-    this.bookService.getBookByType(this.idChecked).subscribe(data => {
-      this.books = data;
-      console.log(this.books);
-    });
-    this.onTap();
+    if (this.idChecked.length > 0) {
+      this.bookService.getBookByType(this.idChecked).subscribe(data => {
+        this.sharedService.updateBooks(data);
+        this.books = data;
+        console.log(this.books);
+      });
+    } else {
+      this.bookService.getBookByPage(1, 9).subscribe(
+        page => {
+          this.sharedService.updateBooks(page.content);
+        }
+      );
+    }
+    // this.onTap();
   }
 
-  public onTap() {
-    let navigationExtras: NavigationExtras = {
-        queryParams: {
-            "TamMap": this.idChecked
-        }
-    };
-    this.router.navigate(["page/:filter"], navigationExtras);
-}
+  // public onTap() {
+  //   let navigationExtras: NavigationExtras = {
+  //       queryParams: {
+  //           "TamMap": this.idChecked
+  //       }
+  //   };
+  //   this.router.navigate(["page/:filter"], navigationExtras);
+  // }
 
 }

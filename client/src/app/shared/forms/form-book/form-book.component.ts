@@ -8,6 +8,7 @@ import { NgSelectModule, NgOption } from '@ng-select/ng-select';
 import { Subject, Observable, concat, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
 import swal from 'sweetalert2';
+import { TypeOfBook } from '../../../core/models/type.model';
 
 @Component({
   selector: 'app-form-book',
@@ -26,6 +27,7 @@ export class FormBookComponent implements OnInit {
   isNewAuthor = false;
   authorsObservable$: Observable<Author[]>;
   authorInput$ = new Subject<string>();
+  typesObservable$: Observable<TypeOfBook[]>;
   imagePreview;
 
   isDefaultImage = false;
@@ -41,13 +43,15 @@ export class FormBookComponent implements OnInit {
       name: '',
       description: '',
       author: '',
-      amount: ''
+      amount: '',
+      types: ''
     });
   }
 
   ngOnInit() {
     this.loadBooks();
     this.loadAuthors();
+    this.loadTypes();
 
   }
   loadBooks() {
@@ -63,6 +67,9 @@ export class FormBookComponent implements OnInit {
         ))
       )
     );
+  }
+  loadTypes(){
+    this.authorsObservable$ = this.bookService.getTypes();
   }
   loadAuthors() {
     this.authorsObservable$ = concat(

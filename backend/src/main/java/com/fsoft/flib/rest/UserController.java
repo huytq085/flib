@@ -28,7 +28,6 @@ import java.util.Set;
 public class UserController {
     private final String ROLE_ADMIN = "ROLE_ADMIN";
     private final String BASE_URL = "/users";
-    private final String USERS_PAGES_URL = "/users/pages";
     private final String GET_ONE_URL = BASE_URL + "/{id}";
     private final String GET_ROLES_URL = BASE_URL + "/roles";
     private final String CONTRIBUTE_URL = BASE_URL + "/contribute";
@@ -58,7 +57,7 @@ public class UserController {
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
-    @RequestMapping(path = USERS_PAGES_URL, method = RequestMethod.GET)
+    @RequestMapping(path = BASE_URL, method = RequestMethod.GET, params = {"size", "page"})
     public ResponseEntity<Page<UserEntity>> findUserPaginated(@RequestParam("page") int page, @RequestParam("size") int size) {
         return new ResponseEntity<>(userService.findUserPaginated(page, size), HttpStatus.OK);
     }
@@ -163,6 +162,28 @@ public class UserController {
     }
 
     @RequestMapping(
+            value = GET_USER_TICKETS_URL,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            params = {"page", "size"}
+    )
+    public ResponseEntity<Page<TicketEntity>> getTicketsByUserId(@PathVariable int userId, Authentication authentication, @RequestParam Integer page, @RequestParam Integer size) {
+        HttpStatus status = HttpStatus.OK;
+        Page<TicketEntity> tickets = null;
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            if (userHasAuthority(userDetails, ROLE_ADMIN)) {
+                if (page != null && size != null) {
+                    tickets = ticketService.getAllByUserId(userId, page, size);
+                }
+            } else {
+                status = HttpStatus.UNAUTHORIZED;
+            }
+        }
+        return new ResponseEntity<>(tickets, status);
+    }
+
+    @RequestMapping(
             value = USERS_TICKET_ID_URL,
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -198,6 +219,26 @@ public class UserController {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             if (userHasAuthority(userDetails, ROLE_ADMIN)) {
                 books = userService.getBooksByUserId(userId);
+            } else {
+                status = HttpStatus.UNAUTHORIZED;
+            }
+        }
+        return new ResponseEntity<>(books, status);
+    }
+
+    @RequestMapping(
+            value = GET_USER_BOOKS_URL,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            params = {"page", "size"}
+    )
+    public ResponseEntity<Page<BookEntity>> getBooksByUserId(@PathVariable int userId, Authentication authentication, @RequestParam Integer page, @RequestParam Integer size) {
+        HttpStatus status = HttpStatus.OK;
+        Page<BookEntity> books = null;
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            if (userHasAuthority(userDetails, ROLE_ADMIN)) {
+                books = userService.getBooksByUserId(userId, page, size);
             } else {
                 status = HttpStatus.UNAUTHORIZED;
             }
@@ -246,6 +287,26 @@ public class UserController {
             }
         }
         return new ResponseEntity<>(conributes, status);
+    }
+
+    @RequestMapping(
+            value = GET_USER_CONTRIBUTES_URL,
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            params = {"page","size"}
+    )
+    public ResponseEntity<Page<ContributeEntity>> getContributesByUserId(@PathVariable int userId, Authentication authentication, @RequestParam Integer page, @RequestParam Integer size) {
+        HttpStatus status = HttpStatus.OK;
+        Page<ContributeEntity> contributes = null;
+        if (authentication != null) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            if (userHasAuthority(userDetails, ROLE_ADMIN)) {
+                contributes = bookService.getContributesByUserId(userId, page, size);
+            } else {
+                status = HttpStatus.UNAUTHORIZED;
+            }
+        }
+        return new ResponseEntity<>(contributes, status);
     }
 
     @RequestMapping(

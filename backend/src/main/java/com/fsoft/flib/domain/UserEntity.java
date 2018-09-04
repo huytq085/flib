@@ -19,7 +19,6 @@ public class UserEntity {
     private String phone;
 
 
-
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {

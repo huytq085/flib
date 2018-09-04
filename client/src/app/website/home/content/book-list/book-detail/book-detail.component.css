@@ -1,0 +1,23 @@
+.star {
+  position: relative;
+  display: inline-block;
+  font-size: 3rem;
+  color: #d3d3d3;
+}
+
+.full {
+  color: black;
+}
+
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: black;
+}
+
+.comment-div{
+  overflow: auto;
+  max-width: 100%;
+  max-height: 330px;
+}

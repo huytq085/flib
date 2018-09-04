@@ -1,7 +1,6 @@
 package com.fsoft.flib.service;
 
 import com.fsoft.flib.domain.*;
-import com.fsoft.flib.repository.BookRepository;
 import com.fsoft.flib.repository.TicketRepository;
 import com.fsoft.flib.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,12 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<TicketEntity> getAllByUserId(int id) {
-        return ticketRepository.findAllByUserId(id);
+        return ticketRepository.findAllByUserIdOrderByDateAdded(id);
+    }
+
+    @Override
+    public Page<TicketEntity> getAllByUserId(int id, int page, int size) {
+        return ticketRepository.findAllByUserIdOrderByDateAdded(id, PageRequest.of(page, size));
     }
 
     @Override
@@ -71,7 +75,7 @@ public class TicketServiceImpl implements TicketService {
             for (CartItem i : cart.cartItems) {
                 TicketDetailEntity ticketDetailEntity = new TicketDetailEntity();
                 ticketDetailEntity.setTicketId(savedTicket.getId());
-                ticketDetailEntity.setBookId(i.id);
+                ticketDetailEntity.setBookId(i.book.getId());
                 ticketDetailEntity.setAmount(i.amount);
                 ticketDetailService.save(ticketDetailEntity);
             }
@@ -106,7 +110,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Page<TicketEntity> findTicketPaninated(int page, int size) {
-        return ticketRepository.findAll(PageRequest.of(page, size));
+        return ticketRepository.findAllByOrderByDateAdded(PageRequest.of(page, size));
     }
 
 //    @Override

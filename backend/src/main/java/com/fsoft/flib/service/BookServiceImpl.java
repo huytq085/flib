@@ -1,36 +1,38 @@
 package com.fsoft.flib.service;
 
-import com.fsoft.flib.domain.AuthorEntity;
-import com.fsoft.flib.domain.BookEntity;
-import com.fsoft.flib.domain.ContributeEntity;
-import com.fsoft.flib.domain.UserEntity;
-import com.fsoft.flib.repository.AuthorRepository;
-import com.fsoft.flib.repository.BookRepository;
-import com.fsoft.flib.repository.ContributeRepository;
-import com.fsoft.flib.repository.UserRepository;
 import com.fsoft.flib.domain.*;
 import com.fsoft.flib.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 @Service
-public class BookServiceImpl<main> implements BookService {
+public class BookServiceImpl implements BookService {
+    private final BookRepository bookRepository;
+    private final ContributeRepository contributeRepository;
+    private final UserRepository userRepository;
+    private final AuthorRepository authorRepository;
+    private final TypeRepository typeRepository;
+    private final BookTypeRepository bookTypeRepository;
+    private final TicketDetailRepository ticketDetailRepository;
+    private final ReactRepository reactRepository;
+
     @Autowired
-    private BookRepository bookRepository;
-    @Autowired
-    private ContributeRepository contributeRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private AuthorRepository authorRepository;
-    @Autowired
-    private TypeRepository typeRepository;
-    @Autowired
-    private BookTypeRepository bookTypeRepository;
+    public BookServiceImpl(BookRepository bookRepository, ContributeRepository contributeRepository, UserRepository userRepository, AuthorRepository authorRepository, TypeRepository typeRepository, BookTypeRepository bookTypeRepository, TicketDetailRepository ticketDetailRepository, ReactRepository reactRepository) {
+        this.bookRepository = bookRepository;
+        this.contributeRepository = contributeRepository;
+        this.userRepository = userRepository;
+        this.authorRepository = authorRepository;
+        this.typeRepository = typeRepository;
+        this.bookTypeRepository = bookTypeRepository;
+        this.ticketDetailRepository = ticketDetailRepository;
+        this.reactRepository = reactRepository;
+    }
 
 
     @Override
@@ -44,8 +46,15 @@ public class BookServiceImpl<main> implements BookService {
     }
 
     @Override
-    public BookEntity delete(BookEntity BookEntity) {
-        return null;
+    @Transactional
+    public Optional<BookEntity> delete(int bookId) {
+        this.bookTypeRepository.deleteAllByBookId(bookId);
+        this.contributeRepository.deleteAllByBookId(bookId);
+        this.reactRepository.deleteAllByBookId(bookId);
+        this.ticketDetailRepository.deleteAllByBookId(bookId);
+        Optional<BookEntity> bookEntity = this.bookRepository.findById(bookId);
+        this.bookRepository.deleteById(bookId);
+        return bookEntity;
     }
 
     @Override
@@ -74,8 +83,23 @@ public class BookServiceImpl<main> implements BookService {
     }
 
     @Override
+    public Page<ContributeEntity> getContributesByEmail(String email, int page, int size) {
+        UserEntity user = userRepository.findByEmail(email);
+        if (user != null) {
+            Page<ContributeEntity> contributes = contributeRepository.findAllByUserIdOrderByDateAddedDesc(user.getId(), PageRequest.of(page, size));
+            return contributes;
+        }
+        return null;
+    }
+
+    @Override
     public List<ContributeEntity> getContributesByUserId(int userId) {
         return contributeRepository.findAllByUserIdOrderByDateAddedDesc(userId);
+    }
+
+    @Override
+    public Page<ContributeEntity> getContributesByUserId(int userId, int page, int size) {
+        return contributeRepository.findAllByUserIdOrderByDateAddedDesc(userId, PageRequest.of(page, size));
     }
 
     @Override
@@ -124,5 +148,33 @@ public class BookServiceImpl<main> implements BookService {
             }
         }
         return list;
+    }
+    @Override
+    public BookEntity createBook(BookEntity bookEntity) {
+        System.out.println(bookEntity.getAuthorByAuthorId().getName());
+        AuthorEntity authorEntity = new AuthorEntity();
+        authorEntity.setName(bookEntity.getAuthorByAuthorId().getName());
+        authorEntity = this.authorRepository.save(authorEntity);
+        bookEntity.setAuthorId(authorEntity.getId());
+        return bookRepository.save(bookEntity);
+    }
+
+    @Override
+    public BookEntity updateBook(BookEntity bookEntity) {
+        AuthorEntity authorEntity = new AuthorEntity();
+        authorEntity.setName(bookEntity.getAuthorByAuthorId().getName());
+        authorEntity = this.authorRepository.save(authorEntity);
+        bookEntity.setDateAdded(new Timestamp(new Date().getTime()));
+        bookEntity.setAuthorId(authorEntity.getId());
+        bookEntity.setAuthorByAuthorId(authorEntity);
+        return this.bookRepository.save(bookEntity);
+    }
+
+    @Override
+    public BookTypeEntity createTypeForBook(int bookId, int typeId) {
+        BookTypeEntity bookTypeEntity = new BookTypeEntity();
+        bookTypeEntity.setBookId(bookId);
+        bookTypeEntity.setTypeId(typeId);
+        return this.bookTypeRepository.save(bookTypeEntity);
     }
 }

@@ -75,7 +75,7 @@
     </tbody>
   </table>
 
-
+  <pagination *ngIf="totalPages > 0" [currentPage]="currentPage" [totalPages]="totalPages" (setPageEmit)="setPage($event)"></pagination>
 </div>
-<pagination *ngIf="totalPages > 0" [currentPage]="currentPage" [totalPages]="totalPages" (setPageEmit)="setPage($event)"></pagination>
+
 <app-form-user *ngIf="isEditor" [user]="selectedUser" (userEmitter)="userEmit($event)"></app-form-user>

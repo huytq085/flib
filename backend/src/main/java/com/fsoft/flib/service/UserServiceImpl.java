@@ -72,10 +72,7 @@ public class UserServiceImpl implements UserService {
     public boolean delete(int id) {
         UserEntity userEntity = userRepository.findById(id);
         userRepository.delete(userEntity);
-        if (userRepository.findById(id) == null) {
-            return true;
-        }
-        return false;
+        return userRepository.findById(id) == null;
     }
 
     @Override
@@ -98,10 +95,7 @@ public class UserServiceImpl implements UserService {
     public boolean checkLogin(UserEntity userLogin) {
         UserEntity userReg = userRepository.findByEmail(userLogin.getEmail());
         if (userReg != null) {
-            if (passwordEncoder.matches(userLogin.getPassword(), userReg.getPassword())) {
-                return true;
-            }
-            return false;
+            return passwordEncoder.matches(userLogin.getPassword(), userReg.getPassword());
         }
         return false;
     }
@@ -172,6 +166,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Page<BookEntity> getBooksByUserId(int userId, int page, int size) {
+        return userRepository.getBooksByUserId(userId, PageRequest.of(page, size));
+    }
+
+    @Override
     public Boolean takeBook(int userId, int bookId) {
         userRepository.deleteBookFromTicketDetail(userId, bookId);
         return true;
@@ -202,12 +201,12 @@ public class UserServiceImpl implements UserService {
             book.setCoverImage(Constants.DEFAULT_COVER_IMAGE_PATH);
         } else if (!book.getCoverImage().matches("([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)|^(https?)://.*$")) {
             System.out.println("set ne");
-            String coverImagePath = "/cover_img/" + book.getAuthorId() + "_" + new Timestamp(System.currentTimeMillis()).getTime() + ".png";
-            String path = Constants.STATIC_IMG_BOOK_PATH + coverImagePath;
+            String coverImagePath = "/" + book.getAuthorId() + "_" + new Timestamp(System.currentTimeMillis()).getTime() + ".png";
+            String path = Constants.STATIC_PATH + coverImagePath;
             try {
                 if (ImageUtils.writeImage(path, book.getCoverImage())) {
                     System.out.println("create file success");
-                    book.setCoverImage(Constants.REAL_STATIC_IMG_BOOK_PATH + coverImagePath);
+                    book.setCoverImage(Constants.LOAD_BOOK_FILE_API + coverImagePath);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

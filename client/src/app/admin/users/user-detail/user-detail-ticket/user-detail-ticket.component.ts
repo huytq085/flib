@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 export class UserDetailTicketComponent implements OnInit {
 
   tickets: Ticket[] = new Array();
+  totalPages: number;
+  currentPage: number = 0;
   userId;
 
   constructor(
@@ -23,13 +25,26 @@ export class UserDetailTicketComponent implements OnInit {
     console.log(this.route.parent)
     this.route.parent.params.subscribe(params => {
       this.userId = +params["id"];
-      this.userService.getTicketsByUserId(this.userId).subscribe(
-        data => {
-          this.tickets = data;
-        }
-      )
+      this.loadTickets();    
     });
 
+  }
+  loadTickets(){
+    let pageConfig = {
+      page: this.currentPage,
+      size: 5 //get 5 items
+    }
+    this.userService.getTicketsByUserId(this.userId, pageConfig).subscribe(
+      data => {
+        this.tickets = data['content'];
+        this.totalPages = data['totalPages'];
+      }
+    )
+  }
+  setPage(i){
+    console.log(i)
+    this.currentPage = i;
+    this.loadTickets();
   }
 
 }

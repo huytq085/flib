@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { BehaviorSubject } from 'rxjs';
-import { Cart } from '../';
+import { Cart, Book } from '../';
 
 
 @Injectable({
@@ -11,6 +11,9 @@ export class SharedService {
 
     private cartSubject = new BehaviorSubject<Cart>({} as Cart);
     public cart = this.cartSubject.asObservable();
+
+    private booksSubject = new BehaviorSubject<Book[]>(new Array());
+    public books = this.booksSubject.asObservable();
 
     constructor(
 
@@ -25,6 +28,10 @@ export class SharedService {
     updateCart(cart: Cart) {
         console.log('update cart ne')
         this.cartSubject.next(cart);
+    }
+
+    updateBooks(books: Book[]){
+        this.booksSubject.next(books);
     }
 
 
