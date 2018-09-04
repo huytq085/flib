@@ -1,22 +1,24 @@
-import {Injectable, OnInit} from '@angular/core';
-import {Book, Cart} from '../models';
-import {BookService} from './book.service';
-import {CartItem} from '../models/cart-item.model';
-import {SharedService} from './shared.service';
-import {TokenStorage} from '../../website/auth/authority/token.storage';
-import {TicketService} from './ticket.service';
+import { Injectable, OnInit } from '@angular/core';
+import { Book, Cart } from '../models';
+import { BookService } from './book.service';
+import { CartItem } from '../models/cart-item.model';
+import { SharedService } from './shared.service';
+import { TokenStorage } from '../../website/auth/authority/token.storage';
+import { TicketService } from './ticket.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService implements OnInit {
   books: Book[] = [];
-  cart: Cart = {cartItems: {}} as Cart;
+  cart: Cart = { cartItems: {} } as Cart;
 
   constructor(private bookService: BookService,
-              private ticketService: TicketService,
-              private tokenStorage: TokenStorage,
-              private sharedService: SharedService) {
+    private ticketService: TicketService,
+    private tokenStorage: TokenStorage,
+    private sharedService: SharedService,
+    private router: Router) {
     this.cart = JSON.parse(localStorage.getItem('cart')) as Cart;
   }
 
@@ -39,7 +41,7 @@ export class CartService implements OnInit {
         this.cart.cartItems.push(item);
       }
     } else {
-      this.cart = {cartItems: []} as Cart;
+      this.cart = { cartItems: [] } as Cart;
       this.cart.cartItems.push(item);
     }
     localStorage.setItem('cart', JSON.stringify(this.cart));
@@ -70,6 +72,8 @@ export class CartService implements OnInit {
         this.cart = {} as Cart;
         localStorage.removeItem('cart');
         this.cart = JSON.parse(localStorage.getItem('cart')) as Cart;
+        alert('Success');
+        this.router.navigate([`/`]);
       });
     }
   }
