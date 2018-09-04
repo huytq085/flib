@@ -28,9 +28,9 @@
 
             <div class="product-rating">
               <ng-template #t let-fill="fill">
-                  <span class="star" [class.full]="fill === 100">
-                    <span class="half" [style.width.%]="fill">&#x022C6;</span>&#x022C6;
-                  </span>
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&#x022C6;</span>&#x022C6;
+                </span>
               </ng-template>
 
               <ngb-rating [(rate)]="book.rating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
@@ -42,17 +42,14 @@
             <div class="cart nobottommargin clearfix" method="post" enctype='multipart/form-data'>
               <div class="quantity clearfix">
                 <input type="button" value="-" class="minus" (click)="minus()">
-                <input type="text" step="1" min="1" name="quantity" [value]="amount" title="Qty" class="qty" size="4"/>
+                <input type="text" step="1" min="1" name="quantity" [value]="amount" title="Qty" class="qty" size="4" />
                 <input type="button" value="+" class="plus" (click)="plus()">
               </div>
-              <button class="add-to-cart button nomargin" (click)="addToCart(book,this.amount)">Add to
-                cart
+              <button class="add-to-cart button nomargin" (click)="addToCart(book,this.amount)">Add to cart
               </button>
             </div>
 
-            <button class="btn btn-sm"
-                    [ngClass]="{'btn-outline-danger': true,'btn-danger': false }"
-                    (click)="toggleFavorite()">
+            <button class="btn btn-sm" [ngClass]="{'btn-outline-danger': true,'btn-danger': false }" (click)="toggleFavorite()">
               <i class="fa fa-heart-o"></i>
             </button>
 
@@ -71,9 +68,8 @@
                     <div id="comment-1" class="comment-wrap clearfix" *ngFor="let react of book.reactionsById">
                       <div class="comment-meta">
                         <div class="comment-author vcard">
-																	<span class="comment-avatar clearfix">
-																	<img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60'
-                                       height='60' width='60'/></span>
+                          <span class="comment-avatar clearfix">
+                            <img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60' height='60' width='60' /></span>
                         </div>
                       </div>
                       <div class="comment-content clearfix">
@@ -98,29 +94,37 @@
               <ng-template #content let-modal>
                 <div class="modal-header">
                   <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <button type="button" class="close" aria-label="Close" (click)="modalRef.dismiss('Cross click')">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
                   <form>
-                    <div class="form-group">
-                      <label for="dateOfBirth">Date of birth</label>
-                      <div class="input-group">
-                        <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Rating</label>
+                          <div class="col-sm-9">
+                            <ngb-rating [(rate)]="currentRate" max="5"></ngb-rating>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Comment</label>
+                          <textarea name="" rows="5" style="width: 100%" class="form-control" name="description" [(ngModel)]="comment"></textarea>
                         </div>
                       </div>
                     </div>
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+                  <button type="button" class="btn btn-success" (click)="submitReact()">Save</button>
+                  <button type="button" class="btn btn-default" (click)="modalRef.close('Save click')">Cancel</button>
                 </div>
               </ng-template>
-              <hr>
-              <pre>{{closeResult}}</pre>
             </div>
           </div>
         </div>

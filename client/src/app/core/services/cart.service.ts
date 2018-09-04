@@ -69,6 +69,7 @@ export class CartService implements OnInit {
         console.log(data);
         this.cart = {} as Cart;
         localStorage.removeItem('cart');
+        this.cart = JSON.parse(localStorage.getItem('cart')) as Cart;
       });
     }
   }

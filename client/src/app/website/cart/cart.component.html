@@ -14,7 +14,7 @@
 								</tr>
 							</thead>
 							<tbody *ngIf="cart">
-								<tr class="cart_item" *ngFor="let item of cart.cartItems;let i=index" >
+								<tr class="cart_item" *ngFor="let item of cart.cartItems; let i=index" >
 
 									<td class="cart-product-thumbnail">
 										<a href="#"><img width="64" height="64" src="{{item.book.coverImage}}" alt="Pink Printed Dress"></a>

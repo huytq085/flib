@@ -1,10 +1,10 @@
-import {BookService, CartService, ReactService, UserService} from '../../../../../core/services';
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Book} from '../../../../../core/models';
-import {CartItem} from '../../../../../core/models/cart-item.model';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {React} from '../../../../../core/models/react.model';
+import { BookService, CartService, ReactService, UserService } from '../../../../../core/services';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Book } from '../../../../../core/models';
+import { CartItem } from '../../../../../core/models/cart-item.model';
+import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { React } from '../../../../../core/models/react.model';
 
 @Component({
   selector: 'app-book-detail',
@@ -12,17 +12,18 @@ import {React} from '../../../../../core/models/react.model';
   styleUrls: ['./book-detail.component.css']
 })
 export class BookDetailComponent implements OnInit {
-  book: Book = {authorByAuthorId: {}} as Book;
+  book: Book = { authorByAuthorId: {} } as Book;
   amount = 1;
   closeResult: string;
   currentRate = 2.5;
   buttonText = 'Submit Review';
   comment = '';
   reacts: React[] = [];
+  modalRef: NgbModalRef;
 
   constructor(private bookService: BookService, private activatedRoute: ActivatedRoute,
-              private userService: UserService, private cartService: CartService,
-              private modalService: NgbModal, private router: Router, private reactService: ReactService,
+    private userService: UserService, private cartService: CartService,
+    private modalService: NgbModal, private router: Router, private reactService: ReactService,
   ) {
   }
 
@@ -56,7 +57,7 @@ export class BookDetailComponent implements OnInit {
   }
 
   addToCart(book: Book, amount: number) {
-    if (this.cartService.addToCart({book: book, amount: amount} as CartItem)) {
+    if (this.cartService.addToCart({ book: book, amount: amount } as CartItem)) {
       alert('Add to cart successfully');
     }
   }
@@ -67,7 +68,8 @@ export class BookDetailComponent implements OnInit {
 
   open(content) {
     if (localStorage.getItem('Authorization')) {
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+      this.modalRef.result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -88,6 +90,7 @@ export class BookDetailComponent implements OnInit {
   }
 
   submitReact() {
+    this.modalRef.dismiss();
     this.reactService.submitReact({
       bookId: this.book.id,
       rating: this.currentRate,

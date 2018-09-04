@@ -68,7 +68,7 @@ export class FormBookComponent implements OnInit {
       )
     );
   }
-  loadTypes(){
+  loadTypes() {
     this.typesObservable$ = this.bookService.getTypes();
   }
   loadAuthors() {
@@ -101,13 +101,13 @@ export class FormBookComponent implements OnInit {
         } else {
           this.book.amount = this.bookForm.controls['amount'].value;
         }
-        console.log('is valid: ' + this.bookForm.valid)
+        console.log('is valid: ' + this.bookForm.valid);
 
         if (this.bookForm.valid) {
           if (this.isDefaultImage) {
             this.book.coverImage = '';
           }
-          console.log(this.book)
+          console.log(this.book);
           // if (!this.isDefaultImage) {
           //   this.book.coverImage = this.imagePreview;
           // }
@@ -118,17 +118,17 @@ export class FormBookComponent implements OnInit {
 
         }
       }
-    })
+    });
 
 
   }
 
   patchBook(values: any) {
-    if (typeof this.book == 'string') {
+    if (typeof this.book === 'string') {
       this.book = {} as Book;
     }
     Object.assign(this.book, values);
-    console.log(values)
+    console.log(values);
     if (this.isNewAuthor) {
       this.book.authorByAuthorId = {
         name: values.author
