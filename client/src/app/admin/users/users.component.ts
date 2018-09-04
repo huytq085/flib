@@ -17,7 +17,7 @@ export class AdminUsersComponent implements OnInit {
   selectedUser: User;
   buttonLabel: string = 'New User';
   currentPage: number = 0;
-  userSize: number = 5; //get 5 items
+  userSize: number = 7; //get 7 items
   totalPages: number = 0;
   // pages: number[] = new Array();
 

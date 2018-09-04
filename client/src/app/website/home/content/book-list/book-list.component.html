@@ -23,7 +23,7 @@
                 </div>
                 <div class="product-desc center" routerLink="/book/{{book.id}}">
                   <div class="product-title">
-                    <h3><a>{{book.name}}</a></h3>
+                    <h3><a>{{book.name.toString().substr(0,20) + '...'}}</a></h3>
                   </div>
                   <div class="product-price">{{book.authorByAuthorId.name}}</div>
                   <div class="product-rating">

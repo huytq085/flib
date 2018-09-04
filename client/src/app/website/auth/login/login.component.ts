@@ -27,8 +27,6 @@ export class LoginComponent implements OnInit {
     if (this.email && this.password) {
       this.authService.attemptAuth(this.email, this.password).subscribe(
         data => {
-          alert("Hello mdfk");
-          console.log(data);
           this.tokenStorage.saveToken(data);
           this.route.queryParams.subscribe(
             params => {
@@ -37,7 +35,6 @@ export class LoginComponent implements OnInit {
               } else {
                 this.router.navigateByUrl('/')
               }
-              
             }
           )
         },

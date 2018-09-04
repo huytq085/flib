@@ -14,8 +14,9 @@
                 formControlName="email"
                 [attr.disabled]="user.email"
                 />
+                <small class="alert text-danger" *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">Email không đúng định dạng</small>
           </div>
-          <small class="alert text-danger" *ngIf="!userForm.controls['email'].valid && userForm.controls['email'].touched">Email không đúng định dạng</small>
+          
       </div>
       <div class="form-group row">
           <label for="password" class="col-sm-3 col-form-label">Password</label>

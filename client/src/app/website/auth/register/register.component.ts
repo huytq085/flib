@@ -3,6 +3,8 @@ import { User } from '../../../core';
 import { AuthService } from '../../../core/services/auth.service';
 import { NgForm } from '@angular/forms';
 import { HttpHeaderResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +13,7 @@ import { HttpHeaderResponse } from '@angular/common/http';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
   user: User= new User();
   repassword;
   errorMessage="";
@@ -20,6 +22,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user.gender = 'Male';
   }
 
   checkPass(){
@@ -32,7 +35,11 @@ export class RegisterComponent implements OnInit {
   onSubmit(resForm: NgForm){
     if(this.checkPass()){
       this.authService.createUser(this.user).subscribe((data) => { 
-        alert("Created user");
+        swal({
+          type: 'success',
+          title: 'Created Successfully',
+        })
+        this.router.navigateByUrl('/login')
       },
       (error: HttpHeaderResponse) =>{
         delete this.user.email;
