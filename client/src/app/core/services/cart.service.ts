@@ -73,6 +73,7 @@ export class CartService implements OnInit {
         localStorage.removeItem('cart');
         this.cart = JSON.parse(localStorage.getItem('cart')) as Cart;
         alert('Success');
+        this.sharedService.updateCart({} as Cart);
         this.router.navigate([`/`]);
       });
     }

@@ -46,7 +46,7 @@ export class CartComponent implements OnInit {
     if (localStorage.getItem('Authorization')) {
       this.cartService.sendTicket();
     } else {
-      this.router.navigate([`/login`]);
+      this.router.navigateByUrl('/login?back=/cart');
     }
   }
 }
