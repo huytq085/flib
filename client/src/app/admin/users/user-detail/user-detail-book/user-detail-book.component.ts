@@ -56,7 +56,7 @@ export class UserDetailBookComponent implements OnInit {
         this.userService.takeBook(this.userId, book.id).subscribe(
           data => {
             if (data) {
-              this.books.slice(index, 1);
+              this.books.splice(index, 1);
               swal({
                 type: 'success',
                 title: 'Successful',
