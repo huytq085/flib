@@ -69,7 +69,7 @@ export class FormBookComponent implements OnInit {
     );
   }
   loadTypes(){
-    this.authorsObservable$ = this.bookService.getTypes();
+    this.typesObservable$ = this.bookService.getTypes();
   }
   loadAuthors() {
     this.authorsObservable$ = concat(
