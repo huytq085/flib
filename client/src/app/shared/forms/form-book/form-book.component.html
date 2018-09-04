@@ -78,7 +78,7 @@
       <div class="form-group row">
           <label for="description" class="col-sm-3 col-form-label">Types</label>
           <div class="col-sm-9">
-              <ng-select [items]="authorsObservable$ | async"
+              <ng-select [items]="typesObservable$ | async"
                         bindLabel="name"
                         bindValue="id"
                         [multiple]="true"
